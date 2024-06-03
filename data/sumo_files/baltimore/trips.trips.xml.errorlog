@@ -1,0 +1,39 @@
+Warning: At actuated tlLogic '49464949', actuated phase 2 has no controlling detector.
+Warning: At actuated tlLogic '49464949', linkIndex 2,3,4,5,15,16,17 has no controlling detector.
+Warning: At actuated tlLogic '49531198', linkIndex 6,7,8 has no controlling detector.
+Warning: At actuated tlLogic 'GS_cluster_10805116250_10805116251_10805116254_10805116255_#8more', linkIndex 3,4,5 has no controlling detector.
+Warning: At actuated tlLogic 'GS_cluster_10825610335_10825610336_49469695_49475084_#6more', linkIndex 3,4,17,18,19 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_10802973334_10802973337_10802973343_11202819534_#5more', actuated phase 2 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_10881976750_10881976753_10881976758_10881976761_#10more', linkIndex 7 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_11202819529_11202819530_11202819531_11202840657_#7more', actuated phase 2 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_2223844417_2223844433_2223844509_2223844511_#9more', actuated phase 2 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_4590242204_4590242206_4590242208_4590242209_#4more', actuated phase 2 has no controlling detector.
+Warning: Program '0' at tlLogic 'joinedS_4493423355_4493423357_cluster_2223844780_4493423344_4493423346_4493423356_#2more' is incompatible with logic at junction 'cluster_2223844780_4493423344_4493423346_4493423356_#2more' (mutual conflict between link indices 8,11 tl indices 16,19 phase 6).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
+Warning: busStop '268134107' on lane '201855686#1_0' is too short for vehicle '1_light_rail_LR:0'.
+Warning: busStop '845371928' on lane '201855693#27_0' is too short for vehicle '5_light_rail_LR:1'.
+Warning: busStop '6228221087' on lane '130599634#0_0' is too short for vehicle '29_bus_NV:1'.
+Warning: No connection between edge '24709874#0' and edge '-451778395#0' found.
+Warning: No route for vehicle '40_bus_YW:2' found.
+Warning: No connection between edge '24709874#0' and edge '-451778395#0' found.
+Warning: No route for vehicle '43_bus_YW:5' found.
+Warning: No connection between edge '24709874#0' and edge '-451778395#0' found.
+Warning: No route for vehicle '42_bus_YW:4' found.
+Warning: busStop '847727053' on lane '71214999#2_0' is too short for vehicle '91_light_rail_LR:3'.
+Warning: No connection between edge '856314228' and edge '424998872' found.
+Warning: Vehicle '84_bus_310:0' has no valid route from edge '856314228' to stop edge '424998872'.
+Warning: Teleporting vehicle '40_bus_YW:2'; waited too long (wrong lane), lane='95911559#0_0', time=536.00.
+Warning: Vehicle '40_bus_YW:2' ends teleporting on edge '24709874#0', time=536.00.
+Warning: Teleporting vehicle '42_bus_YW:4'; waited too long (wrong lane), lane='95911559#0_0', time=844.00.
+Warning: Vehicle '42_bus_YW:4' ends teleporting on edge '24709874#0', time=844.00.
+Warning: Teleporting vehicle '84_bus_310:0'; waited too long (wrong lane), lane='856314228_0', time=873.00.
+Warning: Vehicle '84_bus_310:0' ends teleporting on edge '424998872', time=873.00.
+Warning: Teleporting vehicle '40_bus_YW:2'; waited too long (wrong lane), lane='24709874#0_0', time=889.00.
+Warning: Vehicle '40_bus_YW:2' ends teleporting on edge '-451778395#0', time=889.00.
+Warning: Teleporting vehicle '43_bus_YW:5'; waited too long (wrong lane), lane='95911559#0_0', time=1151.00.
+Warning: Vehicle '43_bus_YW:5' ends teleporting on edge '24709874#0', time=1151.00.
+Warning: 7 total messages of type: At actuated tlLogic '%', actuated phase % has no controlling detector.
+Warning: 27 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
+Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.

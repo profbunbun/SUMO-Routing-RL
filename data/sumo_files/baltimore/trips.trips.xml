@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-03 16:08:08.674797 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ UNKNOWN
+<configuration>
+    <net-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/osm.net.xml.gz"/>
+    <ptlines-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/osm_ptlines.xml"/>
+    <ptstops-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/osm_stops.add.xml"/>
+    <output-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/osm_pt.rou.xml"/>
+    <stopinfos-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/stopinfos.xml"/>
+    <routes-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/vehroutes.xml"/>
+    <trips-file value="/usr/share/sumo/tools/2024-06-03-16-07-59/trips.trips.xml"/>
+    <min-stops value="0"/>
+    <extend-to-fringe value="True"/>
+    <random-begin value="True"/>
+    <seed value="42"/>
+    <ignore-errors value="True"/>
+    <vtype-prefix value="pt_"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="pt_bus" vClass="bus" speedFactor="0.95"/>
+    <vType id="pt_tram" vClass="tram" speedFactor="1.0"/>
+    <vType id="pt_train" vClass="rail"/>
+    <vType id="pt_subway" vClass="subway"/>
+    <vType id="pt_light_rail" vClass="rail_urban"/>
+    <vType id="pt_monorail" vClass="rail_urban"/>
+    <vType id="pt_trolleybus" vClass="bus" speedFactor="0.95"/>
+    <vType id="pt_minibus" vClass="bus" speedFactor="0.95"/>
+    <vType id="pt_share_taxi" vClass="taxi" speedFactor="0.95"/>
+    <vType id="pt_aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
+    <vType id="pt_ferry" vClass="ship"/>
+    <trip id="0_subway_M:0" type="pt_subway" depart="3.0" departLane="best" from="834843616" to="834843604">
+        <stop busStop="844091659" duration="30"/>  <!-- Johns Hopkins Hospital -->
+        <stop busStop="844091805" duration="30"/>  <!-- Shot Tower/Market Place -->
+        <stop busStop="7785026032" duration="30"/>  <!-- Charles Center -->
+        <stop busStop="-844091769" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="844091819" duration="30"/>  <!-- State Center -->
+    </trip>
+    <trip id="1_light_rail_LR:0" type="pt_light_rail" depart="15.0" departLane="best" from="201855692#0" to="834074200">
+        <stop busStop="256525877" duration="30"/>  <!-- Mount Royal / University of Baltimore -->
+        <stop busStop="845372006" duration="30"/>  <!-- Cultural Center -->
+        <stop busStop="268127431" duration="30"/>  <!-- Centre Street -->
+        <stop busStop="845372098" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="845911032" duration="30"/>  <!-- Baltimore Arena -->
+        <stop busStop="268121066" duration="30"/>  <!-- Convention Center -->
+        <stop busStop="268119984" duration="30"/>  <!-- Camden Yards -->
+        <stop busStop="268134107" duration="30"/>  <!-- Hamburg Street -->
+    </trip>
+    <trip id="2_bus_51:0" type="pt_bus" depart="15.0" departLane="best" from="107263469#3" to="542345401#0">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="3_bus_105:0" type="pt_bus" depart="17.0" departLane="best" from="98102326#2" to="948324224#6">
+        <stop busStop="4933408059" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="4_bus_103:0" type="pt_bus" depart="19.0" departLane="best" from="107263469#3" to="542345401#0">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="5_light_rail_LR:1" type="pt_light_rail" depart="27.0" departLane="best" from="71214999#4" to="201855693#51">
+        <stop busStop="845911023" duration="30"/>  <!-- Camden Yards -->
+        <stop busStop="845911431" duration="30"/>  <!-- Convention Center -->
+        <stop busStop="845911382" duration="30"/>  <!-- Baltimore Arena -->
+        <stop busStop="845371928" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="845372077" duration="30"/>  <!-- Centre Street / Mount Vernon -->
+        <stop busStop="845371957" duration="30"/>  <!-- Cultural Center -->
+        <stop busStop="844812026" duration="30"/>  <!-- Mount Royal / University of Baltimore -->
+    </trip>
+    <trip id="6_light_rail_LR:2" type="pt_light_rail" depart="28.0" departLane="best" from="201855692#0" to="834074200">
+        <stop busStop="256525877" duration="30"/>  <!-- Mount Royal / University of Baltimore -->
+        <stop busStop="845372006" duration="30"/>  <!-- Cultural Center -->
+        <stop busStop="268127431" duration="30"/>  <!-- Centre Street -->
+        <stop busStop="845372098" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="845911032" duration="30"/>  <!-- Baltimore Arena -->
+        <stop busStop="268121066" duration="30"/>  <!-- Convention Center -->
+        <stop busStop="268119984" duration="30"/>  <!-- Camden Yards -->
+        <stop busStop="268134107" duration="30"/>  <!-- Hamburg Street -->
+    </trip>
+    <trip id="7_bus_411:0" type="pt_bus" depart="47.0" departLane="best" from="24761985" to="521782236#1">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="8_bus_410:0" type="pt_bus" depart="52.0" departLane="best" from="24761985" to="542335285#1">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+        <stop busStop="6133918983" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="9_bus_420:0" type="pt_bus" depart="54.0" departLane="best" from="24761985" to="521782236#1">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="10_bus_150:0" type="pt_bus" depart="55.0" departLane="best" from="6010825" to="-197613651#0">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="11_bus_160:0" type="pt_bus" depart="58.0" departLane="best" from="24761985" to="98289467#1">
+        <stop busStop="4933408059" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="12_bus_160:1" type="pt_bus" depart="60.0" departLane="best" from="24761985" to="98289467#1">
+        <stop busStop="4933408059" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="13_bus_RD:0" type="pt_bus" depart="65.0" departLane="best" from="-111081881#8" to="188783439#2">
+        <stop busStop="-6125725579" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="14_bus_RD:1" type="pt_bus" depart="93.0" departLane="best" from="192254092" to="111081881#8">
+        <stop busStop="6125854158" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="15_bus_RD:2" type="pt_bus" depart="98.0" departLane="best" from="-111081881#8" to="188783439#2">
+        <stop busStop="-6125725579" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="16_bus_RD:3" type="pt_bus" depart="102.0" departLane="best" from="192254092" to="111081881#8">
+        <stop busStop="6125854158" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="17_bus_BR:0" type="pt_bus" depart="119.0" departLane="best" from="75923294#0" to="202623988#11">
+        <stop busStop="1285206581" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="18_bus_BR:1" type="pt_bus" depart="125.0" departLane="best" from="202623988#11" to="196920675#1">
+        <stop busStop="6133930561" duration="30"/>  <!-- None -->
+        <stop busStop="6133931757" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="19_bus_BR:2" type="pt_bus" depart="126.0" departLane="best" from="202623988#11" to="196920675#1">
+        <stop busStop="6133930561" duration="30"/>  <!-- None -->
+        <stop busStop="6133931757" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="20_bus_BR:3" type="pt_bus" depart="131.0" departLane="best" from="75923294#0" to="202623988#11">
+        <stop busStop="1285206581" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="21_bus_OR:0" type="pt_bus" depart="131.0" departLane="best" from="502201044#2" to="-1152409145#0">
+        <stop busStop="4933408059" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="22_bus_OR:1" type="pt_bus" depart="132.0" departLane="best" from="1152409145#0" to="502201044#2">
+        <stop busStop="4927577785" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="23_bus_GD:0" type="pt_bus" depart="133.0" departLane="best" from="335304154#0" to="943903755">
+        <stop busStop="6133941589" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="24_bus_PK:0" type="pt_bus" depart="136.0" departLane="best" from="466279253#1" to="502201044#2">
+        <stop busStop="4927577783" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="25_bus_PK:1" type="pt_bus" depart="137.0" departLane="best" from="502201044#2" to="466279253#8">
+        <stop busStop="4927577783" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="26_bus_GR:0" type="pt_bus" depart="139.0" departLane="best" from="107263469#3" to="542345401#0">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="27_bus_GR:1" type="pt_bus" depart="147.0" departLane="best" from="1262841371#0" to="107263469#3">
+        <stop busStop="1990938847" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="28_bus_NV:0" type="pt_bus" depart="157.0" departLane="best" from="-197613666" to="138388359#8">
+        <stop busStop="6133931757" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="29_bus_NV:1" type="pt_bus" depart="158.0" departLane="best" from="-197613666" to="138388359#8">
+        <stop busStop="6228221087" duration="30"/>  <!-- Pratt Street & South Street Eastbound -->
+    </trip>
+    <trip id="30_bus_LM:0" type="pt_bus" depart="160.0" departLane="best" from="-711678907#3" to="197613653#3">
+        <stop busStop="2078243846" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="31_bus_LM:1" type="pt_bus" depart="160.0" departLane="best" from="197613653#3" to="711678907#1">
+        <stop busStop="2078243846" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="32_bus_LM:2" type="pt_bus" depart="165.0" departLane="best" from="279676296#1" to="279676296#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="33_bus_LM:3" type="pt_bus" depart="166.0" departLane="best" from="279676296#1" to="279676296#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="34_bus_PR:0" type="pt_bus" depart="173.0" departLane="best" from="98289467#1" to="953001147#5">
+        <stop busStop="2061844596" duration="30"/>  <!-- None -->
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+        <stop busStop="2041360596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="35_bus_PR:1" type="pt_bus" depart="188.0" departLane="best" from="6005196#0" to="98289467#1">
+        <stop busStop="4933408059" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="36_bus_PR:2" type="pt_bus" depart="189.0" departLane="best" from="98289467#1" to="953001147#5">
+        <stop busStop="2061844596" duration="30"/>  <!-- None -->
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+        <stop busStop="2041360596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="37_bus_PR:3" type="pt_bus" depart="201.0" departLane="best" from="6005196#0" to="98289467#1">
+        <stop busStop="4933408059" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="38_bus_YW:0" type="pt_bus" depart="204.0" departLane="best" from="547763504" to="71038091">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="39_bus_YW:1" type="pt_bus" depart="218.0" departLane="best" from="547763504" to="71038091">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="40_bus_YW:2" type="pt_bus" depart="222.0" departLane="best" from="95911559#0" to="-451778395#0">
+        <stop busStop="49562965" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="41_bus_YW:3" type="pt_bus" depart="227.0" departLane="best" from="547763504" to="71038091">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="42_bus_YW:4" type="pt_bus" depart="227.0" departLane="best" from="95911559#0" to="-451778395#0">
+        <stop busStop="49562965" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="43_bus_YW:5" type="pt_bus" depart="237.0" departLane="best" from="95911559#0" to="-451778395#0">
+        <stop busStop="49562965" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="44_bus_SV:0" type="pt_bus" depart="239.0" departLane="best" from="-109492803#1" to="542345401#0">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="45_bus_SV:1" type="pt_bus" depart="253.0" departLane="best" from="-109492803#1" to="542345401#0">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="46_bus_95:0" type="pt_bus" depart="253.0" departLane="best" from="236056988#0" to="542345401#0">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="47_bus_53:0" type="pt_bus" depart="275.0" departLane="best" from="279676296#1" to="548197600#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="48_bus_53:1" type="pt_bus" depart="303.0" departLane="best" from="279676296#1" to="548197600#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="49_bus_53:2" type="pt_bus" depart="305.0" departLane="best" from="279676296#1" to="279676296#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="50_bus_53:3" type="pt_bus" depart="321.0" departLane="best" from="279676296#1" to="279676296#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="51_bus_56:0" type="pt_bus" depart="326.0" departLane="best" from="72832591#0" to="107438752#2">
+        <stop busStop="2061844596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="52_bus_56:1" type="pt_bus" depart="331.0" departLane="best" from="107438752#2" to="948324224#6">
+        <stop busStop="4243488625" duration="30"/>  <!-- None -->
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="53_bus_56:2" type="pt_bus" depart="334.0" departLane="best" from="72832591#0" to="107438752#2">
+        <stop busStop="2061844596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="54_bus_56:3" type="pt_bus" depart="336.0" departLane="best" from="107438752#2" to="948324224#6">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="55_bus_65:0" type="pt_bus" depart="346.0" departLane="best" from="107438752#2" to="86092338#3">
+        <stop busStop="6133930561" duration="30"/>  <!-- None -->
+        <stop busStop="6133931757" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="56_bus_65:1" type="pt_bus" depart="350.0" departLane="best" from="-86092338#3" to="107438752#2">
+        <stop busStop="2061844596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="57_bus_67:0" type="pt_bus" depart="353.0" departLane="best" from="-201637236#0" to="116534593#1">
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+        <stop busStop="49484584" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="58_bus_67:1" type="pt_bus" depart="362.0" departLane="best" from="-109492803#1" to="-201637236#0">
+        <stop busStop="1990938847" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="59_bus_69:0" type="pt_bus" depart="365.0" departLane="best" from="425002438" to="6004798">
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="60_bus_70:0" type="pt_bus" depart="371.0" departLane="best" from="425002438" to="6004798">
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="61_bus_71:0" type="pt_bus" depart="376.0" departLane="best" from="501458437" to="589350499">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+        <stop busStop="4243488625" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="62_bus_71:1" type="pt_bus" depart="381.0" departLane="best" from="546694182" to="972308859">
+        <stop busStop="2061844596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="63_bus_73:0" type="pt_bus" depart="383.0" departLane="best" from="279676296#1" to="6004798">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="64_bus_73:1" type="pt_bus" depart="383.0" departLane="best" from="445110207" to="279676296#1">
+        <stop busStop="2055577697" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="65_bus_77:0" type="pt_bus" depart="388.0" departLane="best" from="502201044#2" to="949420314#1">
+        <stop busStop="4927577794" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="66_bus_77:1" type="pt_bus" depart="389.0" departLane="best" from="6010825" to="502201044#2">
+        <stop busStop="4927577794" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="67_bus_75:0" type="pt_bus" depart="393.0" departLane="best" from="192254092" to="192254092">
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="68_bus_75:1" type="pt_bus" depart="406.0" departLane="best" from="192254092" to="6004798">
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="69_bus_75:2" type="pt_bus" depart="410.0" departLane="best" from="192254092" to="192254092">
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="70_bus_75:3" type="pt_bus" depart="418.0" departLane="best" from="192254092" to="6004798">
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="71_bus_76:0" type="pt_bus" depart="422.0" departLane="best" from="116534593#1" to="116534593#1">
+        <stop busStop="49484584" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="72_bus_76:1" type="pt_bus" depart="437.0" departLane="best" from="75359738#0" to="-201637236#0">
+        <stop busStop="-49484584" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="73_bus_78:0" type="pt_bus" depart="437.0" departLane="best" from="502201044#2" to="127009732#1">
+        <stop busStop="4927577794" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="74_bus_78:1" type="pt_bus" depart="441.0" departLane="best" from="-127009732#1" to="502201044#2">
+        <stop busStop="4927577794" duration="30"/>  <!-- West Baltimore -->
+    </trip>
+    <trip id="75_bus_80:0" type="pt_bus" depart="465.0" departLane="best" from="-451773855#2" to="-201637236#0">
+        <stop busStop="-49484584" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="76_bus_80:1" type="pt_bus" depart="475.0" departLane="best" from="116534593#1" to="116534593#1">
+        <stop busStop="49484584" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="77_bus_94:0" type="pt_bus" depart="483.0" departLane="best" from="-952661989#1" to="238221730#1">
+        <stop busStop="1990938847" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="78_bus_210:0" type="pt_bus" depart="484.0" departLane="best" from="696275611" to="6004798">
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="79_bus_210:1" type="pt_bus" depart="485.0" departLane="best" from="696275611" to="6004798">
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="80_bus_210:2" type="pt_bus" depart="497.0" departLane="best" from="445110207" to="521782236#1">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+        <stop busStop="4243488625" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="81_bus_210:3" type="pt_bus" depart="505.0" departLane="best" from="445110207" to="521782236#1">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+        <stop busStop="4243488625" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="82_bus_215:0" type="pt_bus" depart="508.0" departLane="best" from="696275611" to="6004798">
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="83_bus_215:1" type="pt_bus" depart="517.0" departLane="best" from="445110207" to="521782236#1">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+        <stop busStop="4243488625" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="84_bus_310:0" type="pt_bus" depart="525.0" departLane="best" from="856314228" to="521782236#1">
+        <stop busStop="4933408058" duration="30"/>  <!-- None -->
+        <stop busStop="4243488625" duration="30"/>  <!-- None -->
+        <stop busStop="2028132781" duration="30"/>  <!-- None -->
+        <stop busStop="2028132779" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="85_bus_310:1" type="pt_bus" depart="535.0" departLane="best" from="696275611" to="5306927">
+        <stop busStop="4485533501" duration="30"/>  <!-- None -->
+        <stop busStop="2041360596" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="86_subway_M:1" type="pt_subway" depart="538.0" departLane="best" from="834843603" to="834843615#1">
+        <stop busStop="288290300" duration="30"/>  <!-- State Center -->
+        <stop busStop="288292760" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="7785026033" duration="30"/>  <!-- Charles Center -->
+        <stop busStop="288290312" duration="30"/>  <!-- Shot Tower/Market Place -->
+        <stop busStop="288290321" duration="30"/>  <!-- Johns Hopkins Hospital -->
+    </trip>
+    <trip id="87_bus_63:0" type="pt_bus" depart="548.0" departLane="best" from="107263469#3" to="138388359#8">
+        <stop busStop="6133930561" duration="30"/>  <!-- None -->
+        <stop busStop="6133931757" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="88_bus_63:1" type="pt_bus" depart="561.0" departLane="best" from="107263469#3" to="107263469#3">
+        <stop busStop="1990938847" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="89_bus_63:2" type="pt_bus" depart="565.0" departLane="best" from="-138388359#10" to="107263469#3">
+        <stop busStop="1990938847" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="90_bus_411:1" type="pt_bus" depart="574.0" departLane="best" from="24761985" to="521782236#1">
+        <stop busStop="6152778520" duration="30"/>  <!-- None -->
+    </trip>
+    <trip id="91_light_rail_LR:3" type="pt_light_rail" depart="583.0" departLane="best" from="71214986" to="201855693#51">
+        <stop busStop="847727053" duration="30"/>  <!-- Hamburg Street -->
+        <stop busStop="845911023" duration="30"/>  <!-- Camden Yards -->
+        <stop busStop="845911431" duration="30"/>  <!-- Convention Center -->
+        <stop busStop="845911382" duration="30"/>  <!-- Baltimore Arena -->
+        <stop busStop="845371928" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="845372077" duration="30"/>  <!-- Centre Street / Mount Vernon -->
+        <stop busStop="845371957" duration="30"/>  <!-- Cultural Center -->
+        <stop busStop="844812026" duration="30"/>  <!-- Mount Royal / University of Baltimore -->
+    </trip>
+    <trip id="92_light_rail_LR:4" type="pt_light_rail" depart="593.0" departLane="best" from="201855692#0" to="834074204#3">
+        <stop busStop="256525877" duration="30"/>  <!-- Mount Royal / University of Baltimore -->
+        <stop busStop="845372006" duration="30"/>  <!-- Cultural Center -->
+        <stop busStop="268127431" duration="30"/>  <!-- Centre Street -->
+        <stop busStop="845372098" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="845911032" duration="30"/>  <!-- Baltimore Arena -->
+        <stop busStop="268121066" duration="30"/>  <!-- Convention Center -->
+        <stop busStop="268119984" duration="30"/>  <!-- Camden Yards -->
+    </trip>
+    <trip id="93_light_rail_LR:5" type="pt_light_rail" depart="598.0" departLane="best" from="71214986" to="201855693#51">
+        <stop busStop="847727053" duration="30"/>  <!-- Hamburg Street -->
+        <stop busStop="845911023" duration="30"/>  <!-- Camden Yards -->
+        <stop busStop="845911431" duration="30"/>  <!-- Convention Center -->
+        <stop busStop="845911382" duration="30"/>  <!-- Baltimore Arena -->
+        <stop busStop="845371928" duration="30"/>  <!-- Lexington Market -->
+        <stop busStop="845372077" duration="30"/>  <!-- Centre Street / Mount Vernon -->
+        <stop busStop="845371957" duration="30"/>  <!-- Cultural Center -->
+        <stop busStop="844812026" duration="30"/>  <!-- Mount Royal / University of Baltimore -->
+    </trip>
+</routes>
