@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-09-07 11:29:33 by Eclipse SUMO sumo Version 1.18.0
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="3x3.net.xml"/>
+        <route-files value="3x3.rou.xml"/>
+        <additional-files value="parkingareas.add.xml"/>
+    </input>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+        <device.taxi.idle-algorithm value="randomCircling"/>
+    </taxi_device>
+
+</configuration>

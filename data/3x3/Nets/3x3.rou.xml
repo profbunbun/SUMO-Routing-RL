@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-09-07 11:29:33 by Eclipse SUMO netedit Version 1.18.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="bus" vClass="bus"/>
+    <vType id="taxi" vClass="taxi" personCapacity="8">
+        <param key="device.taxi.stands-rerouter" value="pa10w"/>
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <!-- Routes -->
+    <route id="bus_1" edges="15e 19s 23e 24e 24w 23w 22w 18n">
+        <stop busStop="bs_0" until="100.00"/>
+        <stop busStop="bs_1" until="200.00"/>
+    </route>
+    <route id="r_0" edges="9e 13s 16w 12n"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="bus" type="bus" depart="0.00" route="bus_1"/>
+</routes>

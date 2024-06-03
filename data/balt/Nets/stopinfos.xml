@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-01-28 12:50:11 by Eclipse SUMO sumo Version 1.19.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="/usr/share/sumo/tools/2024-01-28-12-50-06/osm.net.xml.gz"/>
+        <route-files value="/usr/share/sumo/tools/2024-01-28-12-50-06/trips.trips.xml"/>
+        <additional-files value="/usr/share/sumo/tools/2024-01-28-12-50-06/osm_stops.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="/usr/share/sumo/tools/2024-01-28-12-50-06/vehroutes.xml"/>
+        <stop-output value="/usr/share/sumo/tools/2024-01-28-12-50-06/stopinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="0.0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-interval value="0"/>
+    </routing>
+
+    <report>
+        <aggregate-warnings value="5"/>
+        <error-log value="/usr/share/sumo/tools/2024-01-28-12-50-06/trips.trips.xml.errorlog"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="0_bus_NV:0" type="pt_bus" lane="390061613#9_0" pos="80.11" parking="0" started="212.00" ended="242.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="6117399256"/>
+    <stopinfo id="1_bus_NV:1" type="pt_bus" lane="138388359#16_0" pos="43.89" parking="0" started="222.00" ended="252.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="6117378696"/>
+    <stopinfo id="2_bus_NV:2" type="pt_bus" lane="-390061613#4_0" pos="24.52" parking="0" started="271.00" ended="301.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="-6117388035"/>
+    <stopinfo id="4_bus_65:1" type="pt_bus" lane="-192469469#1_0" pos="32.61" parking="0" started="519.00" ended="549.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="-4501242775"/>
+    <stopinfo id="3_bus_65:0" type="pt_bus" lane="244330235_0" pos="15.00" parking="0" started="540.00" ended="570.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="2516605830"/>
+    <stopinfo id="6_bus_63:1" type="pt_bus" lane="-390061613#4_0" pos="24.51" parking="0" started="575.00" ended="605.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="-6117388035"/>
+    <stopinfo id="5_bus_63:0" type="pt_bus" lane="390061613#9_0" pos="80.08" parking="0" started="663.00" ended="693.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="6117399256"/>
+</stops>

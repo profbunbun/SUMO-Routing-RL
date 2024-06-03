@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-01-28 12:50:10 by Eclipse SUMO netconvert Version 1.19.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml.gz"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="7330914" name="CityLink Navy: Watersedge (Bullneck Road)" line="NV" type="bus" vClass="bus" color="0,0,128" completeness="0.05">
+        <route edges="138388359#0 138388359#2 138388359#4 138388359#5 138388359#7 138388359#8 138388359#9 138388359#11 138388359#12 138388359#13 138388359#15 138388359#16 829470071#1 829470071#2 829470071#5 829470071#6 948331274#1 948331274#2 948331274#5 948331274#6 948331274#8 948331274#9 390061613#1 390061613#3 390061613#4 390061613#5 390061613#8 390061613#9 1087560658 197879536#1 197879536#2 197879536#3 275806336 243591150#0 243591150#1 192469470#0 192469470#1 192469470#2"/>
+        <busStop id="6117399256" name=""/>
+    </ptLine>
+    <ptLine id="7330927" name="CityLink Navy: Dundalk (Center Place)" line="NV" type="bus" vClass="bus" color="0,0,128" completeness="0.04">
+        <route edges="138388359#0 138388359#2 138388359#4 138388359#5 138388359#7 138388359#8 138388359#9 138388359#11 138388359#12 138388359#13 138388359#15 138388359#16 829470071#1 829470071#2 829470071#5 829470071#6 948331274#1 948331274#2 948331274#5 948331274#6 948331274#8 948331274#9 390061613#1 390061613#3 390061613#4 390061613#5 390061613#8 390061613#9 1087560658 197879536#1 197879536#2 197879536#3 275806336 243591150#0 243591150#1 192469470#0 192469470#1 192469470#2"/>
+        <busStop id="6117378696" name=""/>
+    </ptLine>
+    <ptLine id="7330928" name="CityLink Navy: Mondawmin Metro Station" line="NV" type="bus" vClass="bus" color="0,0,128" completeness="0.05">
+        <route edges="-192469470#2 -192469470#1 -192469470#0 -243591150#1 -243591150#0 -275806336 -197879536#3 -197879536#2 -197879536#1 -197879536#0 -390061613#9 -390061613#8 -390061613#5 -390061613#4 -390061613#3 -390061613#1 -948331274#9 -948331274#8 -948331274#6 -948331274#5 -948331274#2 -948331274#1 -829470071#6 -829470071#5 -829470071#2 -829470071#1 -138388359#16 -138388359#15 -138388359#13 -138388359#12 -138388359#11 -138388359#9 -138388359#8 -138388359#7 -138388359#5 -138388359#4 -138388359#2 -138388359#1"/>
+        <busStop id="-6117388035" name=""/>
+    </ptLine>
+    <ptLine id="7339354" name="LocalLink 65: CCBC Dundalk" line="65" type="bus" vClass="bus" completeness="0.08">
+        <route edges="86092338#0 86092338#1 86092338#2 86092338#3 86092338#6 86092338#9 86092338#12 86092338#13 86092338#14 86092338#15 86092338#16 86092338#17 192469472#0 192469472#1 192469472#2 192469472#3 192469476#0 192469476#1 192469476#2 192469464#1 192469464#2 192469464#4 192469464#5 1064816172#0 1064816172#1 1064816172#2 1064816172#3 244330237#0 244330237#1 244330237#2 244330237#3 244330237#4 244330237#5 570709857 244330235 244330236#2 192469470#0 192469470#1 192469470#2"/>
+        <busStop id="2516605830" name="Hudson &amp; Baylis"/>
+    </ptLine>
+    <ptLine id="7339463" name="LocalLink 65: Charles Center" line="65" type="bus" vClass="bus" completeness="0.14">
+        <route edges="-192469470#2 -192469470#1 -192469470#0 -244330236#2 -244330236#0 -244330237#5 -244330237#4 -244330237#3 -244330237#2 -244330237#1 -244330237#0 -1064816172#3 -1064816172#2 -1064816172#1 -1064816172#0 -192469464#5 -192469464#4 -192469464#2 -192469464#1 -192469469#3 -192469469#2 -192469469#1 192469477#1 192469477#2 -86092338#17 -86092338#16 -86092338#15 -86092338#14 -86092338#13 -86092338#12 -86092338#9 -86092338#6 -86092338#3 -86092338#2 -86092338#1 -86092338#0"/>
+        <busStop id="-4501242775" name=""/>
+    </ptLine>
+    <ptLine id="8275676" name="LocalLink 63: Tradepoint Atlantic" line="63" type="bus" vClass="bus" completeness="0.04">
+        <route edges="138388359#0 138388359#2 138388359#4 138388359#5 138388359#7 138388359#8 138388359#9 138388359#11 138388359#12 138388359#13 138388359#15 138388359#16 829470071#1 829470071#2 829470071#5 829470071#6 948331274#1 948331274#2 948331274#5 948331274#6 948331274#8 948331274#9 390061613#1 390061613#3 390061613#4 390061613#5 390061613#8 390061613#9"/>
+        <busStop id="6117399256" name=""/>
+    </ptLine>
+    <ptLine id="8275798" name="LocalLink 63: Inner Harbor" line="63" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-390061613#9 -390061613#8 -390061613#5 -390061613#4 -390061613#3 -390061613#1 -948331274#9 -948331274#8 -948331274#6 -948331274#5 -948331274#2 -948331274#1 -829470071#6 -829470071#5 -829470071#2 -829470071#1 -138388359#16 -138388359#15 -138388359#13 -138388359#12 -138388359#11 -138388359#9 -138388359#8 -138388359#7 -138388359#5 -138388359#4 -138388359#2 -138388359#1"/>
+        <busStop id="-6117388035" name=""/>
+    </ptLine>
+</ptLines>

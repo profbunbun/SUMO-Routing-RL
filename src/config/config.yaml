@@ -1,0 +1,44 @@
+
+wandb:
+  project_name: "sumo-rl"  
+  entity: "researchlab-yr404"
+  name: "sumo-rl-6"
+  # group: "3x3-5"
+  group: "Balt1-6"
+
+
+training_settings:
+  episodes: 15000               
+  # experiment_path: "Experiments/3x3_6/"
+  # sumoconfig: "Nets/3x3.sumocfg"    
+  experiment_path: 'Experiments/balt/'
+  sumoconfig: "Nets/osm.sumocfg"
+  savepath: "models/"                        
+  initial_life: .15                     
+  penalty: -0.2 
+  seed: 6
+                   
+            
+person_settings:
+  start: "-521985670#5"
+  destination: "192469470#0"
+  # start: "1w"
+  # destination: "10e"
+
+
+env:
+  num_of_vehicles: 1                     
+  num_of_people: 1                       
+  types_of_passengers: 1                
+
+
+agent_hyperparameters:
+  learning_rate: 0.000001
+  gamma: 0.999              
+  epsilon_decay: 0.9996
+  batch_size: 1024
+  memory_size: 50000
+  epsilon_max:  1.0
+  epsilon_min: 0.05
+  initial_life: .15                     
+  penalty: -0.2  

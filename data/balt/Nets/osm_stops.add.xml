@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-19 10:19:55 by Eclipse SUMO netedit Version 1.19.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="-4501242775" lane="-192469469#2_0" startPos="17.61" endPos="32.61" friendlyPos="true" lines="65"/>
+    <busStop id="-6117388035" lane="-390061613#5_0" startPos="9.52" endPos="24.52" friendlyPos="true" lines="NV 63"/>
+    <busStop id="2516605830" name="Hudson &amp; Baylis" lane="244330235_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="65"/>
+    <busStop id="6117373938" lane="390061613#8_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
+    <busStop id="6117373939" lane="390061613#3_0" startPos="9.89" endPos="24.89" friendlyPos="true"/>
+    <busStop id="6117375575" lane="948331274#5_0" startPos="3.83" endPos="18.83" friendlyPos="true"/>
+    <busStop id="6117375577" lane="948331274#8_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
+    <busStop id="6117378696" lane="138388359#16_0" startPos="28.90" endPos="43.90" friendlyPos="true" lines="NV"/>
+    <busStop id="6117378698" lane="829470071#1_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
+    <busStop id="6117388043" lane="829470071#6_0" startPos="31.98" endPos="46.98" friendlyPos="true"/>
+    <busStop id="6117399256" lane="390061613#8_0" startPos="65.11" endPos="80.11" friendlyPos="true" lines="NV 63"/>
+</additional>
