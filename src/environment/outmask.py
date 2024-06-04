@@ -1,22 +1,24 @@
 
 class OutMask:
     """
-    OutMask class to generate output masks based on vehicle edge and position data.
-
-    This class provides methods to generate masks for determining the valid movement directions and distance calculations.
+    Class to create a mask for valid outgoing directions from the current lane.
     """
 
-    
+    def __init__(self) -> None:
+        """
+        Initialize the OutMask class.
+        """
+        pass
 
     def get_outmask_valid(self, choices):
         """
-        Generate a validity mask for the available movement choices.
+        Get a mask of valid outgoing directions from the current lane.
 
-        :param dict choices: Dictionary of movement choices from the current edge.
-        :return: List representing the output mask for valid movements.
-        :rtype: list
+        Args:
+            out_dict (dict): Dictionary of outgoing directions.
 
-        The output mask is a list with values 1 for valid movements and 0 for invalid, in the order of right, straight, left, and to.
+        Returns:
+            list: Mask of valid outgoing directions (1 if valid, 0 if not).
         """
 
         outmask =[0,0,0,0,0,0]

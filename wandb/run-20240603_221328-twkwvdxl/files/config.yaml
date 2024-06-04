@@ -1,0 +1,68 @@
+wandb_version: 1
+
+wandb:
+  desc: null
+  value:
+    project_name: sumo-rl
+    entity: researchlab-yr404
+    name: sumo-rl-test
+    group: Balt1-test
+training_settings:
+  desc: null
+  value:
+    episodes: 10
+    experiment_path: data/balt/
+    sumoconfig: Nets/osm.sumocfg
+    savepath: models/
+    initial_life: 0.15
+    penalty: -0.2
+    seed: 6
+person_settings:
+  desc: null
+  value:
+    start: -521985670#5
+    destination: 192469470#0
+env:
+  desc: null
+  value:
+    num_of_vehicles: 1
+    num_of_people: 1
+    types_of_passengers: 1
+agent_hyperparameters:
+  desc: null
+  value:
+    learning_rate: 1.0e-06
+    gamma: 0.999
+    epsilon_decay: 0.9996
+    batch_size: 1024
+    memory_size: 50000
+    epsilon_max: 1.0
+    epsilon_min: 0.05
+    initial_life: 0.15
+    penalty: -0.2
+_wandb:
+  desc: null
+  value:
+    python_version: 3.12.3
+    cli_version: 0.17.0
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1717467208
+    t:
+      1:
+      - 1
+      - 55
+      2:
+      - 1
+      - 55
+      3:
+      - 2
+      - 13
+      - 16
+      - 23
+      4: 3.12.3
+      5: 0.17.0
+      8:
+      - 5
+      13: linux-x86_64

@@ -1,30 +1,55 @@
 from .person import Person
+import random
 
 class PersonManager:
+    """
+    Manages the creation and management of persons in the simulation.
+    """
 
+    def __init__(self, num_people, edge_dict, sumo, index_dic, config):
+        """
+        Initializes the PersonManager with the given parameters.
 
-    def __init__(self, num_of_people, edge_position, sumo, index_dict, config):
-
-        self.num_of_people = num_of_people
-        self.edge_position = edge_position
+        Args:
+            num_people (int): Number of people to create.
+            edge_dict (dict): Dictionary of edge locations.
+            sumo: SUMO simulation instance.
+            index_dic (dict): Dictionary of edge indices.
+            config (dict): Configuration dictionary.
+        """
+        self.num_people = num_people
+        self.edge_dict = edge_dict
         self.sumo = sumo
-        self.index_dict = index_dict
-        self.start_edge = config['person_settings']['start']
-        self.destination = config['person_settings']['destination']
+        self.index_dic = index_dic
+        self.config = config
+        self.people = []
+
+        self.disability_catagories = self.config['env']['types_of_passengers']
 
     def create_people(self):
+        """
+        Creates persons for the simulation.
 
+        Returns:
+            list: List of created Person instances.
+        """
         people = []
-        for p_id in range(self.num_of_people):
-            people.append(
-                Person(
-                    str(p_id),
-                    self.sumo,
-                    self.edge_position,
-                    self.index_dict,
-                    p_id + 1,
-                    self.start_edge,
-                    self.destination
-                )
-            )
+        for i in range(self.num_people):
+            start = random.choice(list(self.edge_dict.keys()))
+            end = random.choice(list(self.edge_dict.keys()))
+            while start == end:  # Ensure start and end are different
+                end = random.choice(list(self.edge_dict.keys()))
+            person_id = f"person_{i}"
+            person = Person(person_id, self.disability_catagories, start, end, self.sumo)
+            people.append(person)
+        self.people = people
         return people
+
+    def get_people(self):
+        """
+        Gets the list of persons created by the manager.
+
+        Returns:
+            list: List of created Person instances.
+        """
+        return self.people

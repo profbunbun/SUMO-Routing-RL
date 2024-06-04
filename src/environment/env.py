@@ -12,11 +12,21 @@ from utils.utils import Utils
 
 
 class Env():
-
+    """
+    Environment class for the SUMO-RL project.
+    """
 
 
     def __init__(self, config, edge_locations, out_dict, index_dict):
-        
+        """
+        Initialize the environment with the given configuration and parameters.
+
+        Args:
+            config (dict): Configuration dictionary.
+            edge_locations (dict): Edge locations dictionary.
+            out_dict (dict): Output dictionary.
+            index_dict (dict): Index dictionary.
+        """
 
 
         self.config = config  
@@ -62,6 +72,15 @@ class Env():
         
 
     def reset(self, seed=42):
+        """
+        Reset the environment to its initial state.
+
+        Args:
+            seed (int): Random seed for reproducibility.
+
+        Returns:
+            observation: Initial observation after reset.
+        """
         self.route = []
         self.distance_traveled = 0
 
@@ -72,8 +91,8 @@ class Env():
         
         self.done = 0
 
-        self.vehicle_manager = VehicleManager(self.num_of_vehicles, self.edge_locations, self.sumo, self.out_dict, self.index_dict)
-        self.person_manager = PersonManager(self.num_people, self.edge_locations, self.sumo, self.index_dict,self.config)
+        self.vehicle_manager = VehicleManager(self.num_of_vehicles, self.edge_locations, self.sumo, self.out_dict, self.index_dict, self.config)
+        self.person_manager = PersonManager(self.num_people, self.edge_locations, self.sumo, self.index_dict, self.config)
         self.reward_manager = RewardManager(self.finder, self.edge_locations, self.sumo)
 
 
@@ -101,12 +120,25 @@ class Env():
 
 
     def step(self, action):
+        """
+        Perform an action in the environment.
+
+        Args:
+            action: Action to be performed.
+
+        Returns:
+            observation: Next state.
+            reward: Reward obtained.
+            done: Whether the episode is done.
+            info: Additional info.
+        """
         done = 0
         self.agent_step += 1
         choices = self.vehicle.get_out_dict()
         if self.life <= 0:
             self.stage = "done"
             done = 1
+
         vedge = self.vehicle.get_road()
         vedge_loc = self.edge_locations[vedge]
         dest_edge_loc = self.edge_locations[self.destination_edge]
@@ -164,6 +196,12 @@ class Env():
         return observation, reward, done, info
 
     def render(self, mode='text'):
+        """
+        Render the environment.
+
+        Args:
+            mode (str): Mode of rendering. Options are 'human', 'text', 'no_gui'.
+        """
 
         if mode == "human":
             self.sumo = self.sumo_con.connect_gui()
@@ -176,6 +214,14 @@ class Env():
     
     # @timeit
     def close(self, episode, accu, current_epsilon):
+        """
+        Close the environment and log rewards.
+
+        Args:
+            episode (int): Current episode number.
+            accu (float): Accumulated reward.
+            current_epsilon (float): Current epsilon value.
+        """
 
         
 
@@ -197,10 +243,22 @@ class Env():
         return
     
     def quiet_close(self):
+        """
+        Quietly close the environment without logging.
+        """
         self.sumo.close()
         return
     
     def get_route_length(self, route):
+        """
+        Get the total length of the route.
+
+        Args:
+            route (list): List of edges in the route.
+
+        Returns:
+            int: Total length of the route.
+        """
         distances = []
         for edge in route:
 
@@ -212,6 +270,17 @@ class Env():
 
 
     def perform_step(self, vehicle, action, destination_edge):
+        """
+        Perform a step in the environment by moving the vehicle.
+
+        Args:
+            vehicle: Vehicle object.
+            action: Action to be performed.
+            destination_edge: Destination edge for the vehicle.
+
+        Returns:
+            vedge: Current edge of the vehicle after performing the step.
+        """
    
         target = vehicle.set_destination(action, destination_edge)
         vehicle.teleport(target)
