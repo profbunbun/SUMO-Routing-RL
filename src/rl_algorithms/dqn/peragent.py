@@ -11,6 +11,26 @@ from utils.utils import Utils
 config = Utils.load_yaml_config('src/config/config.yaml')
 
 class PERAgent:
+    """
+    Agent class for DQN-based reinforcement learning with Prioritized Experience Replay (PER).
+
+    Attributes:
+        path (str): Path to save the model.
+        memory_size (int): Size of the replay memory.
+        gamma (float): Discount factor.
+        learning_rate (float): Learning rate for the optimizer.
+        epsilon_decay (float): Decay rate for epsilon.
+        batch_size (int): Batch size for training.
+        epsilon_max (float): Maximum value of epsilon.
+        epsilon_min (float): Minimum value of epsilon.
+        device (str): Device to run the model (CPU or GPU).
+        policy_net (DQN): Policy network.
+        target_net (DQN): Target network.
+        criterion (nn.Module): Loss function.
+        optimizer (optim.Optimizer): Optimizer.
+        exploration_strategy (exploration.Explorer): Exploration strategy.
+        memory (PrioritizedExperienceReplayBuffer): Replay memory buffer.
+    """
   
     def __init__(self, state_size, 
                  action_size, 
@@ -23,6 +43,21 @@ class PERAgent:
                  memory_size=None,
                  batch_size=None,
                  ):
+            """
+        Initialize the PERAgent.
+
+        Args:
+            state_size (int): Size of the state space.
+            action_size (int): Size of the action space.
+            path (str): Path to save the model.
+            learning_rate (float): Learning rate for the optimizer.
+            gamma (float): Discount factor.
+            epsilon_decay (float): Decay rate for epsilon.
+            epsilon_max (float): Maximum value of epsilon.
+            epsilon_min (float): Minimum value of epsilon.
+            memory_size (int): Size of the replay memory.
+            batch_size (int): Batch size for training.
+        """
 
             self.path = path
           
@@ -60,6 +95,16 @@ class PERAgent:
 
 
     def remember(self, state, action, reward, next_state, done):
+        """
+        Store an experience in the replay memory.
+
+        Args:
+            state (array): Current state.
+            action (int): Action taken.
+            reward (float): Reward received.
+            next_state (array): Next state.
+            done (bool): Whether the episode is done.
+        """
 
         experience = Experience(state=state, action=action, reward=reward, next_state=next_state, done=done)
         self.memory.add(experience)
@@ -68,6 +113,12 @@ class PERAgent:
 
 
     def replay(self, batch_size):
+        """
+        Train the agent with a batch of experiences.
+
+        Args:
+            batch_size (int): Batch size for training.
+        """
 
         beta = config.get('beta', 0.4) 
         if len(self.memory) < self.batch_size:
@@ -81,6 +132,17 @@ class PERAgent:
 
 
     def perform_training_step(self, states, actions, rewards, next_states, dones, weights):
+        """
+        Perform a training step.
+
+        Args:
+            states (array): Batch of current states.
+            actions (array): Batch of actions taken.
+            rewards (array): Batch of rewards received.
+            next_states (array): Batch of next states.
+            dones (array): Batch of done flags.
+            weights (array): Importance sampling weights.
+        """
 
         states =torch.as_tensor(states, device=self.device, dtype=torch.float32) 
         actions = torch.as_tensor(actions, device=self.device, dtype=torch.long)
@@ -112,17 +174,35 @@ class PERAgent:
         return loss.item(), td_error.abs()
 
     def choose_action(self, state):
+        """
+        Choose an action based on the current state.
+
+        Args:
+            state (array): Current state.
+
+        Returns:
+            int: Chosen action.
+        """
 
         action = self.exploration_strategy.choose_action(state)
         return action
     
     def hard_update(self):
+        """
+        Perform a hard update of the target network.
+        """
     
         policy_net_state_dict = self.policy_net.state_dict()
         self.target_net.load_state_dict(policy_net_state_dict)
         self.target_net.eval()
 
     def save_model(self, episode_num):
+        """
+        Save the model to a file.
+
+        Args:
+            episode_num (int): Episode number.
+        """
 
         filename = f"model"
         filename += f"_ep{episode_num}"
@@ -133,6 +213,12 @@ class PERAgent:
         torch.save(self.policy_net.state_dict(), temp_model_path)
 
     def load_model(self, ep_num):
+        """
+        Load the model from a file.
+
+        Args:
+            ep_num (int): Episode number.
+        """
 
         filename = f"model"
         filename += f"_ep{ep_num}"
@@ -145,10 +231,19 @@ class PERAgent:
         self.policy_net.to(self.device)
 
     def decay(self):
+        """
+        Decay the exploration rate.
+        """
      
         self.exploration_strategy.update_epsilon()
     
     def get_epsilon(self):
+        """
+        Get the current value of epsilon.
+
+        Returns:
+            float: Current value of epsilon.
+        """
         
         return self.exploration_strategy.epsilon
     

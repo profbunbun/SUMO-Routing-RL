@@ -5,8 +5,30 @@ from utils.utils import Utils
 config = Utils.load_yaml_config('src/config/config.yaml')
 randy = config['training_settings']['seed']
 class Explorer:
+    """
+    Class to handle exploration strategies for reinforcement learning agents.
+
+    Attributes:
+        epsilon (float): Current exploration rate.
+        decay_rate (float): Rate at which epsilon decays.
+        epsilon_min (float): Minimum value of epsilon.
+        direction_choices (list): List of possible direction choices.
+        policy_net (nn.Module): Policy network used for exploitation.
+        explore_count (int): Counter for explore actions.
+        exploit_count (int): Counter for exploit actions.
+        last_reward (float): Last reward received.
+    """
 
     def __init__(self, policy, epsilon_max=1, decay_rate=0.999, epsilon_min=0.1):
+        """
+        Initialize the Explorer.
+
+        Args:
+            policy (nn.Module): Policy network used for exploitation.
+            epsilon_max (float): Maximum value of epsilon.
+            decay_rate (float): Rate at which epsilon decays.
+            epsilon_min (float): Minimum value of epsilon.
+        """
    
         self.epsilon = epsilon_max
         self.decay_rate = decay_rate
@@ -21,12 +43,27 @@ class Explorer:
         self.last_reward = None
 
     def explore(self):
+        """
+        Select a random action for exploration.
+
+        Returns:
+            int: Chosen action.
+        """
    
         action = np.random.randint(0,5)
         self.explore_count += 1
         return action
 
     def exploit(self, state):
+        """
+        Select the best action based on the current policy network.
+
+        Args:
+            state (array): Current state.
+
+        Returns:
+            int: Chosen action.
+        """
         
         if not isinstance(state, T.Tensor):
             state = T.tensor(state, dtype=T.float32)
@@ -52,6 +89,15 @@ class Explorer:
         return action.item()
 
     def choose_action(self, state):
+        """
+        Choose an action based on the epsilon-greedy strategy.
+
+        Args:
+            state (array): Current state.
+
+        Returns:
+            int: Chosen action.
+        """
 
         randy = np.random.rand()
         if randy < self.epsilon:
@@ -62,6 +108,9 @@ class Explorer:
         return action
 
     def update_epsilon(self):
+        """
+        Decay the exploration rate (epsilon).
+        """
 
         if self.epsilon < self.epsilon_min:
             self.epsilon = 0.0

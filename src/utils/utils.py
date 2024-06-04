@@ -3,10 +3,22 @@ import yaml
 
 
 class Utils:
+    """
+    Utility class providing common utility functions.
+    """
 
 
     @staticmethod
     def load_yaml_config(config_path):
+        """
+        Load YAML configuration from a file.
+
+        Args:
+            config_path (str): Path to the YAML configuration file.
+
+        Returns:
+            dict: Loaded configuration.
+        """
         with open(config_path, 'r') as f:
             return yaml.safe_load(f)
 
@@ -16,10 +28,13 @@ class Utils:
         """
         Calculate the Manhattan distance between two points.
 
-        :param x1: X-coordinate of the first point.
-        :param y1: Y-coordinate of the first point.
-        :param x2: X-coordinate of the second point.
-        :param y2: Y-coordinate of the second point.
-        :return: Manhattan distance between the points.
+        Args:
+            x1 (float): X-coordinate of the first point.
+            y1 (float): Y-coordinate of the first point.
+            x2 (float): X-coordinate of the second point.
+            y2 (float): Y-coordinate of the second point.
+
+        Returns:
+            float: Manhattan distance between the points.
         """
         return abs(x1 - x2) + abs(y1 - y2)
