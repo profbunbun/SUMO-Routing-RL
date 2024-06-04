@@ -17,27 +17,29 @@ def timeit(func):
 
 
 class NetParser:
-    '''
+    """
     NetParser class for parsing network files and retrieving information from SUMO simulations.
 
-    :param str sumocfg: Path to the SUMO configuration file.
-    '''
+    Attributes:
+        sumocfg (str): Path to the SUMO configuration file.
+    """
 
     def __init__(self, sumocfg) -> None:
-        '''
+        """
         Initialize the NetParser object with a specific SUMO configuration file.
 
-        :param str sumocfg: Path to the SUMO configuration file.
-        '''
+        Args:
+            sumocfg (str): Path to the SUMO configuration file.
+        """
         self.sumocfg = sumocfg
     # @timeit
     def parse_net_files(self):
-        '''
+        """
         Get the network file from the SUMO configuration file.
 
-        :return: Path to the network file extracted from the SUMO configuration.
-        :rtype: str
-        '''
+        Returns:
+            str: Path to the network file extracted from the SUMO configuration.
+        """
 
         tree = ET.parse(self.sumocfg)
         root = tree.getroot()
@@ -47,12 +49,12 @@ class NetParser:
             return network_file
     # @timeit
     def _clean_path(self):
-        '''
+        """
         Clean the file path for the network file.
 
-        :return: The network object after reading the network file.
-        :rtype: sumolib.net.Net
-        '''
+        Returns:
+            sumolib.net.Net: The network object after reading the network file.
+        """
 
         net_file = self.parse_net_files()
         path_ = self.sumocfg.rsplit("/")
@@ -61,12 +63,13 @@ class NetParser:
         return sumolib.net.readNet(path_b + "/" + net_file)
     # @timeit
     def get_edges_info(self):
-        '''
+        """
         Get a list of edges that allow passenger vehicles.
 
-        :return: List of edges allowing passenger vehicles.
-        :rtype: list
-        '''
+        Returns:
+            list: List of edges allowing passenger vehicles.
+        """
+       
 
         net = self._clean_path()
         edge_list = []
@@ -77,12 +80,12 @@ class NetParser:
         return edge_list
     # @timeit
     def get_edge_pos_dic(self):
-        '''
+        """
         Get a dictionary of edge IDs and their XY coordinates at the center.
 
-        :return: Dictionary of edge IDs and their center XY coordinates.
-        :rtype: dict
-        '''
+        Returns:
+            dict: Dictionary of edge IDs and their center XY coordinates.
+        """
 
         net = self._clean_path()
         edge_position_dict = {}
@@ -105,12 +108,12 @@ class NetParser:
         return edge_position_dict
     # @timeit
     def get_out_dic(self):
-        '''
+        """
         Get a dictionary of edges and their connecting edges.
 
-        :return: Dictionary of edges and their respective connecting edges.
-        :rtype: dict
-        '''
+        Returns:
+            dict: Dictionary of edges and their respective connecting edges.
+        """
 
         net = self._clean_path()
         out_dict = {}
@@ -134,12 +137,12 @@ class NetParser:
         return out_dict
     # @timeit
     def get_edge_index(self):
-        '''
+        """
         Get an indexed dictionary of edge IDs.
 
-        :return: Indexed dictionary of edge IDs.
-        :rtype: dict
-        '''
+        Returns:
+            dict: Indexed dictionary of edge IDs.
+        """
 
 
         net = self._clean_path()
@@ -157,12 +160,12 @@ class NetParser:
         return index_dict
     # @timeit
     def get_length_dic(self):
-        '''
+        """
         Get a dictionary of edge IDs and their lengths.
 
-        :return: Dictionary of edge IDs and their lengths.
-        :rtype: dict
-        '''
+        Returns:
+            dict: Dictionary of edge IDs and their lengths.
+        """
 
         net = self._clean_path()
 
@@ -177,12 +180,12 @@ class NetParser:
         return length_dict
     # @timeit
     def get_route_edges(self):
-        '''
+        """
         Get a list of edge IDs from a specific route file.
 
-        :return: List of edge IDs from the specified route.
-        :rtype: list
-        '''
+        Returns:
+            list: List of edge IDs from the specified route.
+        """
         edge_ids = []
         for route in sumolib.xml.parse_fast("Experiments/balt1/Nets/osm_pt.rou.xml", 'route', ['id','edges']):
         # for route in sumolib.xml.parse_fast("Experiments/3x3/Nets/3x3.rou.xml", 'route', ['id','edges']):
@@ -192,12 +195,12 @@ class NetParser:
         return edge_ids
     # @timeit
     def get_max_manhattan(self):
-        '''
+        """
         Calculate the maximum Manhattan distance between any two edges in the network.
 
-        :return: Maximum Manhattan distance.
-        :rtype: float
-        '''
+        Returns:
+            float: Maximum Manhattan distance.
+        """
         a=self.get_edge_pos_dic()
         a=list(a.values())
         n=len(a)
@@ -220,12 +223,22 @@ class NetParser:
         return maximum
     # @timeit
     def net_minmax(self):
-        '''get net minmax xy coords for scaling input'''
+        """
+        Get net minmax xy coordinates for scaling input.
+
+        Returns:
+            tuple: Minmax xy coordinates.
+        """
         net = self._clean_path()
         return sumolib.net.Net.getBBoxXY(net)
     # @timeit
     def get_junctions(self):
-        """Retrieve junctions and their internal edges from the network."""
+        """
+        Retrieve junctions and their internal edges from the network.
+
+        Returns:
+            set: Set of junctions and internal edges.
+        """
         net = self._clean_path()
         junctions = set()
         for junction in net.getNodes():
