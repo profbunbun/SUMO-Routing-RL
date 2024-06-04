@@ -2,16 +2,16 @@
 wandb:
   project_name: "sumo-rl"  
   entity: "researchlab-yr404"
-  name: "sumo-rl-6"
+  name: "sumo-rl-test"
   # group: "3x3-5"
-  group: "Balt1-6"
+  group: "Balt1-test"
 
 
 training_settings:
-  episodes: 15000               
+  episodes: 1000               
   # experiment_path: "Experiments/3x3_6/"
   # sumoconfig: "Nets/3x3.sumocfg"    
-  experiment_path: 'Experiments/balt/'
+  experiment_path: 'data/balt/'
   sumoconfig: "Nets/osm.sumocfg"
   savepath: "models/"                        
   initial_life: .15                     

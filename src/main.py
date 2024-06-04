@@ -17,6 +17,8 @@ def main_training_loop():
     env = so.create_env(config=config)
     dagent = so.create_agent(config=config)
 
+    best_reward = float('-inf')
+
 
 
 
@@ -61,7 +63,9 @@ def main_training_loop():
 
         dagent.decay()
         env.close(episode, cumulative_reward, dagent.get_epsilon())
-        dagent.save_model(episode)
+        if cumulative_reward > best_reward:
+            best_reward = cumulative_reward
+            dagent.save_model(episode)
     
     wandb.finish()
 
