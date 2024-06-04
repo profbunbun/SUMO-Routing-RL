@@ -22,13 +22,11 @@ class Vehicle:
     :param int i: Arbitrary parameter for vehicle type.
     """
 
-    def __init__(self, vehicle_id, out_dict, index_dict, edge_position, sumo, i) -> None:
+    def __init__(self, vehicle_id, types, out_dict, index_dict, edge_position, sumo) -> None:
         """
         Initialize a Vehicle instance with the given parameters.
         """
 
-        # self.direction_choices = [RIGHT, STRAIGHT, LEFT]
-        # self.direction_choices = [RIGHT, STRAIGHT, LEFT, TURN_AROUND]
         self.direction_choices = [SLIGHT_RIGHT, RIGHT, STRAIGHT, SLIGHT_LEFT, LEFT, TURN_AROUND]
         self.vehicle_id = vehicle_id
         self.out_dict = out_dict
@@ -37,8 +35,9 @@ class Vehicle:
         self.edge_position = edge_position
         self.sumo.vehicle.add(self.vehicle_id, "r_0", typeID="taxi")
         self.sumo.vehicle.setParameter(vehicle_id,
-                                       "type", str(2)
-                                    #    str(random.randint(1, i))
+                                       "type", 
+                                    #    str(2)
+                                       str(random.randint(1, types))
                                        )
 
 

@@ -3,13 +3,37 @@ from .outmask import OutMask
 
 
 class Observation:
+    """
+    Class to handle observations in the SUMO environment.
+    """
   
     def __init__(self):
+        """
+        Initialize the Observation class with an OutMask instance.
+        """
 
         self.out_mask = OutMask()
 
     
     def get_state(self, sumo, step, vehicle, destination_loc, life, distcheck, final_destination, distcheck_final_dest, picked_up, done):
+        """
+        Get the current state of the environment.
+
+        Args:
+            sumo: SUMO simulation instance.
+            step: Current simulation step.
+            vehicle: Vehicle object.
+            destination_loc: Destination location coordinates.
+            life: Agent's current life value.
+            distcheck: Distance check flag.
+            final_destination: Final destination coordinates.
+            distcheck_final_dest: Final destination distance check flag.
+            picked_up: Pickup status flag.
+            done: Done flag.
+
+        Returns:
+            list: State representation of the environment.
+        """
       
         bounding_box = sumo.simulation.getNetBoundary()
         self.min_x, self.min_y = bounding_box[0]
@@ -40,10 +64,31 @@ class Observation:
         return state
 
     def manhat_dist(self, x1, y1, x2, y2):
+        """
+        Calculate and normalize the Manhattan distance between two points.
+
+        Args:
+            x1, y1: Coordinates of the first point.
+            x2, y2: Coordinates of the second point.
+
+        Returns:
+            float: Normalized Manhattan distance.
+        """
         distance = abs(x1 - x2) + abs(y1 - y2)
         return distance / self.max_manhat_dist
     
     def normalize(self, value, min_value, max_value):
+        """
+        Normalize a value within a given range.
+
+        Args:
+            value: Value to be normalized.
+            min_value: Minimum value of the range.
+            max_value: Maximum value of the range.
+
+        Returns:
+            float: Normalized value.
+        """
         range = max_value - min_value if max_value - min_value != 0 else 1
         return (value - min_value) / range
 

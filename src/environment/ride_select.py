@@ -7,7 +7,7 @@ class RideSelect:
     def select(self, vehicle_array, person):
       
         
-        v_dict = self. make_vehic_atribs_dic(vehicle_array)
+        v_dict = self.make_vehic_atribs_dic(vehicle_array)
         p_type = person.get_type()
 
         vehicle_id = {i for i in v_dict if v_dict[i]==p_type}
