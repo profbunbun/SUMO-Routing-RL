@@ -8,7 +8,7 @@ wandb:
 
 
 training_settings:
-  episodes: 1000               
+  episodes: 10             
   # experiment_path: "Experiments/3x3_6/"
   # sumoconfig: "Nets/3x3.sumocfg"    
   experiment_path: 'data/balt/'
