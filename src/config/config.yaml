@@ -1,4 +1,6 @@
+# Configuration for SUMO-RL project
 
+# Weights and Biases (WandB) settings
 wandb:
   project_name: "sumo-rl"  
   entity: "researchlab-yr404"
@@ -6,7 +8,7 @@ wandb:
   # group: "3x3-5"
   group: "Balt1-test"
 
-
+# Training settings
 training_settings:
   episodes: 10             
   # experiment_path: "Experiments/3x3_6/"
@@ -18,20 +20,20 @@ training_settings:
   penalty: -0.2 
   seed: 6
                    
-            
+#person 
 person_settings:
-  start: "-521985670#5"
-  destination: "192469470#0"
+  start: "-521985670#5" #start edge id
+  destination: "192469470#0" #destination edge id
   # start: "1w"
   # destination: "10e"
 
-
+#experiment values
 env:
-  num_of_vehicles: 1                     
-  num_of_people: 1                       
-  types_of_passengers: 1                
+  num_of_vehicles: 1   #number of community vehicles                  
+  num_of_people: 1           # number of passengers per episode            
+  types_of_passengers: 1      #disability types          
 
-
+# Agent hyperparameters
 agent_hyperparameters:
   learning_rate: 0.000001
   gamma: 0.999              
