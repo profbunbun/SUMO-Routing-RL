@@ -1,13 +1,13 @@
 
 from .reward import RewardManager
 import numpy as np
-from .connect import SUMOConnection
+from utils.connect import SUMOConnection
 from .ride_select import RideSelect
 from .bus_stop import StopFinder
 from .observation import Observation
 from .vehicle_manager import VehicleManager 
 from .person_manager import PersonManager 
-from ..utilities.utils import Utils
+from utils.utils import Utils
 
 
 

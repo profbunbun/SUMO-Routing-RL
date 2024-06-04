@@ -4,11 +4,11 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 
-from .dqn import DQN
-from . import exploration, replay_memory
-from .permem import PrioritizedExperienceReplayBuffer, Experience
-from ..utilities.utils import Utils
-config = Utils.load_yaml_config('config.yaml')
+from ..models.dqn import DQN
+from ..exploration import exploration
+from ..memory_buffers.permem import PrioritizedExperienceReplayBuffer, Experience
+from utils.utils import Utils
+config = Utils.load_yaml_config('src/config/config.yaml')
 
 class PERAgent:
   

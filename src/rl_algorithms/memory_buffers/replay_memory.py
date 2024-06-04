@@ -2,9 +2,9 @@
 from collections import namedtuple, deque
 
 import random
-from ..utilities.utils import Utils
+from utils.utils import Utils
 
-config = Utils.load_yaml_config('config.yaml')
+config = Utils.load_yaml_config('src/config/config.yaml')
 randy = config['training_settings']['seed']
 random.seed(randy)
 Transition = namedtuple('Transition',

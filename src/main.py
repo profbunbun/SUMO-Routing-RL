@@ -1,9 +1,9 @@
 
-from sumo_mmrl import Utils
-from sumo_mmrl.environment import sim_manager as so
+from utils import Utils
+from environment import sim_manager as so
 import wandb
 
-config = Utils.load_yaml_config('config.yaml')
+config = Utils.load_yaml_config('src/config/config.yaml')
 EPISODES = config['training_settings']['episodes']
 
 

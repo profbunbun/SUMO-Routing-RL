@@ -5,9 +5,9 @@ import torch.optim as optim
 import numpy as np
 from torch.utils.data.sampler import BatchSampler, SubsetRandomSampler
 
-from .ppoagent import PPOPolicy  # Assume PPOPolicy is your combined actor-critic network
-from ..utilities.utils import Utils
-config = Utils.load_yaml_config('config.yaml')
+
+from utils.utils import Utils
+config = Utils.load_yaml_config('src/config/config.yaml')
 
 class PPOAgent:
 

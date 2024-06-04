@@ -1,6 +1,8 @@
 
-from sumo_mmrl import PERAgent, Env
-from .net_parser import NetParser
+from rl_algorithms.dqn.peragent import PERAgent
+
+from environment.env import Env
+from utils.net_parser import NetParser
 
 
 
