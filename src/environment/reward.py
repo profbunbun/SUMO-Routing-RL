@@ -1,7 +1,19 @@
 
 
 class RewardManager:
+    """
+    Manages reward calculations for the simulation.
+    """
     def __init__(self, finder, edge_position, sumo):
+        """
+        Initializes the RewardManager with the given parameters.
+
+        Args:
+            finder: StopFinder instance.
+            edge_dic (dict): Dictionary of edge locations.
+            sumo: SUMO simulation instance.
+        """
+        
 
         self.finder = finder
         self.edge_position = edge_position
@@ -10,6 +22,20 @@ class RewardManager:
         self.pickedup = 0
 
     def update_stage(self, current_stage, destination_edge, vedge, person, vehicle, final_edge):
+        """
+        Updates the stage of the simulation.
+
+        Args:
+            stage (str): Current stage.
+            destination_edge (str): Destination edge ID.
+            vedge (str): Current vehicle edge ID.
+            person: Person instance.
+            vehicle: Vehicle instance.
+            final_destination (str): Final destination edge ID.
+
+        Returns:
+            tuple: Updated stage, destination edge, pickup status, and done flag.
+        """
         done = 0
 
         new_stage = current_stage
@@ -54,10 +80,32 @@ class RewardManager:
         return new_stage, new_destination_edge, self.pickedup, done
 
     def get_initial_stage(self):
+        """
+        Gets the initial stage of the simulation.
+
+        Returns:
+            str: Initial stage of the simulation.
+        """
 
         return self.stage
     
     def calculate_reward(self, old_dist, edge_distance, destination_edge, vedge,  life, final_destination, final_old_dist, final_edge_distance):
+        """
+        Calculates the reward for the current step.
+
+        Args:
+            old_dist (float): Previous distance to the destination.
+            edge_distance (float): Current distance to the destination.
+            destination_edge (str): Destination edge ID.
+            vedge (str): Current vehicle edge ID.
+            life (float): Agent's current life value.
+            final_destination (str): Final destination edge ID.
+            final_old_dist (float): Previous distance to the final destination.
+            final_edge_distance (float): Current distance to the final destination.
+
+        Returns:
+            tuple: Calculated reward, updated distance check, life value, and final distance check.
+        """
         
         reward = 0
         distcheck = 0

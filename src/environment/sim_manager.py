@@ -7,6 +7,15 @@ from utils.net_parser import NetParser
 
 
 def create_env(config):
+    """
+    Create the simulation environment.
+
+    Args:
+        config (dict): Configuration dictionary.
+
+    Returns:
+            Env: Environment instance.
+    """
 
     path = config['training_settings']['experiment_path']
     sumo_config_path = path + config['training_settings']['sumoconfig']
@@ -22,26 +31,15 @@ def create_env(config):
 
 
 def create_agent(config):
-  
-    experiment_path = config['training_settings']['experiment_path']
-    learning_rate = config['agent_hyperparameters']['learning_rate']
-    gamma = config['agent_hyperparameters']['gamma']
-    epsilon_decay = config['agent_hyperparameters']['epsilon_decay']
-    batch_size = config['agent_hyperparameters']['batch_size']
-    memory_size = config['agent_hyperparameters']['memory_size']
-    epsilon_max = config['agent_hyperparameters']['epsilon_max']
-    epsilon_min = config['agent_hyperparameters']['epsilon_min']
+    """
+    Create the DQN agent.
 
-    return PERAgent(19, 6, experiment_path,
-                    learning_rate,
-                    gamma, 
-                    epsilon_decay, 
-                    epsilon_max, 
-                    epsilon_min, 
-                    memory_size, 
-                    batch_size,)
+    Args:
+        config (dict): Configuration dictionary.
 
-def create_PPOagent(config):
+    Returns:
+        PERAgent: DQN agent instance.
+    """
   
     experiment_path = config['training_settings']['experiment_path']
     learning_rate = config['agent_hyperparameters']['learning_rate']

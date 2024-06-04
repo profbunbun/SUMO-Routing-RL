@@ -1,10 +1,29 @@
 class RideSelect:
+    """
+    Class to select a suitable vehicle for a person based on vehicle attributes.
+    """
  
     def __init__(self) -> None:
+        """
+        Initialize the RideSelect class.
+        """
        
         pass
 
     def select(self, vehicle_array, person):
+        """
+        Select a suitable vehicle for the given person.
+
+        Args:
+            vehicle_array (list): List of vehicle objects.
+            person: Person object.
+
+        Returns:
+            str: Vehicle ID of the selected vehicle.
+
+        Raises:
+            ValueError: If no suitable vehicle is found.
+        """
       
         
         v_dict = self.make_vehic_atribs_dic(vehicle_array)
@@ -16,6 +35,15 @@ class RideSelect:
         return list(vehicle_id)[0]
 
     def make_vehic_atribs_dic(self, vehicle_array):
+        """
+        Create a dictionary of vehicle attributes.
+
+        Args:
+            vehicle_array (list): List of vehicle objects.
+
+        Returns:
+            dict: Dictionary of vehicle attributes.
+        """
        
         
         v_dict = { }
