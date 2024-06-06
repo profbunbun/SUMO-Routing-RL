@@ -22,6 +22,10 @@ class SUMOConnection:
         sumocfg (str): Path to the SUMO configuration file.
         sumo_ (object): The SUMO simulation object.
         sumo_cmd (list): Command list to start SUMO.
+
+    .. todo:: Add more detailed explanation about how the SUMOConnection class works.
+
+    
     """
 
     

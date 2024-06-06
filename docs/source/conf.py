@@ -22,11 +22,16 @@ release = '0.1'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
+    'sphinx.ext.todo',
 ]
 
 # Napoleon settings
 napoleon_google_docstring = True
 napoleon_numpy_docstring = False
+
+# ToDo settings
+todo_include_todos = True
+todo_emit_warnings = False
 
 templates_path = ['_templates']
 exclude_patterns = []
