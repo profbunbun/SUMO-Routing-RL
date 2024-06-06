@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>environment.bus_stop Module &#8212; SUMO RL ROUTING 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="environment.env Module" href="env.html" />
+    <link rel="prev" title="environment Module" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-environment.bus_stop">
+<span id="environment-bus-stop-module"></span><h1>environment.bus_stop Module<a class="headerlink" href="#module-environment.bus_stop" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">environment.bus_stop.</span></span><span class="sig-name descname"><span class="pre">StopFinder</span></span><a class="headerlink" href="#environment.bus_stop.StopFinder" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to find bus stops and calculate distances.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>use manhatan distance from utilities class</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#environment.bus_stop.StopFinder.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the StopFinder class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.find_begin_stop">
+<span class="sig-name descname"><span class="pre">find_begin_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">begin_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_dic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.find_begin_stop" title="Link to this definition">¶</a></dt>
+<dd><p>Find the nearest bus stop to the beginning location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_loc</strong> – The beginning location.</p></li>
+<li><p><strong>loc_dic</strong> – A dictionary of location coordinates.</p></li>
+<li><p><strong>con</strong> – SUMO connection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The nearest bus stop lane.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.find_bus_locs">
+<span class="sig-name descname"><span class="pre">find_bus_locs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.find_bus_locs" title="Link to this definition">¶</a></dt>
+<dd><p>Find bus stop locations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of bus stop locations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.find_end_stop">
+<span class="sig-name descname"><span class="pre">find_end_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">end_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_dic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.find_end_stop" title="Link to this definition">¶</a></dt>
+<dd><p>Find the nearest bus stop to the end location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>end_loc</strong> – The end location.</p></li>
+<li><p><strong>loc_dic</strong> – A dictionary of location coordinates.</p></li>
+<li><p><strong>con</strong> – SUMO connection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The nearest bus stop lane.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.get_line">
+<span class="sig-name descname"><span class="pre">get_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stop_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.get_line" title="Link to this definition">¶</a></dt>
+<dd><p>Get the bus line for a given stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stop_id</strong> – The bus stop ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The bus line associated with the stop.</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Determine if this is the best way to do this.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.get_line_route">
+<span class="sig-name descname"><span class="pre">get_line_route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.get_line_route" title="Link to this definition">¶</a></dt>
+<dd><p>Get the route edges for a bus line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>con</strong> – SUMO connection.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of edges for the bus route.</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>get a better way to do this with out hard coding the bus ID</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.get_stop_dists">
+<span class="sig-name descname"><span class="pre">get_stop_dists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_dic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.get_stop_dists" title="Link to this definition">¶</a></dt>
+<dd><p>Get distances from a location to all bus stops.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loc</strong> – The location to calculate distances from.</p></li>
+<li><p><strong>loc_dic</strong> – A dictionary of location coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary of bus stop distances.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="environment.bus_stop.StopFinder.manhat_dist">
+<span class="sig-name descname"><span class="pre">manhat_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#environment.bus_stop.StopFinder.manhat_dist" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the Manhattan distance between two points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x1</strong> – Coordinates of the first point.</p></li>
+<li><p><strong>y1</strong> – Coordinates of the first point.</p></li>
+<li><p><strong>x2</strong> – Coordinates of the second point.</p></li>
+<li><p><strong>y2</strong> – Coordinates of the second point.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Manhattan distance between the two points.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">SUMO RL ROUTING</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">SUMO-Routing-RL</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">environment Module</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">environment.bus_stop Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env.html">environment.env Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observation.html">environment.observation Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outmask.html">environment.outmask Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="person.html">environment.person Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="person_manager.html">environment.person_manager Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reward.html">environment.reward Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ride_select.html">environment.ride_select Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sim_manager.html">environment.sim_manager Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vehicle.html">environment.vehicle_manager Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vehicle_manager.html">environment.vehicle Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rl_algorithms/index.html">rl_algorithms Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">utils Module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">environment Module</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">environment Module</a></li>
+      <li>Next: <a href="env.html" title="next chapter">environment.env Module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Aaron Hooper.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/environment/bus_stop.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
