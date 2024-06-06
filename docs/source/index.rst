@@ -11,6 +11,7 @@ Welcome to Your Project Name's documentation!
 
    README
    todo
+   main
    environment/index
    rl_algorithms/index
    utils/index

@@ -24,7 +24,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
-    'myst_parser'
+    'recommonmark',
+    'sphinx_markdown_tables'
 ]
 
 source_suffix = {

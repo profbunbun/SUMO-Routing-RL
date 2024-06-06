@@ -1,6 +1,3 @@
-# Configuration for SUMO-RL project
-
-# Weights and Biases (WandB) settings
 wandb:
   project_name: "sumo-rl"  
   entity: "researchlab-yr404"
