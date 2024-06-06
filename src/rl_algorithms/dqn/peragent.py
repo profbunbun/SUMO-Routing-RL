@@ -8,7 +8,7 @@ from ..models.dqn import DQN
 from ..exploration import exploration
 from ..memory_buffers.permem import PrioritizedExperienceReplayBuffer, Experience
 from utils.utils import Utils
-config = Utils.load_yaml_config('src/config/config.yaml')
+config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
 
 class PERAgent:
     """

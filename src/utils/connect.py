@@ -18,7 +18,6 @@ class SUMOConnection:
     SUMOConnection class for managing connections to the SUMO simulation.
 
     Attributes:
-        CONNECTION_LABEL (int): Static variable to keep count of connections.
         label (str): Unique label for the connection.
         sumocfg (str): Path to the SUMO configuration file.
         sumo_ (object): The SUMO simulation object.
@@ -35,6 +34,7 @@ class SUMOConnection:
         Args:
             sumocfg (str): Path to the SUMO configuration file.
         """
+        global SUMO_CONNECTION_LABEL
         self.label = str(SUMOConnection.CONNECTION_LABEL)
         SUMOConnection.CONNECTION_LABEL += 1
         self.sumocfg = sumocfg

@@ -1,5 +1,5 @@
-DQN Module
-==========
+dqn Module
+==================
 
 .. toctree::
    :maxdepth: 2

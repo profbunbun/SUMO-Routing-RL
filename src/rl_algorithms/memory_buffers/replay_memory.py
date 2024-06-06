@@ -4,7 +4,7 @@ from collections import namedtuple, deque
 import random
 from utils.utils import Utils
 
-config = Utils.load_yaml_config('src/config/config.yaml')
+config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
 randy = config['training_settings']['seed']
 random.seed(randy)
 Transition = namedtuple('Transition',

@@ -1,15 +1,17 @@
-.. SUMO-Routing-RL documentation master file, created by
-   sphinx-quickstart on Mon Jun  3 14:53:54 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. Your Project Name documentation master file, created by
+   sphinx-quickstart on Sun Jun  4 2024.
 
-Welcome to SUMO-Routing-RL's documentation!
-===========================================
+Welcome to Your Project Name's documentation!
+=============================================
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   environment/index
+   rl_algorithms/index
+   utils/index
 
 
 Indices and tables

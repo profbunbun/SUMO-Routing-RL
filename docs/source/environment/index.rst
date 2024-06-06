@@ -1,4 +1,4 @@
-Environment Module
+environment Module
 ==================
 
 .. toctree::
