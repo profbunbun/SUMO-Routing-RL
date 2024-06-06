@@ -49,6 +49,11 @@ def create_agent(config):
     memory_size = config['agent_hyperparameters']['memory_size']
     epsilon_max = config['agent_hyperparameters']['epsilon_max']
     epsilon_min = config['agent_hyperparameters']['epsilon_min']
+    savepath = config['training_settings']['savepath']
+    loadpath = config['training_settings']['savepath']
+    alpha = config['per_hyperparameters']['alpha']
+    beta = config['per_hyperparameters']['beta']
+    priority_epsilon = config['per_hyperparameters']['priority_epsilon']
 
     return PERAgent(19, 6, experiment_path,
                     learning_rate,
@@ -57,7 +62,12 @@ def create_agent(config):
                     epsilon_max, 
                     epsilon_min, 
                     memory_size, 
-                    batch_size,)
+                    batch_size,
+                    savepath,
+                    loadpath,
+                    alpha,
+                    beta,
+                    priority_epsilon)
 
 
 

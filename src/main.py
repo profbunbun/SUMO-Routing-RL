@@ -8,7 +8,7 @@ def parse_args():
     Parse command-line arguments for hyperparameters and configurations.
     """
     parser = argparse.ArgumentParser(description="Reinforcement Learning for SUMO Traffic Simulation")
-    parser.add_argument('--config', type=str, default='src/config/config.yaml', help='Path to the configuration file')
+    parser.add_argument('--config', type=str, default='src/configurations/config.yaml', help='Path to the configuration file')
     parser.add_argument('--episodes', type=int, default=None, help='Number of episodes')
     parser.add_argument('--learning_rate', type=float, default=None, help='Learning rate for the agent')
     parser.add_argument('--batch_size', type=int, default=None, help='Batch size for training')

@@ -4,14 +4,15 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 from torch.utils.data.sampler import BatchSampler, SubsetRandomSampler
+from ..models.ppon import PPOPolicy
 
 
 from utils.utils import Utils
-config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
+# config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
 
 class PPOAgent:
 
-    def __init__(self, state_size, action_size, path, learning_rate=1e-3, gamma=0.99, clip_param=0.2, ppo_epochs=4, mini_batch_size=64):
+    def __init__(self, state_size, action_size, path, learning_rate=1e-3, gamma=0.99, clip_param=0.2, ppo_epochs=4, mini_batch_size=64, savepath=None, loadpath=None):
         self.path = path
         self.gamma = gamma
         self.clip_param = clip_param
@@ -21,6 +22,10 @@ class PPOAgent:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.policy = PPOPolicy(state_size, action_size).to(self.device)
         self.optimizer = optim.Adam(self.policy.parameters(), lr=learning_rate)
+        self.savepath = savepath
+        self.loadpath = loadpath
+
+
 
     def select_action(self, state):
         state = torch.tensor(state, dtype=torch.float32).to(self.device)
@@ -71,13 +76,13 @@ class PPOAgent:
 
     def save_model(self, episode_num):
         filename = f"ppo_policy_ep{episode_num}.pt"
-        path = config['training_settings']['savepath']
-        model_path = os.path.join(self.path, path, filename)
+
+        model_path = os.path.join(self.path, self.savepath, filename)
         torch.save(self.policy.state_dict(), model_path)
 
     def load_model(self, ep_num):
         filename = f"ppo_policy_ep{ep_num}.pt"
-        path = config['training_settings']['savepath']
-        model_path = os.path.join(self.path, path, filename)
+
+        model_path = os.path.join(self.path, self.loadpath, filename)
         self.policy.load_state_dict(torch.load(model_path, map_location=self.device))
         self.policy.to(self.device)

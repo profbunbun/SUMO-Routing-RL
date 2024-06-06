@@ -2,8 +2,6 @@ import numpy as np
 import torch as T
 from utils.utils import Utils
 
-config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
-randy = config['training_settings']['seed']
 class Explorer:
     """
     Class to handle exploration strategies for reinforcement learning agents.
@@ -19,7 +17,7 @@ class Explorer:
         last_reward (float): Last reward received.
     """
 
-    def __init__(self, policy, epsilon_max=1, decay_rate=0.999, epsilon_min=0.1):
+    def __init__(self, policy, epsilon_max=1, decay_rate=0.999, epsilon_min=0.1, seed = 42):
         """
         Initialize the Explorer.
 
@@ -38,7 +36,7 @@ class Explorer:
         self.policy_net = policy
         self.explore_count = 0
         self.exploit_count = 0
-        np.random.seed(randy)
+        np.random.seed(seed)
         
         self.last_reward = None
 

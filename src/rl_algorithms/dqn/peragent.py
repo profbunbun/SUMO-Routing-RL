@@ -8,7 +8,7 @@ from ..models.dqn import DQN
 from ..exploration import exploration
 from ..memory_buffers.permem import PrioritizedExperienceReplayBuffer, Experience
 from utils.utils import Utils
-config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
+# config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
 
 class PERAgent:
     """
@@ -42,6 +42,12 @@ class PERAgent:
                  epsilon_min=None, 
                  memory_size=None,
                  batch_size=None,
+                 savepath=None,
+                 loadpath=None,
+                 alpha=0.6,
+                 beta=0.4,
+                 priority_epsilon=1e-5,
+                 seed=42
                  ):
             """
         Initialize the PERAgent.
@@ -60,6 +66,11 @@ class PERAgent:
         """
 
             self.path = path
+            self.savepath=savepath
+            self.loadpath=loadpath
+
+            self.beta=beta
+            self.priorities = priority_epsilon
           
 
             self.memory_size = memory_size 
@@ -70,6 +81,8 @@ class PERAgent:
             self.batch_size = batch_size 
             self.epsilon_max = epsilon_max 
             self.epsilon_min = epsilon_min 
+
+            self
 
             
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -84,10 +97,10 @@ class PERAgent:
                                         lr=self.learning_rate, momentum=0.9)
             
 
-            alpha = config.get('alpha', 0.6)  # Hyperparameter for prioritized experience replay
+            # alpha = config.get('alpha', 0.6)  # Hyperparameter for prioritized experience replay
             self.memory = PrioritizedExperienceReplayBuffer(batch_size=self.batch_size, buffer_size=memory_size, alpha=alpha)
 
-            self.exploration_strategy = exploration.Explorer(self.policy_net, self.epsilon_max, self.epsilon_decay, self.epsilon_min)
+            self.exploration_strategy = exploration.Explorer(self.policy_net, self.epsilon_max, self.epsilon_decay, self.epsilon_min,seed)
 
             
             
@@ -120,15 +133,15 @@ class PERAgent:
             batch_size (int): Batch size for training.
         """
 
-        beta = config.get('beta', 0.4) 
+        # beta = config.get('beta', 0.4) 
         if len(self.memory) < self.batch_size:
             return
 
-        idxs, experiences, weights = self.memory.sample(beta=beta)
+        idxs, experiences, weights = self.memory.sample(beta=self.beta)
         states, actions, rewards, next_states, dones = zip(*experiences)
         loss, td_errors = self.perform_training_step(states, actions, rewards, next_states, dones, weights)
-        priorities = td_errors + config.get('priority_epsilon', 1e-5)
-        self.memory.update_priorities(idxs, priorities.squeeze().cpu().detach().numpy())
+        # priorities = td_errors + config.get('priority_epsilon', 1e-5)
+        self.memory.update_priorities(idxs, self.priorities.squeeze().cpu().detach().numpy())
 
 
     def perform_training_step(self, states, actions, rewards, next_states, dones, weights):
@@ -207,9 +220,9 @@ class PERAgent:
         filename = f"model"
         filename += f"_ep{episode_num}"
         filename += ".pt"
-        path = config['training_settings']['savepath']
+        # path = config['training_settings']['savepath']
 
-        temp_model_path = os.path.join(self.path,path, filename)
+        temp_model_path = os.path.join(self.path,self.savepath, filename)
         torch.save(self.policy_net.state_dict(), temp_model_path)
 
     def load_model(self, ep_num):
@@ -223,9 +236,9 @@ class PERAgent:
         filename = f"model"
         filename += f"_ep{ep_num}"
         filename += ".pt"
-        path = config['training_settings']['savepath']
+        # path = config['training_settings']['savepath']
 
-        model_path = os.path.join(self.path,path, filename)
+        model_path = os.path.join(self.path,self.loadpath, filename)
 
         self.policy_net.load_state_dict(torch.load(model_path, map_location=self.device))
         self.policy_net.to(self.device)
