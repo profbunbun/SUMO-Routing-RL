@@ -8,7 +8,7 @@ from ..models import DQN
 from ..exploration import exploration
 from ..memory_buffers import replay_memory
 from utils.utils import Utils
-config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
+# config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
 
 class Agent:
     """
@@ -42,6 +42,9 @@ class Agent:
                  epsilon_min=None, 
                  memory_size=None,
                  batch_size=None,
+                 savepath=None,
+                 loadpath=None,
+                 seed=42
                  ):
             """
         Initialize the Agent.
@@ -60,6 +63,8 @@ class Agent:
         """
 
             self.path = path
+            self.savepath = savepath
+            self.loadpath = loadpath
           
 
             self.memory_size = memory_size 
@@ -84,7 +89,7 @@ class Agent:
                                         lr=self.learning_rate, momentum=0.9)
             # self.optimizer = optim.AdamW(self.policy_net.parameters(),
             #                             lr=self.learning_rate, amsgrad=True)
-            self.exploration_strategy = exploration.Explorer(self.policy_net, self.epsilon_max, self.epsilon_decay, self.epsilon_min)
+            self.exploration_strategy = exploration.Explorer(self.policy_net, self.epsilon_max, self.epsilon_decay, self.epsilon_min, seed)
 
             self.memory = replay_memory.ReplayMemory(self.memory_size)
             
@@ -200,9 +205,9 @@ class Agent:
         filename = f"model"
         filename += f"_ep{episode_num}"
         filename += ".pt"
-        path = config['training_settings']['savepath']
+        # savepath = config['training_settings']['savepath']
 
-        temp_model_path = os.path.join(self.path,path, filename)
+        temp_model_path = os.path.join(self.path,self.savepath, filename)
         torch.save(self.policy_net.state_dict(), temp_model_path)
 
     def load_model(self, ep_num):
@@ -216,9 +221,9 @@ class Agent:
         filename = f"model"
         filename += f"_ep{ep_num}"
         filename += ".pt"
-        path = config['training_settings']['savepath']
+        # loadpath = config['training_settings']['savepath']
 
-        model_path = os.path.join(self.path,path, filename)
+        model_path = os.path.join(self.path,self.loadpath, filename)
 
         self.policy_net.load_state_dict(torch.load(model_path, map_location=self.device))
         self.policy_net.to(self.device)

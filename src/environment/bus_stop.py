@@ -3,6 +3,8 @@
 class StopFinder:
     """
     Class to find bus stops and calculate distances.
+
+    .. todo:: use manhatan distance from utilities class
     """
  
 
@@ -121,6 +123,8 @@ class StopFinder:
 
         Returns:
             The bus line associated with the stop.
+
+        .. todo:: Determine if this is the best way to do this.
         """
        
         # traci.busstop.getParameterWithKey()
@@ -137,6 +141,8 @@ class StopFinder:
 
         Returns:
             A list of edges for the bus route.
+
+        .. todo:: get a better way to do this with out hard coding the bus ID 
         """
        
         self.con = con

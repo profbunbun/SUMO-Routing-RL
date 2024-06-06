@@ -4,9 +4,9 @@ from collections import namedtuple, deque
 import random
 from utils.utils import Utils
 
-config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
-randy = config['training_settings']['seed']
-random.seed(randy)
+# config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
+# randy = config['training_settings']['seed']
+# random.seed(randy)
 Transition = namedtuple('Transition',
                         ('state', 'action', 'reward', 'next_state',  'done'))
 
@@ -17,13 +17,16 @@ class ReplayMemory(object):
     Attributes:
         memory (deque): Deque to store experiences with a fixed maximum length.
     """
-    def __init__(self, capacaty):
+    
+
+    def __init__(self, capacaty, seed = 42):
         """
         Initialize the ReplayMemory with the given capacity.
 
         Args:
             capacaty (int): Maximum number of experiences to store in the buffer.
         """
+        random.seed(seed)
         
         self.memory = deque([],maxlen=capacaty)
 

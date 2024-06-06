@@ -6,13 +6,14 @@ Welcome to Your Project Name's documentation!
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
+   README
+   todo
    environment/index
    rl_algorithms/index
    utils/index
-
 
 Indices and tables
 ==================

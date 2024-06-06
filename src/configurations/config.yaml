@@ -15,15 +15,16 @@ training_settings:
   # sumoconfig: "Nets/3x3.sumocfg"    
   experiment_path: 'data/balt/'
   sumoconfig: "Nets/osm.sumocfg"
-  savepath: "models/"                        
+  savepath: "models/" 
+  loadpath: "models/"                        
   initial_life: .15                     
   penalty: -0.2 
   seed: 6
                    
 #person 
 person_settings:
-  start: "-521985670#5" #start edge id
-  destination: "192469470#0" #destination edge id
+  # start: "-521985670#5" #start edge id
+  # destination: "192469470#0" #destination edge id
   # start: "1w"
   # destination: "10e"
 
@@ -44,3 +45,9 @@ agent_hyperparameters:
   epsilon_min: 0.05
   initial_life: .15                     
   penalty: -0.2  
+
+  # Priority Experience Replay
+per_hyperparameters:
+  alpha: 0.06
+  beta: 0.04
+  priority_epsilon: 1e-5
