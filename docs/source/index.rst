@@ -9,10 +9,10 @@ Welcome to Your Project Name's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   README
    environment/index
    rl_algorithms/index
    utils/index
-
 
 Indices and tables
 ==================

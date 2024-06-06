@@ -14,6 +14,8 @@ from utils.utils import Utils
 class Env():
     """
     Environment class for the SUMO-RL project.
+
+    .. todo:: Clean up config stuff
     """
 
 
@@ -26,6 +28,11 @@ class Env():
             edge_locations (dict): Edge locations dictionary.
             out_dict (dict): Output dictionary.
             index_dict (dict): Index dictionary.
+
+
+
+        
+
         """
 
 
@@ -39,7 +46,7 @@ class Env():
         self.start_life = self.config['training_settings']['initial_life']
         self.num_of_vehicles = self.config['env']['num_of_vehicles']
         self.num_people = self.config['env']['num_of_people']
-        self.direction_choices = ['R', 'r', 's', 'L', 'l', 't']
+
 
 
 
@@ -131,6 +138,10 @@ class Env():
             reward: Reward obtained.
             done: Whether the episode is done.
             info: Additional info.
+
+
+        .. todo:: Change the way the vehicle travles from the current teleportation method.
+                  Figure out if we can reduce to one return
         """
         done = 0
         self.agent_step += 1
@@ -146,6 +157,7 @@ class Env():
         edge_distance = Utils.manhattan_distance(
             vedge_loc[0], vedge_loc[1], dest_edge_loc[0], dest_edge_loc[1]
         )
+
 
         final_edge_distance = Utils.manhattan_distance(
             vedge_loc[0], vedge_loc[1], self.final_loc[0], self.final_loc[1]
