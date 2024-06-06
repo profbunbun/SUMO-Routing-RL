@@ -6,6 +6,8 @@ import wandb
 def parse_args():
     """
     Parse command-line arguments for hyperparameters and configurations.
+
+    .. todo:: Determine what command line args are necesary for this project.
     """
     parser = argparse.ArgumentParser(description="Reinforcement Learning for SUMO Traffic Simulation")
     parser.add_argument('--config', type=str, default='src/configurations/config.yaml', help='Path to the configuration file')
@@ -33,6 +35,9 @@ def load_and_override_config(args):
 def main_training_loop(config):
     """
     Main training loop for the reinforcement learning agent.
+
+
+    .. todo:: Determine best usage of wandb for this project
     """
     env = so.create_env(config=config)
     dagent = so.create_agent(config=config)
