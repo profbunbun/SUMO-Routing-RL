@@ -22,8 +22,8 @@ training_settings:
                    
 #person 
 person_settings:
-  start: "-521985670#5" #start edge id
-  destination: "192469470#0" #destination edge id
+  # start: "-521985670#5" #start edge id
+  # destination: "192469470#0" #destination edge id
   # start: "1w"
   # destination: "10e"
 
