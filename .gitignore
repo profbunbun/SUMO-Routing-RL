@@ -12,6 +12,7 @@ build/
 doctrees/
 _sources/
 _static/
+_templates/
 develop-eggs/
 dist/
 downloads/
