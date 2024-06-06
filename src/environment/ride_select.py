@@ -1,6 +1,8 @@
 class RideSelect:
     """
     Class to select a suitable vehicle for a person based on vehicle attributes.
+
+    .. todo:: set this up for multiple taxi stands
     """
  
     def __init__(self) -> None:

@@ -2,6 +2,8 @@
 class OutMask:
     """
     Class to create a mask for valid outgoing directions from the current lane.
+
+    .. todo::  incorporate outmask with observation class
     """
 
     def __init__(self) -> None:

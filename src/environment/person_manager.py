@@ -4,6 +4,8 @@ import random
 class PersonManager:
     """
     Manages the creation and management of persons in the simulation.
+
+    .. todo:: consolodate manager and person class
     """
 
     def __init__(self, num_people, edge_dict, sumo, index_dic, config):

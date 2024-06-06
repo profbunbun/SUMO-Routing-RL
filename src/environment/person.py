@@ -8,6 +8,8 @@ class Person:
         start (str): Starting edge ID.
         end (str): Destination edge ID.
         sumo: SUMO simulation instance.
+
+    .. todo:: consolodate person and manager class
     """
 
 

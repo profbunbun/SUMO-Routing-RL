@@ -10,6 +10,8 @@ class Observation:
     def __init__(self):
         """
         Initialize the Observation class with an OutMask instance.
+
+        .. todo:: should outmask be apart of this calss?
         """
 
         self.out_mask = OutMask()

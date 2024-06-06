@@ -3,6 +3,8 @@
 class RewardManager:
     """
     Manages reward calculations for the simulation.
+
+    .. todo:: figure out a better way for stages
     """
     def __init__(self, finder, edge_position, sumo):
         """
