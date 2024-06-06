@@ -30,9 +30,6 @@ class Env():
             index_dict (dict): Index dictionary.
 
 
-
-        
-
         """
 
 
@@ -213,6 +210,8 @@ class Env():
 
         Args:
             mode (str): Mode of rendering. Options are 'human', 'text', 'no_gui'.
+
+        .. todo:: Figure iout how to determone os for 
         """
 
         if mode == "human":
