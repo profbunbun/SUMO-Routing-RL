@@ -77,68 +77,7 @@ python src/main.py --config path/to/config.yaml
 
 **Note for Windows users:** Please use the `connect_no_gui` function instead of `connect_libsumo_no_gui` as `libsumo` does not work well on Windows.
 
-## Project Structure
 
-```
-SUMO-Routing-RL/
-┣ data/
-┃ ┣ 3x3/
-┃ ┃ ┗ Nets/
-┃ ┃   ┣ 3x3.net.xml
-┃ ┃   ┣ 3x3.rou.xml
-┃ ┃   ┣ 3x3.sumocfg
-┃ ┃   ┗ parkingareas.add.xml
-┃ ┣ balt/
-┃ ┃ ┗ Nets/
-┃ ┃   ┣ osm.net.xml
-┃ ┃   ┣ osm.sumocfg
-┃ ┃   ┗ osm_pt.rou.xml
-┣ docs/
-┃ ┣ source/
-┃ ┃ ┣ _static/
-┃ ┃ ┣ _templates/
-┃ ┃ ┣ conf.py
-┃ ┃ ┗ index.rst
-┃ ┣ Makefile
-┃ ┗ make.bat
-┣ notebooks/
-┣ scripts/
-┣ src/
-┃ ┣ config/
-┃ ┃ ┗ config.yaml
-┃ ┣ environment/
-┃ ┃ ┣ bus_stop.py
-┃ ┃ ┣ env.py
-┃ ┃ ┣ observation.py
-┃ ┃ ┣ outmask.py
-┃ ┃ ┣ person.py
-┃ ┃ ┣ person_manager.py
-┃ ┃ ┣ reward.py
-┃ ┃ ┣ ride_select.py
-┃ ┃ ┣ sim_manager.py
-┃ ┃ ┣ vehicle.py
-┃ ┃ ┗ vehicle_manager.py
-┃ ┣ rl_algorithms/
-┃ ┃ ┣ dqn/
-┃ ┃ ┃ ┣ agent.py
-┃ ┃ ┃ ┗ peragent.py
-┃ ┃ ┣ exploration/
-┃ ┃ ┗ exploration.py
-┃ ┃ ┣ memory_buffers/
-┃ ┃ ┃ ┗ replay_memory.py
-┃ ┃ ┣ models/
-┃ ┃ ┃ ┗ dqn.py
-┃ ┃ ┣ ppo/
-┃ ┃ ┗ ppoagent.py
-┃ ┣ utils/
-┃ ┃ ┗ utils.py
-┃ ┗ main.py
-┣ tests/
-┣ .gitignore
-┣ LICENSE
-┣ README.md
-┗ requirements.txt
-```
 
 ## Documentation
 
@@ -179,11 +118,11 @@ If you use this project in your research, please cite it as follows:
 
 ```
 @misc{ahope2024sumo,
-  author = {Your Name},
+  author = {Aaron Hooper},
   title = {SUMO-Routing-RL: Reinforcement Learning Environment Using SUMO Traffic Simulator},
   year = {2024},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/yourusername/SUMO-Routing-RL}},
+  howpublished = {\url{https://github.com/profbunbun/SUMO-Routing-RL}},
 }
 ```
