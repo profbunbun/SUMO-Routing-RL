@@ -29,7 +29,7 @@ class Person:
 
         self.destination = destination
 
-        self.sumo.person.add(person_id, start_edge, 20)
+        self.sumo.person.add(person_id, start_edge, 5)
 
         self.sumo.person.appendDrivingStage(person_id,
                                             self.destination,

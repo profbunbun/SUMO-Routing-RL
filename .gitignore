@@ -169,3 +169,8 @@ cython_debug/
 
 wandb/
 latest-run/
+data/balt/models/model_ep0.pt
+data/balt/models/model_ep1103.pt
+data/balt/models/model_ep1158.pt
+data/balt/models/model_ep3020.pt
+wandb/latest-run

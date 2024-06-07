@@ -46,6 +46,10 @@ class Env():
 
 
 
+        self.direction_choices = ['R', 'r', 's', 'L', 'l', 't']
+
+
+
 
     
         self.obs = Observation()

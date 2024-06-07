@@ -70,7 +70,7 @@ class PERAgent:
             self.loadpath=loadpath
 
             self.beta=beta
-            self.priorities = priority_epsilon
+            self.priority_epsilon = priority_epsilon
           
 
             self.memory_size = memory_size 
@@ -140,8 +140,8 @@ class PERAgent:
         idxs, experiences, weights = self.memory.sample(beta=self.beta)
         states, actions, rewards, next_states, dones = zip(*experiences)
         loss, td_errors = self.perform_training_step(states, actions, rewards, next_states, dones, weights)
-        # priorities = td_errors + config.get('priority_epsilon', 1e-5)
-        self.memory.update_priorities(idxs, self.priorities.squeeze().cpu().detach().numpy())
+        priorities = td_errors + self.priority_epsilon
+        self.memory.update_priorities(idxs, priorities.squeeze().cpu().detach().numpy())
 
 
     def perform_training_step(self, states, actions, rewards, next_states, dones, weights):

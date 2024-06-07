@@ -7,7 +7,7 @@ wandb:
 
 # Training settings
 training_settings:
-  episodes: 10             
+  episodes: 15000             
   # experiment_path: "Experiments/3x3_6/"
   # sumoconfig: "Nets/3x3.sumocfg"    
   experiment_path: 'data/balt/'
@@ -47,4 +47,4 @@ agent_hyperparameters:
 per_hyperparameters:
   alpha: 0.06
   beta: 0.04
-  priority_epsilon: 1e-5
+  priority_epsilon: .00001
