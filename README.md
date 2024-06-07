@@ -35,34 +35,7 @@ Before you begin, ensure you have met the following requirements:
 
 ### SUMO Installation
 
-Follow these steps to install SUMO:
-
-1. **Clone the SUMO repository**:
-   ```bash
-   git clone https://github.com/eclipse/sumo.git
-   cd sumo
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   sudo apt-get install cmake g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev libxerces-c3.2
-   ```
-
-3. **Build SUMO**:
-   ```bash
-   mkdir build/cmake-build
-   cd build/cmake-build
-   cmake ../..
-   make -j$(nproc)
-   sudo make install
-   ```
-
-4. **Set SUMO_HOME environment variable**:
-   ```bash
-   export SUMO_HOME="/path/to/sumo"
-   echo 'export SUMO_HOME="/path/to/sumo"' >> ~/.bashrc
-   source ~/.bashrc
-   ```
+Follow the official [SUMO installation instructions](https://sumo.dlr.de/docs/Installing/index.html).
 
 ### Project Setup
 
@@ -101,6 +74,8 @@ To run with specific configurations:
 ```bash
 python src/main.py --config path/to/config.yaml
 ```
+
+**Note for Windows users:** Please use the `connect_no_gui` function instead of `connect_libsumo_no_gui` as `libsumo` does not work well on Windows.
 
 ## Project Structure
 
