@@ -5,6 +5,8 @@ TODO List
 
 TODO List
 
+.. todo:: standerdize  logging, model saving, and a way to auto save a yaml cfg file with that specific runs hyperparmeters.
+
 .. todo:: figure out how to add configuration section 
 
 .. todo:: have the passengers actually enter the vehicles
