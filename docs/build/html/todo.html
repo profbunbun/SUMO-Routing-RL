@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="main" href="main.html" />
-    <link rel="prev" title="SUMO-Routing-RL" href="README.html" /> 
+    <link rel="prev" title="Welcome to Your Project Name’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,7 +46,6 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="README.html">SUMO-Routing-RL</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">TODO List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main.html">main</a></li>
 <li class="toctree-l1"><a class="reference internal" href="environment/index.html">environment Module</a></li>
@@ -87,7 +86,59 @@
 </div>
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">Todo</p>
-<p>have the passengers actuall enter the vehicles</p>
+<p>have the passengers actually enter the vehicles</p>
+</div>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>cleanup sim manager</p>
+</div>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>combine vehicle and vehicle manager</p>
+</div>
+<div class="admonition-todo admonition" id="id5">
+<p class="admonition-title">Todo</p>
+<p>make the sim manger into a class</p>
+</div>
+<div class="admonition-todo admonition" id="id6">
+<p class="admonition-title">Todo</p>
+<p>orginize and comment RL models</p>
+</div>
+<div class="admonition-todo admonition" id="id7">
+<p class="admonition-title">Todo</p>
+<p>create full list to implement more models like ppo, actor critic, and others</p>
+</div>
+<div class="admonition-todo admonition" id="id8">
+<p class="admonition-title">Todo</p>
+<p>implement distributed/federated learning</p>
+</div>
+<div class="admonition-todo admonition" id="id9">
+<p class="admonition-title">Todo</p>
+<p>implement diffent networks</p>
+</div>
+<div class="admonition-todo admonition" id="id10">
+<p class="admonition-title">Todo</p>
+<p>add multiple passengers</p>
+</div>
+<div class="admonition-todo admonition" id="id11">
+<p class="admonition-title">Todo</p>
+<p>add multiple routes</p>
+</div>
+<div class="admonition-todo admonition" id="id12">
+<p class="admonition-title">Todo</p>
+<p>add multiple taxi stands each with a selection of vehicle types</p>
+</div>
+<div class="admonition-todo admonition" id="id13">
+<p class="admonition-title">Todo</p>
+<p>add more specific regions for generating passenger start and stop points</p>
+</div>
+<div class="admonition-todo admonition" id="id14">
+<p class="admonition-title">Todo</p>
+<p>generate dikstra and a* routes for comparison</p>
+</div>
+<div class="admonition-todo admonition" id="id15">
+<p class="admonition-title">Todo</p>
+<p>gather vehicle specific data like gas milage</p>
 </div>
 <div class="admonition-todo admonition">
 <p class="admonition-title">Todo</p>
@@ -104,21 +155,6 @@
 <p>get a better way to do this with out hard coding the bus ID</p>
 </div>
 <p class="todo-source">(The <a class="reference internal" href="environment/bus_stop.html#id3"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/environment/bus_stop.py:docstring of environment.bus_stop.StopFinder.get_line_route, line 7.)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">Todo</p>
-<p>Determine best usage of wandb for this project</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="main.html#id1"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/main.py:docstring of main.main_training_loop, line 4.)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">Todo</p>
-<p>Determine what command line args are necesary for this project.</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="main.html#id2"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/main.py:docstring of main.parse_args, line 3.)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">Todo</p>
-<p>Add more detailed explanation about how the SUMOConnection class works.</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="utils/connect.html#id1"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/utils/connect.py:docstring of utils.connect.SUMOConnection, line 27.)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">Todo</p>
 <p>Clean up config stuff</p>
@@ -167,21 +203,101 @@ Figure out if we can reduce to one return</p>
 <p class="todo-source">(The <a class="reference internal" href="environment/ride_select.html#id1"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/environment/ride_select.py:docstring of environment.ride_select.RideSelect, line 3.)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">Todo</p>
+<p>Determine best usage of wandb for this project</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="main.html#id1"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/main.py:docstring of main.main_training_loop, line 4.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>Determine what command line args are necesary for this project.</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="main.html#id2"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/main.py:docstring of main.parse_args, line 3.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
 <p>figure out how to add configuration section</p>
 </div>
 <p class="todo-source">(The <a class="reference internal" href="#id1"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 8.)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">Todo</p>
-<p>have the passengers actuall enter the vehicles</p>
+<p>have the passengers actually enter the vehicles</p>
 </div>
 <p class="todo-source">(The <a class="reference internal" href="#id2"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 10.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>cleanup sim manager</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id3"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 12.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>combine vehicle and vehicle manager</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id4"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 14.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>make the sim manger into a class</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id5"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 16.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>orginize and comment RL models</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id6"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 18.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>create full list to implement more models like ppo, actor critic, and others</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id7"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 20.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>implement distributed/federated learning</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id8"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 22.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>implement diffent networks</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id9"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 24.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>add multiple passengers</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id10"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 26.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>add multiple routes</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id11"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 28.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>add multiple taxi stands each with a selection of vehicle types</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id12"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 30.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>add more specific regions for generating passenger start and stop points</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id13"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 32.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>generate dikstra and a* routes for comparison</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id14"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 34.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>gather vehicle specific data like gas milage</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="#id15"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/docs/source/todo.rst, line 36.)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">Todo</p>
+<p>Add more detailed explanation about how the SUMOConnection class works.</p>
+</div>
+<p class="todo-source">(The <a class="reference internal" href="utils/connect.html#id1"><em>original entry</em></a> is located in /home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/utils/connect.py:docstring of utils.connect.SUMOConnection, line 27.)</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="README.html" class="btn btn-neutral float-left" title="SUMO-Routing-RL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Your Project Name’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="main.html" class="btn btn-neutral float-right" title="main" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

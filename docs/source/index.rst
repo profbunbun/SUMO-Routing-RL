@@ -9,7 +9,7 @@ Welcome to Your Project Name's documentation!
    :maxdepth: 1
    :caption: Contents:
 
-   README
+
    todo
    main
    environment/index
