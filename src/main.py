@@ -49,8 +49,11 @@ def main_training_loop(config):
     for episode in range(config['training_settings']['episodes']):
         route_taken = []
         cumulative_reward = 0
-        # env.render()
-        env.render("human")
+        if (episode + 1) % 1000 == 0:
+            env.render("human")
+        else:
+            env.render()
+        # env.render("human")
         state = env.reset()
         done = 0
         

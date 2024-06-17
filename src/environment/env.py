@@ -38,7 +38,7 @@ class Env():
         self.sumo_config_path = self.path + config['training_settings']['sumoconfig']
         self.num_of_vehicles = config['env']['num_of_vehicles']
         self.types_of_passengers = config['env']['types_of_passengers']
-        self.life = config['agent_hyperparameters']['initial_life']
+        # self.life = config['agent_hyperparameters']['initial_life']
         self.penalty = config['agent_hyperparameters']['penalty']
         self.start_life = self.config['training_settings']['initial_life']
         self.num_of_vehicles = self.config['env']['num_of_vehicles']
@@ -106,13 +106,25 @@ class Env():
 
         self.stage = self.reward_manager.get_initial_stage()
         vehicles = self.vehicle_manager.create_vehicles()
+        
+        self.sumo.simulationStep()
+
         people = self.person_manager.create_people()
         self.person = people[0]
         vid_selected = self.ride_selector.select(vehicles, self.person)
         self.vehicle = vehicles[int(vid_selected)]
+
         self.sumo.simulationStep()
+
+        # print(self.person.get_reservation())
+
         self.old_dist = 0
         self.final_old_dist = 0
+
+
+        self.vehicle.pickup(self.person.get_reservation())
+
+        self.sumo.simulationStep()
         
         self.destination_edge = self.person.get_road()
         self.final_destination = self.person.get_destination()
@@ -122,6 +134,8 @@ class Env():
         vedge = self.vehicle.get_road()
 
         self.route.append(vedge)
+
+        self.old_vedge=vedge
 
         observation = self.obs.get_state(self.sumo, self.agent_step, self.vehicle, dest_loc, self.life, self.distcheck, self.final_loc, self.distcheck_final, self.picked_up, self.done)
         return observation
@@ -146,13 +160,14 @@ class Env():
         """
         done = 0
         self.agent_step += 1
-        choices = self.vehicle.get_out_dict()
+       
         if self.life <= 0:
             self.stage = "done"
             done = 1
 
         vedge = self.vehicle.get_road()
         vedge_loc = self.edge_locations[vedge]
+        choices = self.vehicle.get_out_dict()
         dest_edge_loc = self.edge_locations[self.destination_edge]
 
         edge_distance = Utils.manhattan_distance(
@@ -166,6 +181,8 @@ class Env():
 
 
         if self.direction_choices[action] in choices and done != 1 :
+
+            
             
             vedge = self.perform_step(self.vehicle, self.direction_choices[action], self.destination_edge)
             
@@ -177,7 +194,7 @@ class Env():
 
             self.route.append(self.vehicle.get_road())
 
-            self.distance_traveled = self.get_route_length(self.route)
+            # self.distance_traveled = self.get_route_length(self.route)
 
             reward,  self.distcheck, self.life, self.distcheck_final = self.reward_manager.calculate_reward(
                 self.old_dist, edge_distance, self.destination_edge, vedge,  self.life, self.final_destination, self.final_old_dist, final_edge_distance)
@@ -186,7 +203,8 @@ class Env():
                 self.stage, self.destination_edge, vedge, self.person, self.vehicle, self.final_destination
             )
             if done == 1: 
-                reward += 0.99 + self.life - (self.distance_traveled * 0.001)
+                reward += 0.99 + self.life 
+                # reward += 0.99 + self.life - (self.distance_traveled * 0.001)
                 print("successfull dropoff")
 
 
@@ -296,12 +314,29 @@ class Env():
         Returns:
             vedge: Current edge of the vehicle after performing the step.
         """
-   
-        target = vehicle.set_destination(action, destination_edge)
-        vehicle.teleport(target)
+
+        target = vehicle.set_destination(action)
+
+        pickup_loc = self.person.get_road()
+
+        if target == pickup_loc:
+            self.vehicle.pickup(self.person.get_reservation())
+        else:
+            vehicle.retarget(target)
+        # vehicle.teleport(target)
         
         self.sumo.simulationStep()
         vedge = vehicle.get_road()
+
+        vedge = vehicle.get_road()
+        while vedge not in self.edge_locations or (self.old_vedge == vedge):
+            self.sumo.simulationStep()
+            vedge = self.vehicle.get_road()
+        self.old_vedge = vedge
+
+        # print(vehicle.get_route())
+
+
 
         return  vedge
 

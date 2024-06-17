@@ -106,7 +106,7 @@ class Vehicle:
 
         return options
 
-    def set_destination(self, action, destination_edge):
+    def set_destination(self, action):
 
         """
         Set the destination edge for the vehicle.
@@ -120,10 +120,7 @@ class Vehicle:
         """
 
 
-        # self.sumo.vehicle.changeTarget(self.vehicle_id, destination_edge.partition("_")[0])
-        # route = self.sumo.vehicle.getRoute(self.vehicle_id)
-        # best_choice = route[1]
-        # self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
+
         
 
         self.cur_loc = self.current_lane.partition("_")[0]
@@ -133,13 +130,13 @@ class Vehicle:
             # self.sumo.vehicle.changeTarget(self.vehicle_id, target_lane)
         return target_lane
 
-    def pickup(self):
+    def pickup(self, reservation_id):
         """
         Dispatch the vehicle to pick up a passenger.
         """
 
-        reservation = self.sumo.person.getTaxiReservations(0)
-        reservation_id = reservation[0]
+        # reservation = self.sumo.person.getTaxiReservations(0)
+        # reservation_id = reservation[0]
         self.sumo.vehicle.dispatchTaxi(self.vehicle_id,"0")
         # print(reservation_id)
         
@@ -183,4 +180,32 @@ class Vehicle:
    
         self.sumo.vehicle.changeTarget(self.vehicle_id, edgeID=dest)
         self.sumo.vehicle.moveTo(self.vehicle_id, dest+"_0", 1)
+
+    def retarget(self, dest):
+        """
+        Retarget the vehicle to the destination edge.
+
+        Args:
+            dest (str): Destination edge ID.
+        """
+        # route = self.get_route()
+        # print(route)
+   
+        
+        self.sumo.vehicle.setRoute(self.vehicle_id,[self.get_road(),dest])
+        self.sumo.vehicle.changeTarget(self.vehicle_id, edgeID=dest)
+        # route = self.get_route()
+        # # print(route)
+
     
+
+    def get_route(self):
+        """
+        Get vehicle route
+
+        Returns:
+            str: Vehicle route.
+        
+        """
+
+        return self.sumo.vehicle.getRouteIndex(self.vehicle_id),self.sumo.vehicle.getRoute(self.vehicle_id)

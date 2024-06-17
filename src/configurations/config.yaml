@@ -39,8 +39,7 @@ agent_hyperparameters:
   batch_size: 1024
   memory_size: 50000
   epsilon_max:  1.0
-  epsilon_min: 0.05
-  initial_life: .15                     
+  epsilon_min: 0.05                   
   penalty: -0.2  
 
   # Priority Experience Replay

@@ -90,3 +90,10 @@ class Person:
 
         return self.sumo.person.getParameter(self.person_id,
                                              "type")
+    
+
+
+    def get_reservation(self):
+
+
+        return self.sumo.person.getTaxiReservations(int(self.person_id.split('_')[-1]))
