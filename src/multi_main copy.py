@@ -18,6 +18,7 @@ def parse_args():
     parser.add_argument('--learning_rate', type=float, default=None, help='Learning rate for the agent')
     parser.add_argument('--batch_size', type=int, default=None, help='Batch size for training')
     parser.add_argument('--epsilon_decay', type=float, default=None, help='Epsilon decay rate')
+    parser.add_argument('--num_agents', type=int, default=1, help='Number of agents')
     return parser.parse_args()
 
 def load_and_override_config(args):

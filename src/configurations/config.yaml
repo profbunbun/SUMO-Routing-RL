@@ -27,9 +27,9 @@ person_settings:
 
 #experiment values
 env:
-  num_of_vehicles: 1   #number of community vehicles                  
-  num_of_people: 1           # number of passengers per episode            
-  types_of_passengers: 1      #disability types          
+  num_of_vehicles: 5   #number of community vehicles                  
+  num_of_people: 5           # number of passengers per episode            
+  types_of_passengers: 2      #disability types          
 
 # Agent hyperparameters
 agent_hyperparameters:

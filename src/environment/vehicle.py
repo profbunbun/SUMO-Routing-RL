@@ -23,7 +23,7 @@ class Vehicle:
         edge_position (dict): Dictionary of edge positions.
     """
 
-    def __init__(self, vehicle_id, types, out_dict, index_dict, edge_position, sumo) -> None:
+    def __init__(self, vehicle_id, vtype, out_dict, index_dict, edge_position, sumo) -> None:
         """
         Initialize a Vehicle instance with the given parameters.
 
@@ -43,14 +43,9 @@ class Vehicle:
         self.sumo = sumo
         self.edge_position = edge_position
         self.sumo.vehicle.add(self.vehicle_id, "r_0", typeID="taxi")
-        self.sumo.vehicle.setParameter(vehicle_id,
-                                       "type", 
-                                    #    str(2)
-                                       str(random.randint(1, types))
-                                       )
+        # vtype = str(random.randint(1, types))
+        self.sumo.vehicle.setParameter(vehicle_id,"type",str(vtype))
 
-
-        
         # self.random_relocate()
         self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
         self.cur_loc = self.current_lane.partition("_")[0]

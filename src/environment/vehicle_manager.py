@@ -33,7 +33,7 @@ class VehicleManager:
         self.out_dict = out_dict
         self.index_dict = index_dict
         self.config = config
-        self.disability_catagories = self.config['env']['types_of_passengers']
+        self.types = self.config['env']['types_of_passengers']
 
 
     def create_vehicles(self):
@@ -46,10 +46,12 @@ class VehicleManager:
      
         vehicles = []
         for v_id in range(self.num_of_vehicles):
+            modulo_type=v_id + 1
+            vehicle_type = (modulo_type % self.types) + 1
             vehicles.append(
                 Vehicle(
                     str(v_id),
-                    self.disability_catagories,
+                    vehicle_type,
                     self.out_dict,
                     self.index_dict,
                     self.edge_position,

@@ -39,6 +39,7 @@ class Person:
                                       "type",
                                        str(random.randint(1, types)))
                                         # str(2))
+        self.sumo.simulationStep()
         #   str(random.randint(1, types))
 
     def location(self):
