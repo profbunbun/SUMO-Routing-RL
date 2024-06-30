@@ -45,7 +45,7 @@ class PersonManager:
 
             # start = '-521985670#5'
             end = '192469470#0'
-            start = random.choice(start_list)
+            start = start_list[i]
             # start = random.choice(list(self.edge_dict.keys()))
             # end = random.choice(list(self.edge_dict.keys()))
             while start == end:  # Ensure start and end are different

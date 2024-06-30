@@ -23,7 +23,7 @@ class RewardManager:
         self.stage = "pickup"
         self.pickedup = 0
 
-    def update_stage(self, current_stage, destination_edge, vedge, person, vehicle, final_edge):
+    def update_stage(self, current_stage, destination_edge, vedge, person, vehicle, final_edge, done):
         """
         Updates the stage of the simulation.
 
@@ -38,11 +38,13 @@ class RewardManager:
         Returns:
             tuple: Updated stage, destination edge, pickup status, and done flag.
         """
-        done = 0
+        # done = 0
 
         new_stage = current_stage
         
         new_destination_edge = destination_edge
+
+        fin = False
 
         if vedge == destination_edge:
 
@@ -71,15 +73,17 @@ class RewardManager:
             elif current_stage == "final":
                 new_stage = "done"
                 done = 1
+                fin =True
                 # print(new_stage)
         
         elif vedge == final_edge and self.pickedup == 1:
              new_stage = "done"
              print('Skipped Bus')
              done = 1
+             fin = True
              new_destination_edge =final_edge
 
-        return new_stage, new_destination_edge, self.pickedup, done
+        return new_stage, new_destination_edge, self.pickedup, fin ,done
 
     def get_initial_stage(self):
         """

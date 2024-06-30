@@ -96,5 +96,7 @@ class Person:
 
     def get_reservation(self):
 
+        resi = self.sumo.person.getTaxiReservations(int(self.person_id.split('_')[-1]))
 
-        return self.sumo.person.getTaxiReservations(int(self.person_id.split('_')[-1]))
+
+        return resi

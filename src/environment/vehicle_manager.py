@@ -59,4 +59,5 @@ class VehicleManager:
                     
                 )
             )
+        # vedges = [vehicle.get_road() for vehicle in vehicles]
         return vehicles

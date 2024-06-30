@@ -43,8 +43,10 @@ class Vehicle:
         self.sumo = sumo
         self.edge_position = edge_position
         self.sumo.vehicle.add(self.vehicle_id, "r_0", typeID="taxi")
+        self.sumo.simulationStep()
         # vtype = str(random.randint(1, types))
         self.sumo.vehicle.setParameter(vehicle_id,"type",str(vtype))
+        self.dispatched = False
 
         # self.random_relocate()
         self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
@@ -130,9 +132,10 @@ class Vehicle:
         Dispatch the vehicle to pick up a passenger.
         """
 
-        # reservation = self.sumo.person.getTaxiReservations(0)
-        # reservation_id = reservation[0]
-        self.sumo.vehicle.dispatchTaxi(self.vehicle_id,"0")
+        reservation = self.sumo.person.getTaxiReservations(0)[0].id
+        # reservation = reservation_id(0)[0].id
+        self.sumo.vehicle.dispatchTaxi(self.vehicle_id,reservation)
+        self.dispatched = True
         # print(reservation_id)
         
     def get_road(self): 
@@ -204,3 +207,19 @@ class Vehicle:
         """
 
         return self.sumo.vehicle.getRouteIndex(self.vehicle_id),self.sumo.vehicle.getRoute(self.vehicle_id)
+    
+    def park(self):
+
+
+        vehicle_edge = self.get_lane()
+
+        parking_edge = "49664167#5"
+
+
+        if vehicle_edge==parking_edge:
+            self.teleport("-49664167#5")
+
+        new_route = self.sumo.simulation.findRoute(vehicle_edge, parking_edge).edges
+        self.sumo.vehicle.setRoute(self.vehicle_id, new_route)
+        
+        self.sumo.vehicle.setParkingAreaStop(self.vehicle_id, "pa_1")
