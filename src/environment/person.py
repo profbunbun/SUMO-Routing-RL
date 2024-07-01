@@ -39,6 +39,7 @@ class Person:
                                       "type",
                                        str(random.randint(1, types)))
                                         # str(2))
+        self.sumo.simulationStep()
         #   str(random.randint(1, types))
 
     def location(self):
@@ -90,3 +91,12 @@ class Person:
 
         return self.sumo.person.getParameter(self.person_id,
                                              "type")
+    
+
+
+    def get_reservation(self):
+
+        resi = self.sumo.person.getTaxiReservations(int(self.person_id.split('_')[-1]))
+
+
+        return resi

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 15:08:59 by Eclipse SUMO sumo Version 1.20.0
+<!-- generated on 2024-06-30 14:27:08 by Eclipse SUMO sumo Version 1.20.0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -13,7 +13,7 @@
 
     <taxi_device>
         <device.taxi.dispatch-algorithm value="traci"/>
-        <device.taxi.idle-algorithm value="randomCircling"/>
+        <device.taxi.idle-algorithm value="stop"/>
     </taxi_device>
 
 </configuration>

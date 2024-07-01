@@ -14,7 +14,7 @@ training_settings:
   sumoconfig: "Nets/osm.sumocfg"
   savepath: "models/" 
   loadpath: "models/"                        
-  initial_life: .15                     
+  initial_life: .5                     
   penalty: -0.2 
   seed: 6
                    
@@ -27,9 +27,10 @@ person_settings:
 
 #experiment values
 env:
-  num_of_vehicles: 1   #number of community vehicles                  
-  num_of_people: 1           # number of passengers per episode            
-  types_of_passengers: 1      #disability types          
+  num_of_vehicles: 2   #number of community vehicles                  
+  num_of_people: 5           # number of passengers per episode            
+  types_of_passengers: 2
+  num_agents: 2           
 
 # Agent hyperparameters
 agent_hyperparameters:
@@ -39,8 +40,7 @@ agent_hyperparameters:
   batch_size: 1024
   memory_size: 50000
   epsilon_max:  1.0
-  epsilon_min: 0.05
-  initial_life: .15                     
+  epsilon_min: 0.05                   
   penalty: -0.2  
 
   # Priority Experience Replay

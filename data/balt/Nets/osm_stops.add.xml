@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-19 10:19:55 by Eclipse SUMO netedit Version 1.19.0
+<!-- generated on 2024-06-17 21:11:30 by Eclipse SUMO netedit Version 1.20.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="-4501242775" lane="-192469469#2_0" startPos="17.61" endPos="32.61" friendlyPos="true" lines="65"/>
     <busStop id="-6117388035" lane="-390061613#5_0" startPos="9.52" endPos="24.52" friendlyPos="true" lines="NV 63"/>
     <busStop id="2516605830" name="Hudson &amp; Baylis" lane="244330235_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="65"/>
     <busStop id="6117373938" lane="390061613#8_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
@@ -16,4 +15,18 @@
     <busStop id="6117378698" lane="829470071#1_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
     <busStop id="6117388043" lane="829470071#6_0" startPos="31.98" endPos="46.98" friendlyPos="true"/>
     <busStop id="6117399256" lane="390061613#8_0" startPos="65.11" endPos="80.11" friendlyPos="true" lines="NV 63"/>
+    <parkingArea id="pa_1" lane="49664167#5_0" startPos="24.26" endPos="34.26"/>
+    <parkingArea id="pa_2" lane="49664167#6_0" startPos="12.37" endPos="22.37"/>
+    <parkingArea id="pa_3" lane="49664167#6_0" startPos="27.27" endPos="37.27"/>
+    <!-- Other additionals -->
+    <rerouter id="rr0" edges="49664167#5" pos="1321.81,882.94" vTypes="taxi">
+        <interval begin="0.00" end="86400.00">
+            <parkingAreaReroute id="pa_1"/>
+        </interval>
+    </rerouter>
+    <rerouter id="rr1" edges="49664167#6" pos="1321.81,882.94" vTypes="taxi">
+        <interval begin="0.00" end="86400.00">
+            <parkingAreaReroute id="pa_2"/>
+        </interval>
+    </rerouter>
 </additional>

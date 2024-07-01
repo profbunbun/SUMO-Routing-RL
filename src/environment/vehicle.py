@@ -23,7 +23,7 @@ class Vehicle:
         edge_position (dict): Dictionary of edge positions.
     """
 
-    def __init__(self, vehicle_id, types, out_dict, index_dict, edge_position, sumo) -> None:
+    def __init__(self, vehicle_id, vtype, out_dict, index_dict, edge_position, sumo, life) -> None:
         """
         Initialize a Vehicle instance with the given parameters.
 
@@ -37,23 +37,90 @@ class Vehicle:
         """
 
         self.direction_choices = [SLIGHT_RIGHT, RIGHT, STRAIGHT, SLIGHT_LEFT, LEFT, TURN_AROUND]
+       
+        #not picked up, picked up, dropped at interum stop, pickedup from interum stop, dropped at final
+        self.stages = [0,1,2,3,4]
+        self.current_stage = 0
+        self.current_destination = None
+        self.passenger_pick_up_edge = None
+        self.bus_stop_drop_edge = None
+        self.bus_stop_pick_up_edge = None
+        self.final_edge = None 
+        self.route = []
+
+        self.passenger_id = None
+
+        self.done = False
+
+        self.agent_step = 0
+        self.life = life
+
+        self.distcheck = 0
+        self.distcheck_final = 0 
+
+        self.destination_edge_location = None
+        self.final_destination_edge_location = None
+
+        self.destination_distance = 0
+        self.final_destination_distance = 0
+        self.destination_old_distance = 0
+        self.final_destination_old_dist = 0
+
+        self.picked_up = 0
+        self.fin = False
+       
         self.vehicle_id = vehicle_id
         self.out_dict = out_dict
         self.index_dict = index_dict
         self.sumo = sumo
         self.edge_position = edge_position
         self.sumo.vehicle.add(self.vehicle_id, "r_0", typeID="taxi")
-        self.sumo.vehicle.setParameter(vehicle_id,
-                                       "type", 
-                                    #    str(2)
-                                       str(random.randint(1, types))
-                                       )
+        self.sumo.simulationStep()
+        # vtype = str(random.randint(1, types))
+        self.sumo.vehicle.setParameter(vehicle_id,"type",str(vtype))
+        self.dispatched = False
+        self.current_reservation_id = None
+        self.pickup_location = None
 
-
-        
         # self.random_relocate()
         self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
         self.cur_loc = self.current_lane.partition("_")[0]
+
+    def update_stage(self,new_stage):
+        match new_stage:
+            case 0:
+                self.current_stage = 0
+                self.current_destination = self.passenger_pick_up_edge
+                # self.life += .1
+                return self.current_destination
+            case 1:
+                self.current_stage = 1
+                self.picked_up = 1
+                self.life += .1
+                self.current_destination = self.bus_stop_drop_edge
+                return self.current_destination
+            case 2:
+                self.current_stage = 2
+                self.life += .1
+                self.current_destination = self.bus_stop_pick_up_edge
+                return self.current_destination
+            case 3:
+                self.current_stage = 3
+                self.life += .1
+                self.current_destination = self.final_edge
+                return self.current_destination
+            case 4:
+                self.current_stage = 4
+                self.life += .1
+                self.done = True
+                self.fin = True
+                self.current_destination = self.park()
+                return self.current_destination
+            case default:
+                self.current_stage = 4
+                self.done = True
+                self.current_destination = self.park()
+                return self.current_destination
 
     def get_lane(self):
         """
@@ -106,7 +173,7 @@ class Vehicle:
 
         return options
 
-    def set_destination(self, action, destination_edge):
+    def set_destination(self, action):
 
         """
         Set the destination edge for the vehicle.
@@ -119,28 +186,34 @@ class Vehicle:
             str: Target lane ID.
         """
 
-
-        # self.sumo.vehicle.changeTarget(self.vehicle_id, destination_edge.partition("_")[0])
-        # route = self.sumo.vehicle.getRoute(self.vehicle_id)
-        # best_choice = route[1]
-        # self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
-        
-
         self.cur_loc = self.current_lane.partition("_")[0]
         outlist = list(self.out_dict[self.cur_loc].keys())
         if action in outlist:
             target_lane = self.out_dict[self.cur_loc][action]
+            # self.current_destination = target_lane
             # self.sumo.vehicle.changeTarget(self.vehicle_id, target_lane)
         return target_lane
+    
 
-    def pickup(self):
+    def get_stop_state(self):
+        return self.sumo.vehicle.getStopState(self.vehicle_id)
+
+    def pickup(self, reservation_id):
         """
         Dispatch the vehicle to pick up a passenger.
         """
+        # reservation_states = [r.id for r in self.sumo.person.getTaxiReservations(4)]
 
-        reservation = self.sumo.person.getTaxiReservations(0)
-        reservation_id = reservation[0]
-        self.sumo.vehicle.dispatchTaxi(self.vehicle_id,"0")
+        stop_state = self.sumo.vehicle.getStopState(self.vehicle_id)
+        stops = self.sumo.vehicle.getStops(self.vehicle_id)
+
+        reservation = self.sumo.person.getTaxiReservations(0)[0].id
+        # reservation = reservation_id(0)[0].id
+        if stops:
+            return
+        else:
+            self.sumo.vehicle.dispatchTaxi(self.vehicle_id,reservation)
+            self.dispatched = True
         # print(reservation_id)
         
     def get_road(self): 
@@ -150,6 +223,7 @@ class Vehicle:
         Returns:
             str: Current road ID.
         """ 
+        vehicles = self.sumo.vehicle.getIDList()
 
         return self.sumo.vehicle.getRoadID(self.vehicle_id)
 
@@ -183,4 +257,60 @@ class Vehicle:
    
         self.sumo.vehicle.changeTarget(self.vehicle_id, edgeID=dest)
         self.sumo.vehicle.moveTo(self.vehicle_id, dest+"_0", 1)
+
+    def retarget(self, dest):
+        """
+        Retarget the vehicle to the destination edge.
+
+        Args:
+            dest (str): Destination edge ID.
+        """
+        # route = self.get_route()
+        # print(route)
+   
+        
+        # self.sumo.vehicle.setRoute(self.vehicle_id,[self.get_road(),dest])
+        self.sumo.vehicle.changeTarget(self.vehicle_id, edgeID=dest)
+        # route = self.get_route()
+        # # print(route)
+
     
+
+    def get_route(self):
+        """
+        Get vehicle route
+
+        Returns:
+            str: Vehicle route.
+        
+        """
+
+        return self.sumo.vehicle.getRouteIndex(self.vehicle_id),self.sumo.vehicle.getRoute(self.vehicle_id)
+    
+    def park(self):
+
+
+        vehicle_edge = self.get_lane()
+
+        parking_edge = "49664167#5"
+
+
+        if vehicle_edge==parking_edge:
+            parking_edge = "49664167#6"
+            new_route = self.sumo.simulation.findRoute(vehicle_edge, parking_edge).edges
+            self.sumo.vehicle.setRoute(self.vehicle_id, new_route)
+            
+            self.sumo.vehicle.setParkingAreaStop(self.vehicle_id, "pa_2")
+            return parking_edge
+
+        else:
+
+            new_route = self.sumo.simulation.findRoute(vehicle_edge, parking_edge).edges
+            self.sumo.vehicle.setRoute(self.vehicle_id, new_route)
+            
+            self.sumo.vehicle.setParkingAreaStop(self.vehicle_id, "pa_1")
+            return parking_edge
+
+
+    def get_dist(self):
+        return self.sumo.vehicle.getDistance(self.vehicle_id)

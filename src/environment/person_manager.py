@@ -37,8 +37,17 @@ class PersonManager:
         """
         people = []
         for i in range(self.num_people):
-            start = '-521985670#5'
+            start_list = ['-49664167#4',
+                          '-521985670#5',
+                          '6007194#9',
+                        #   '-49664167#4',
+                          '-138388359#16',
+                          '-829470071#1',
+                          '829470070#1']
+
+            # start = '-521985670#5'
             end = '192469470#0'
+            start = start_list[i]
             # start = random.choice(list(self.edge_dict.keys()))
             # end = random.choice(list(self.edge_dict.keys()))
             while start == end:  # Ensure start and end are different

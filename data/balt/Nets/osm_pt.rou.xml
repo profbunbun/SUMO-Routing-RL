@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 15:08:58 by Eclipse SUMO netedit Version 1.20.0
+<!-- generated on 2024-06-30 14:27:08 by Eclipse SUMO netedit Version 1.20.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- VTypes -->
     <vType id="taxi" vClass="taxi" personCapacity="8">
+        <param key="device.taxi.parking" value="false"/>
+        <param key="device.taxi.stands-rerouter" value="rr0"/>
         <param key="has.taxi.device" value="true"/>
     </vType>
     <vType id="veh_passenger" vClass="passenger"/>
     <!-- Routes -->
-    <route id="r_0" edges="-49664167#5 791811233#27 791811233#28 791811233#29 791811233#30 197879536#3 275806336 192469465#0 192469465#1 707194199#1 -49664167#9 -49664167#8 -49664167#7 -49664167#6 -49664167#5"/>
+    <route id="r_0" edges="-49664167#5"/>
     <route id="r_1" edges="138388359#16 829470071#1 829470071#2 829470071#5 829470071#6 948331274#1 948331274#5 948331274#8 390061613#1 390061613#3 49664167#1 49664167#5 49664167#6 49664167#7 49664167#8 49664167#9 982026543#0 570709857 244330235 244330236#2 -243591150#1 -275806336 -197879536#3 -197879536#2 -390061613#9 -390061613#5 -390061613#1 -948331274#9 -948331274#6 -948331274#2 -829470071#6 -829470071#5 -829470071#2 -829470071#1 -138388359#16 138388359#16" color="green"/>
 </routes>
