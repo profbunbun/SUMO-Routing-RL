@@ -45,11 +45,11 @@ def main_training_loop(config):
         cumulative_rewards = [0] * config['env']['num_agents']
         route_taken = [[] for _ in range(config['env']['num_agents'])]
 
-        if episode % 1000 == 0:
-            env.render("human")
-        else:
-            env.render()
-        # env.render("human")
+        # if episode % 1000 == 0:
+        #     env.render("human")
+        # else:
+        #     env.render()
+        env.render("human")
 
         states = env.reset()
         dispatched_taxis = [i for i, dispatched in enumerate(env.dispatched) if dispatched]
@@ -61,25 +61,25 @@ def main_training_loop(config):
 
         while not all(dones):
             
-            for i in enumerate(dispatched_taxis):
+            # for i in enumerate(dispatched_taxis):
                 
-                active_taxis_indices = [i for i in dispatched_taxis if not dones[i]]
+            active_taxis_indices = [i for i in dispatched_taxis if not dones[i]]
 
-                actions = [agents[i].choose_action(states[i]) if not dones[i] else 'None' for i in dispatched_taxis]
+            actions = [agents[i].choose_action(states[i]) if not dones[i] else 'None' for i in dispatched_taxis]
 
-                # if not actions.count(None) == len(actions):
+            if not actions.count(None) == len(actions):
                 next_states, rewards, dones, infos = env.step(actions)
 
-                for j, idx in enumerate(active_taxis_indices):
-                    agents[idx].remember(states[idx], actions[idx], rewards[idx], next_states[idx], dones[idx])
-                    cumulative_rewards[idx] += rewards[idx]
+            for j, idx in enumerate(active_taxis_indices):
+                agents[idx].remember(states[idx], actions[idx], rewards[idx], next_states[idx], dones[idx])
+                cumulative_rewards[idx] += rewards[idx]
 
-                    if len(agents[idx].memory) > agents[idx].batch_size:
-                        agents[idx].replay(agents[idx].batch_size)
-                        agents[idx].hard_update()
+                if len(agents[idx].memory) > agents[idx].batch_size:
+                    agents[idx].replay(agents[idx].batch_size)
+                    agents[idx].hard_update()
 
-                    states[idx] = next_states[idx]
-                    route_taken[idx].append(infos[idx])
+                states[idx] = next_states[idx]
+                route_taken[idx].append(infos[idx])
 
 
 
@@ -94,7 +94,7 @@ def main_training_loop(config):
             })
 
             agents[i].decay()
-            env.pre_close(episode, cumulative_rewards[i], agents[i].get_epsilon())
+            env.pre_close(episode,i, cumulative_rewards[i], agents[i].get_epsilon())
             if cumulative_rewards[i] > best_reward:
                 best_reward = cumulative_rewards[i]
                 agents[i].save_model(episode)

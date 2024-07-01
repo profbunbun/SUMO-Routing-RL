@@ -55,7 +55,7 @@ class RewardManager:
                 new_destination_edge = self.finder.find_begin_stop(
                     person.get_road(), self.edge_position, self.sumo
                 ).partition("_")[0]
-                # print(new_stage)
+                print(new_stage)
 
             elif current_stage == "picked up":
 
@@ -68,13 +68,13 @@ class RewardManager:
                 self.sumo.simulationStep()
                 new_destination_edge = person.destination
                 new_stage = "final"
-                # print(new_stage)
+                print(new_stage)
 
             elif current_stage == "final":
                 new_stage = "done"
                 done = 1
                 fin =True
-                # print(new_stage)
+                print(new_stage)
         
         elif vedge == final_edge and self.pickedup == 1:
              new_stage = "done"

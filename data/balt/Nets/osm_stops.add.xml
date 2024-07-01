@@ -24,4 +24,9 @@
             <parkingAreaReroute id="pa_1"/>
         </interval>
     </rerouter>
+    <rerouter id="rr1" edges="49664167#6" pos="1321.81,882.94" vTypes="taxi">
+        <interval begin="0.00" end="86400.00">
+            <parkingAreaReroute id="pa_2"/>
+        </interval>
+    </rerouter>
 </additional>

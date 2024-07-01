@@ -14,7 +14,7 @@ training_settings:
   sumoconfig: "Nets/osm.sumocfg"
   savepath: "models/" 
   loadpath: "models/"                        
-  initial_life: .15                     
+  initial_life: .5                     
   penalty: -0.2 
   seed: 6
                    

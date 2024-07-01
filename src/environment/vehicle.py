@@ -47,6 +47,8 @@ class Vehicle:
         # vtype = str(random.randint(1, types))
         self.sumo.vehicle.setParameter(vehicle_id,"type",str(vtype))
         self.dispatched = False
+        self.current_reservation_id = None
+        self.pickup_location = None
 
         # self.random_relocate()
         self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
@@ -126,16 +128,27 @@ class Vehicle:
             target_lane = self.out_dict[self.cur_loc][action]
             # self.sumo.vehicle.changeTarget(self.vehicle_id, target_lane)
         return target_lane
+    
+
+    def get_stop_state(self):
+        return self.sumo.vehicle.getStopState(self.vehicle_id)
 
     def pickup(self, reservation_id):
         """
         Dispatch the vehicle to pick up a passenger.
         """
+        # reservation_states = [r.id for r in self.sumo.person.getTaxiReservations(4)]
+
+        stop_state = self.sumo.vehicle.getStopState(self.vehicle_id)
+        stops = self.sumo.vehicle.getStops(self.vehicle_id)
 
         reservation = self.sumo.person.getTaxiReservations(0)[0].id
         # reservation = reservation_id(0)[0].id
-        self.sumo.vehicle.dispatchTaxi(self.vehicle_id,reservation)
-        self.dispatched = True
+        if stops:
+            return
+        else:
+            self.sumo.vehicle.dispatchTaxi(self.vehicle_id,reservation)
+            self.dispatched = True
         # print(reservation_id)
         
     def get_road(self): 
@@ -145,6 +158,7 @@ class Vehicle:
         Returns:
             str: Current road ID.
         """ 
+        vehicles = self.sumo.vehicle.getIDList()
 
         return self.sumo.vehicle.getRoadID(self.vehicle_id)
 
@@ -217,9 +231,19 @@ class Vehicle:
 
 
         if vehicle_edge==parking_edge:
-            self.teleport("-49664167#5")
+            parking_edge = "49664167#6"
+            new_route = self.sumo.simulation.findRoute(vehicle_edge, parking_edge).edges
+            self.sumo.vehicle.setRoute(self.vehicle_id, new_route)
+            
+            self.sumo.vehicle.setParkingAreaStop(self.vehicle_id, "pa_2")
 
-        new_route = self.sumo.simulation.findRoute(vehicle_edge, parking_edge).edges
-        self.sumo.vehicle.setRoute(self.vehicle_id, new_route)
-        
-        self.sumo.vehicle.setParkingAreaStop(self.vehicle_id, "pa_1")
+        else:
+
+            new_route = self.sumo.simulation.findRoute(vehicle_edge, parking_edge).edges
+            self.sumo.vehicle.setRoute(self.vehicle_id, new_route)
+            
+            self.sumo.vehicle.setParkingAreaStop(self.vehicle_id, "pa_1")
+
+
+    def get_dist(self):
+        return self.sumo.vehicle.getDistance(self.vehicle_id)

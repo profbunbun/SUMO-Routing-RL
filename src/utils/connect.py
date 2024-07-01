@@ -52,6 +52,8 @@ class SUMOConnection:
         Returns:
             traci.Connection: The traci SUMO object after connection.
         """
+        if not self.label == '0':
+            self.sumo_.close()
         self.sumo_cmd = [
             "sumo-gui",
             "-c",
