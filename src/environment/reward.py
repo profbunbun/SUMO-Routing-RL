@@ -20,10 +20,8 @@ class RewardManager:
         self.finder = finder
         self.edge_position = edge_position
         self.sumo = sumo
-        self.stage = "pickup"
-        self.pickedup = 0
 
-    def update_stage(self, current_stage, destination_edge, vedge, person, vehicle, final_edge, done):
+    def update_stage(self, destination_edge, vedge,  vehicle, final_edge):
         """
         Updates the stage of the simulation.
 
@@ -38,64 +36,44 @@ class RewardManager:
         Returns:
             tuple: Updated stage, destination edge, pickup status, and done flag.
         """
-        # done = 0
+     
 
-        new_stage = current_stage
+        if vedge == vehicle.current_destination:
+
+            match vehicle.current_stage:
+
+                case 0:
+                    
+                    vehicle.update_stage(1)
+
+                case 1:
+                    vehicle.update_stage(2)
+                    vehicle.teleport(vehicle.current_destination)
+
+                    self.sumo.simulationStep()
+                    vehicle.update_stage(3)
+
+
+                case 3:
+                    vehicle.update_stage(4)
         
-        new_destination_edge = destination_edge
-
-        fin = False
-
-        if vedge == destination_edge:
-
-            if current_stage == "pickup":
-                new_stage = "picked up"
-                self.pickedup = 1
-                
-                new_destination_edge = self.finder.find_begin_stop(
-                    person.get_road(), self.edge_position, self.sumo
-                ).partition("_")[0]
-                print(new_stage)
-
-            elif current_stage == "picked up":
-
-                end_stop = self.finder.find_end_stop(
-                    person.destination, self.edge_position, self.sumo
-                ).partition("_")[0]
-                new_destination_edge = end_stop
-                vehicle.teleport(new_destination_edge)
-
-                self.sumo.simulationStep()
-                new_destination_edge = person.destination
-                new_stage = "final"
-                print(new_stage)
-
-            elif current_stage == "final":
-                new_stage = "done"
-                done = 1
-                fin =True
-                print(new_stage)
-        
-        elif vedge == final_edge and self.pickedup == 1:
-             new_stage = "done"
+        elif vedge == final_edge and vehicle.picked_up == 1:
              print('Skipped Bus')
-             done = 1
-             fin = True
-             new_destination_edge =final_edge
+             vehicle.update_stage(4)
 
-        return new_stage, new_destination_edge, self.pickedup, fin ,done
-
-    def get_initial_stage(self):
-        """
-        Gets the initial stage of the simulation.
-
-        Returns:
-            str: Initial stage of the simulation.
-        """
-
-        return self.stage
+        return vehicle.current_stage, vehicle.current_destination, vehicle.picked_up
     
-    def calculate_reward(self, old_dist, edge_distance, destination_edge, vedge,  life, final_destination, final_old_dist, final_edge_distance):
+    # def get_initial_stage(self):
+    #     """
+    #     Gets the initial stage of the simulation.
+
+    #     Returns:
+    #         str: Initial stage of the simulation.
+    #     """
+
+    #     return vehicle.current_stage
+    
+    def calculate_reward(self, old_dist, edge_distance, final_old_dist, final_edge_distance,vehicle):
         """
         Calculates the reward for the current step.
 
@@ -126,20 +104,20 @@ class RewardManager:
             
         if  final_old_dist > final_edge_distance:
             # reward = 0.02 * self.pickedup
-            distcheck_final = 1  * self.pickedup
+            distcheck_final = 1  * vehicle.picked_up
         elif final_old_dist < final_edge_distance:
             # reward = -0.025 * self.pickedup
             distcheck_final = 0
      
 
-        if vedge == destination_edge:
-            life += 0.1
-            # reward = 0.8
-            # make_choice_flag = True
+        # if vedge == destination_edge:
+        #     life += 0.1
+        #     # reward = 0.8
+        #     # make_choice_flag = True
 
-        if vedge == final_destination and self.pickedup == 1:
-            life += 0.1
-            # reward = 0.8
-            # make_choice_flag = False
+        # if vedge == final_destination and self.pickedup == 1:
+        #     life += 0.1
+        #     # reward = 0.8
+        #     # make_choice_flag = False
 
-        return reward,  distcheck, life, distcheck_final
+        return reward,  distcheck,  distcheck_final

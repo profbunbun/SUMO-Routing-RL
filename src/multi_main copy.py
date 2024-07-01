@@ -45,11 +45,11 @@ def main_training_loop(config):
         cumulative_rewards = [0] * config['env']['num_agents']
         route_taken = [[] for _ in range(config['env']['num_agents'])]
 
-        # if episode % 1000 == 0:
-        #     env.render("human")
-        # else:
-        #     env.render()
-        env.render("human")
+        if episode % 1000 == 0:
+            env.render("human")
+        else:
+            env.render()
+        # env.render("human")
 
         states = env.reset()
         dispatched_taxis = [i for i, dispatched in enumerate(env.dispatched) if dispatched]
@@ -88,7 +88,7 @@ def main_training_loop(config):
                 f"cumulative_reward_agent_{i}": cumulative_rewards[i],
                 f"epsilon_agent_{i}": agents[i].get_epsilon(),
                 f"episode_agent_{i}": episode,
-                f"agent_steps_agent_{i}": env.agent_step,
+                f"agent_steps_agent_{i}": env.vehicles[i].agent_step,
                 # f"simulation_steps_agent_{i}": env.sumo.simulation.getTime(),
                 # f"Distance_agent_{i}": env.distance_traveled
             })

@@ -34,6 +34,7 @@ class VehicleManager:
         self.index_dict = index_dict
         self.config = config
         self.types = self.config['env']['types_of_passengers']
+        self.life = self.config['training_settings']['initial_life']
 
 
     def create_vehicles(self):
@@ -56,6 +57,7 @@ class VehicleManager:
                     self.index_dict,
                     self.edge_position,
                     self.sumo,
+                    self.life
                     
                 )
             )

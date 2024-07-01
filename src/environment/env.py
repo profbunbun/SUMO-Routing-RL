@@ -40,9 +40,7 @@ class Env():
         self.ride_selector = RideSelect()  
         self.edge_locations = edge_locations
         self.sumo = None   
-        self.agent_step = 0
         self.accumulated_reward = 0
-        
         self.old_dist = None
         self.rewards = []
         self.epsilon_hist = []
@@ -53,11 +51,11 @@ class Env():
         self.distcheck_final = [0] * self.num_of_vehicles
         self.edge_distance = [0] * self.num_of_vehicles
         self.route = [[] for _ in range(self.num_of_vehicles)]
-        self.destination_edges = []
+        # self.destination_edges = []
         self.final_destinations = []
-        self.final_locs = []
+
         self.stage = "reset"
-        self.done = [0] * self.num_of_vehicles
+        self.dones = [0] * self.num_of_vehicles
         self.dispatched = [False] * self.num_of_vehicles  
         self.vedges = [None] * self.num_of_vehicles  
         self.old_vedges = [None] * self.num_of_vehicles
@@ -83,12 +81,9 @@ class Env():
         self.route = [[] for _ in range(self.num_of_vehicles)]
         self.distance_traveled = 0
 
-
-
-        self.agent_step = [0] * self.num_of_vehicles
         self.accumulated_reward = [[]] * self.num_of_vehicles
-        self.life = [self.start_life] * self.num_of_vehicles
-        self.done = [0] * self.num_of_vehicles
+
+        self.dones = [0] * self.num_of_vehicles
         self.dispatched = [False] * self.num_of_vehicles  
         self.rewards = [0] * self.num_of_vehicles
         self.observations = [0] * self.num_of_vehicles  
@@ -97,7 +92,7 @@ class Env():
         self.person_manager = PersonManager(self.num_people, self.edge_locations, self.sumo, self.index_dict, self.config)
         self.reward_manager = RewardManager(self.finder, self.edge_locations, self.sumo)
 
-        self.stage = self.reward_manager.get_initial_stage()
+        # self.stage = self.reward_manager.get_initial_stage()
         self.vehicles = self.vehicle_manager.create_vehicles()
 
         self.sumo.simulationStep()
@@ -105,26 +100,23 @@ class Env():
         self.people = self.person_manager.create_people()
         self.sumo.simulationStep()
 
-        self.done = [False] * self.num_of_vehicles
-        self.fin= [False] * self.num_of_vehicles
+
         
         self.assign_rides()
 
 
-        self.old_dist = [0] * self.num_of_vehicles
-        self.final_old_dist = [0] * self.num_of_vehicles
+
 
     
         self.picked_up = [0] * self.num_of_vehicles
-        self.destination_edges = [person.get_road() for person in self.people]
+        self.pickup_edges = [person.get_road() for person in self.people]
         self.final_destinations = [person.get_destination() for person in self.people]
-        self.final_locs = [self.edge_locations[dest] for dest in self.final_destinations]
 
         self.sumo.simulationStep()
         self.sumo.simulationStep()
 
         
-        self.observations = [self.get_observation(i) for i in range(self.num_of_vehicles)]
+        self.observations = [self.get_observation(v) for v in self.vehicles if v.dispatched==True]
         return self.observations
 
     def assign_rides(self):
@@ -136,7 +128,7 @@ class Env():
         while i < len(fleet):
             v_type = self.sumo.vehicle.getParameter(fleet[i], "type")
             dispatched = False
-            # self.done[i] = True
+
             while j < len(reservations) and (empty_fleet == False):
                 p_type = self.sumo.person.getParameter(reservations[j].persons[0], "type")
                 if p_type == v_type:
@@ -145,9 +137,21 @@ class Env():
                     self.vedges[slot_index] = self.sumo.vehicle.getRoadID(fleet[0])  
                     self.old_vedges[slot_index] = self.vedges[slot_index] 
                     self.sumo.vehicle.dispatchTaxi(fleet[i], reservations[j].id)
+                    self.vehicles[int(fleet[i])].passenger_id = reservations[j].persons
                     self.vehicles[int(fleet[i])].dispatched = True
                     self.vehicles[int(fleet[i])].current_reservation_id = reservations[j].id
-                    self.vehicles[int(fleet[i])].pickup_location = reservations[j].fromEdge
+                    self.vehicles[int(fleet[i])].passenger_pick_up_edge = reservations[j].fromEdge
+                    self.vehicles[int(fleet[i])].bus_stop_drop_edge = self.finder.find_begin_stop(
+                        reservations[j].fromEdge,
+                        self.edge_locations,
+                        self.sumo).partition("_")[0]
+                    self.vehicles[int(fleet[i])].bus_stop_pick_up_edge = self.finder.find_end_stop(
+                        reservations[j].toEdge,
+                        self.edge_locations,
+                        self.sumo).partition("_")[0]
+                    self.vehicles[int(fleet[i])].final_edge = reservations[j].toEdge
+                    self.vehicles[int(fleet[i])].final_destination_edge_location = self.edge_locations[reservations[j].fromEdge]
+                    self.vehicles[int(fleet[i])].update_stage(0)
                     self.sumo.simulationStep()
                     fleet = self.sumo.vehicle.getTaxiFleet(0)
                     if not fleet:
@@ -164,18 +168,18 @@ class Env():
     
              
 
-    def get_observation(self, index):
-        dest_loc = self.edge_locations[self.destination_edges[index]]
+    def get_observation(self, vehicle):
+        dest_loc = self.edge_locations[vehicle.current_destination ]
         return self.obs.get_state(self.sumo,
-                                  self.agent_step[index],
-                                  self.vehicles[index],
+                                  vehicle.agent_step,
+                                  vehicle,
                                   dest_loc, 
-                                  self.life[index],
-                                  self.distcheck[index], 
-                                  self.final_locs[index],
-                                  self.distcheck_final[index],
-                                  self.picked_up[index],
-                                  self.done[index])
+                                  vehicle.life,
+                                  vehicle.distcheck, 
+                                  vehicle.final_destination_edge_location,
+                                  vehicle.distcheck_final,
+                                  vehicle.picked_up,
+                                  vehicle.done)
 
     def step(self, actions):
         """
@@ -193,56 +197,75 @@ class Env():
 
 
         for i in range(self.num_of_vehicles):
-        # for i in range(self.num_of_vehicles):
-            dist = self.vehicles[i].dispatched
-            if not self.dispatched[i]:
-                self.done[i] = True
+            vehicle = self.vehicles[i]
+
+            if not vehicle.dispatched:
+                vehicle.done = True
+                self.dones[i] = True
                 continue  
 
-            self.agent_step[i] += 1
-            self.life[i]-= .01
-            vehicle = self.vehicles[i]
+
+            vehicle.agent_step += 1
+            vehicle.life -= .01
+
             vedge = vehicle.get_lane()
             while vedge not in self.index_dict:
                 self.sumo.simulationStep()
                 vedge = vehicle.get_lane()
             vedge_loc = self.edge_locations[vedge]
-            choices = self.vehicles[i].get_out_dict()
+            choices = vehicle.get_out_dict()
             choices_keys = choices.keys()
             choice = self.direction_choices[actions[i]]
 
 
-            if (self.life[i] <= 0) or (choice not in choices_keys):
-                self.done[i] = True
+            if (vehicle.life <= 0) or (choice not in choices_keys):
+                self.dones[i] = True
                 self.rewards[i] += self.penalty
-                self.observations[i]=self.get_observation(i)
-                self.infos[i]=self.vehicles[i].get_road()
+                self.observations[i]=self.get_observation(vehicle)
+                self.infos[i]=vehicle.get_road()
                 self.dispatched[i] = False
-                self.vehicles[i].dispatched = False
-                self.vehicles[i].park()
+                vehicle.dispatched = False
+                vehicle.park()
                 # self.sumo.simulationStep()
             else:
-                target = self.vehicles[i].set_destination(self.direction_choices[actions[i]])
-                # pickup_loc = self.people[i].get_road()
-                pickup_loc = self.vehicles[i].pickup_location 
+                target = vehicle.set_destination(self.direction_choices[actions[i]])
 
-                if target == pickup_loc:
-                    self.vehicles[i].pickup(self.people[i].get_reservation())
-                else:
-                    self.vehicles[i].retarget(target)
 
-                dest_edge_loc = self.edge_locations[self.destination_edges[i]]
+                match vehicle.current_stage:
 
-                edge_distance = Utils.manhattan_distance(
-                    vedge_loc[0], vedge_loc[1], dest_edge_loc[0], dest_edge_loc[1]
+                    case 0:
+                        pickup_loc = vehicle.passenger_pick_up_edge
+
+                        if target == pickup_loc:
+                            vehicle.pickup(self.people[i].get_reservation())
+                        else:
+                            vehicle.retarget(target)
+                    case 1:
+                        vehicle.retarget(target)
+                    case 2:
+                        vehicle.retarget(target)
+                    case 3:
+                        vehicle.retarget(target)
+                    case 4:
+                        vehicle.retarget(target)
+                    case default:
+                        vehicle.retarget(target)
+
+
+                vehicle.destination_edge_location = self.edge_locations[vehicle.current_destination]
+
+                vehicle.destination_distance = Utils.manhattan_distance(
+                    vedge_loc[0], vedge_loc[1],
+                    vehicle.destination_edge_location[0], vehicle.destination_edge_location[1]
                 )
 
-                final_edge_distance = Utils.manhattan_distance(
-                    vedge_loc[0], vedge_loc[1], self.final_locs[i][0], self.final_locs[i][1]
+                vehicle.final_destination_distance = Utils.manhattan_distance(
+                    vedge_loc[0], vedge_loc[1],
+                    vehicle.final_destination_edge_location[0], vehicle.final_destination_edge_location[1]
                 )
 
-                self.old_dist[i] = edge_distance
-                self.final_old_dist[i] = final_edge_distance
+                vehicle.destination_old_distance = vehicle.destination_distance
+                vehicle.final_destination_old_distance = vehicle.final_destination_distance
         self.sumo.simulationStep()
 
         for vehicle in self.vehicles:
@@ -260,39 +283,49 @@ class Env():
 
         # Post-step logic
         for i in range(self.num_of_vehicles):
-            if not self.dispatched[i] or self.life[i] <= 0 or actions.count(None)==len(actions):
-            # if not self.vehicles[i].dispatched or self.life[i] <= 0 or actions.count(None)==len(actions):
+            vehicle = self.vehicles[i]
+            if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
+            # if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
                 continue  # Skip vehicles that are not dispatched or are done
 
-            vedge = self.vehicles[i].get_road()
-            choices = self.vehicles[i].get_out_dict()
-            self.route[i].append(self.vehicles[i].get_road())
+            vedge = vehicle.get_road()
+            choices = vehicle.get_out_dict()
+            vehicle.route.append(vehicle.get_road())
 
-            edge_distance = Utils.manhattan_distance(
-                vedge_loc[0], vedge_loc[1], dest_edge_loc[0], dest_edge_loc[1]
+            vehicle.destination_distance = Utils.manhattan_distance(
+                    vedge_loc[0], vedge_loc[1],
+                    vehicle.destination_edge_location[0], vehicle.destination_edge_location[1]
+                )
+
+            vehicle.final_destination_distance = Utils.manhattan_distance(
+                vedge_loc[0], vedge_loc[1],
+                vehicle.final_destination_edge_location[0], vehicle.final_destination_edge_location[1]
             )
 
-            final_edge_distance = Utils.manhattan_distance(
-                vedge_loc[0], vedge_loc[1], self.final_locs[i][0], self.final_locs[i][1]
+            reward, vehicle.distcheck, vehicle.distcheck_final = self.reward_manager.calculate_reward(
+                vehicle.destination_old_distance,
+                vehicle.destination_distance,
+                vehicle.final_destination_old_distance,
+                vehicle.final_destination_distance,
+                vehicle)
+
+            vehicle.current_stage, vehicle.current_destination, vehicle.picked_up = self.reward_manager.update_stage(
+                vehicle.current_destination,
+                vedge,
+                vehicle,
+                vehicle.final_edge,
             )
 
-            reward, self.distcheck[i], self.life[i], self.distcheck_final[i] = self.reward_manager.calculate_reward(
-                self.old_dist[i], edge_distance, self.destination_edges[i], vedge, self.life[i], self.final_destinations[i], self.final_old_dist[i], final_edge_distance
-            )
-
-            self.stage, self.destination_edges[i], self.picked_up[i], self.fin[i] ,self.done[i]= self.reward_manager.update_stage(
-                self.stage, self.destination_edges[i], vedge, self.people[i], self.vehicles[i], self.final_destinations[i], self.done[i]
-            )
-
-            if self.fin[i]:
-                reward += 0.99 + self.life[i]
+            if vehicle.fin:
+                reward += 0.99 + vehicle.life
                 print("Successful dropoff")
-            self.observations[i] = self.get_observation(i)
+            self.observations[i] = self.get_observation(vehicle)
             self.rewards[i]+=reward
             self.infos[i]=vedge
+            self.dones[i] = vehicle.done
             # self.accumulated_reward[i] += reward
 
-        return self.observations, self.rewards, self.done, self.infos
+        return self.observations, self.rewards, self.dones, self.infos
 
     def render(self, mode='text'):
         """
@@ -331,7 +364,7 @@ class Env():
             "Reward": f"{acc_r:.5}",
             "Avg Reward": f"{avg_reward:.3}",
             "Epsilon": f"{current_epsilon:.3}",
-            "Steps": f"{self.agent_step[agent]}",
+            "Steps": f"{self.vehicles[agent].agent_step}",
             "Distance": f"{self.vehicles[agent].get_dist():.2f}",
         }
         print(", ".join(f"{k}: {v}" for k, v in print_info.items()))
