@@ -82,6 +82,8 @@ class Vehicle:
         self.current_reservation_id = None
         self.pickup_location = None
 
+        self.reward_history = []
+
         # self.random_relocate()
         self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
         self.cur_loc = self.current_lane.partition("_")[0]

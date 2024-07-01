@@ -40,7 +40,7 @@ class Env():
         self.ride_selector = RideSelect()  
         self.edge_locations = edge_locations
         self.sumo = None   
-        self.accumulated_reward = 0
+        self.accumulated_reward = [[]] * self.num_of_vehicles
         self.old_dist = None
         self.rewards = []
         self.epsilon_hist = []
@@ -81,9 +81,9 @@ class Env():
         self.route = [[] for _ in range(self.num_of_vehicles)]
         self.distance_traveled = 0
 
-        self.accumulated_reward = [[]] * self.num_of_vehicles
+        
 
-        self.dones = [0] * self.num_of_vehicles
+        self.dones = [True] * self.num_of_vehicles
         self.dispatched = [False] * self.num_of_vehicles  
         self.rewards = [0] * self.num_of_vehicles
         self.observations = [0] * self.num_of_vehicles  
@@ -101,13 +101,9 @@ class Env():
         self.sumo.simulationStep()
 
 
-        
         self.assign_rides()
 
 
-
-
-    
         self.picked_up = [0] * self.num_of_vehicles
         self.pickup_edges = [person.get_road() for person in self.people]
         self.final_destinations = [person.get_destination() for person in self.people]
@@ -136,6 +132,7 @@ class Env():
                     self.dispatched[slot_index] = True  
                     self.vedges[slot_index] = self.sumo.vehicle.getRoadID(fleet[0])  
                     self.old_vedges[slot_index] = self.vedges[slot_index] 
+                    self.dones[slot_index] = False
                     self.sumo.vehicle.dispatchTaxi(fleet[i], reservations[j].id)
                     self.vehicles[int(fleet[i])].passenger_id = reservations[j].persons
                     self.vehicles[int(fleet[i])].dispatched = True
@@ -162,6 +159,8 @@ class Env():
                     break
                 j+=1
             if not dispatched:
+                self.vehicles[int(fleet[i])].done = True
+                self.vehicles[int(fleet[i])].dispatched = False
                 i += 1
                 
 
@@ -322,7 +321,7 @@ class Env():
             self.rewards[i]+=reward
             self.infos[i]=vedge
             self.dones[i] = vehicle.done
-            # self.accumulated_reward[i] += reward
+            # self.accumulated_reward[i].append(reward)
 
         return self.observations, self.rewards, self.dones, self.infos
 

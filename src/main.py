@@ -54,9 +54,7 @@ def main_training_loop(config):
         states = env.reset()
         dispatched_taxis = [i for i, dispatched in enumerate(env.dispatched) if dispatched]
 
-        if not dispatched_taxis:
-            continue  
-
+        
         dones = [0] * len(dispatched_taxis)
 
         while not all(dones):
@@ -89,8 +87,8 @@ def main_training_loop(config):
                 f"epsilon_agent_{i}": agents[i].get_epsilon(),
                 f"episode_agent_{i}": episode,
                 f"agent_steps_agent_{i}": env.vehicles[i].agent_step,
-                # f"simulation_steps_agent_{i}": env.sumo.simulation.getTime(),
-                # f"Distance_agent_{i}": env.distance_traveled
+                f"simulation_steps_agent_{i}": env.sumo.simulation.getTime(),
+                f"Distance_agent_{i}": env.vehicles[i].get_dist()
             })
 
             agents[i].decay()
