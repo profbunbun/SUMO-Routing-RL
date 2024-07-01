@@ -196,7 +196,7 @@ class Env():
         """
 
 
-        for i in range(self.num_of_vehicles):
+        for i in range(len(actions)):
             vehicle = self.vehicles[i]
 
             if not vehicle.dispatched:
@@ -274,7 +274,7 @@ class Env():
             if len(vedge) == 0:
                 continue
             else:
-                stop_state = vehicle.get_stop_state()
+                # stop_state = vehicle.get_stop_state()
                 while vedge not in self.index_dict:
                     self.sumo.simulationStep()
                     vedge = vehicle.get_lane()
@@ -282,7 +282,7 @@ class Env():
         
 
         # Post-step logic
-        for i in range(self.num_of_vehicles):
+        for i in range(len(actions)):
             vehicle = self.vehicles[i]
             if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
             # if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
@@ -310,7 +310,6 @@ class Env():
                 vehicle)
 
             vehicle.current_stage, vehicle.current_destination, vehicle.picked_up = self.reward_manager.update_stage(
-                vehicle.current_destination,
                 vedge,
                 vehicle,
                 vehicle.final_edge,

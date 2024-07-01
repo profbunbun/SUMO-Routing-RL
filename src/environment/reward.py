@@ -21,7 +21,7 @@ class RewardManager:
         self.edge_position = edge_position
         self.sumo = sumo
 
-    def update_stage(self, destination_edge, vedge,  vehicle, final_edge):
+    def update_stage(self, vedge,  vehicle, final_edge):
         """
         Updates the stage of the simulation.
 

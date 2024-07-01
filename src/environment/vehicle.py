@@ -114,11 +114,13 @@ class Vehicle:
                 self.life += .1
                 self.done = True
                 self.fin = True
+                self.dispatched = False
                 self.current_destination = self.park()
                 return self.current_destination
             case default:
                 self.current_stage = 4
                 self.done = True
+                self.dispatched = False
                 self.current_destination = self.park()
                 return self.current_destination
 
