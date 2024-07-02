@@ -73,51 +73,21 @@ class RewardManager:
 
     #     return vehicle.current_stage
     
-    def calculate_reward(self, old_dist, edge_distance, final_old_dist, final_edge_distance,vehicle):
-        """
-        Calculates the reward for the current step.
-
-        Args:
-            old_dist (float): Previous distance to the destination.
-            edge_distance (float): Current distance to the destination.
-            destination_edge (str): Destination edge ID.
-            vedge (str): Current vehicle edge ID.
-            life (float): Agent's current life value.
-            final_destination (str): Final destination edge ID.
-            final_old_dist (float): Previous distance to the final destination.
-            final_edge_distance (float): Current distance to the final destination.
-
-        Returns:
-            tuple: Calculated reward, updated distance check, life value, and final distance check.
-        """
+    def distance_checks(self,vehicle):
         
-        reward = 0
-        distcheck = 0
-        distcheck_final = 0
 
-        if old_dist > edge_distance:
-            # reward = 0.02
-            distcheck = 1
-        elif old_dist < edge_distance:
-            # reward = -0.025
-            distcheck = 0
+        if vehicle.destination_old_distance > vehicle.destination_distance:
             
-        if  final_old_dist > final_edge_distance:
-            # reward = 0.02 * self.pickedup
-            distcheck_final = 1  * vehicle.picked_up
-        elif final_old_dist < final_edge_distance:
-            # reward = -0.025 * self.pickedup
-            distcheck_final = 0
+            vehicle.distcheck, = 1
+        elif vehicle.destination_old_distance < vehicle.destination_distance:
+            
+            vehicle.distcheck, = 0
+            
+        if  vehicle.final_destination_old_distance> vehicle.final_destination_distance:
+            
+            vehicle.distcheck_final = 1  * vehicle.picked_up
+        elif vehicle.final_destination_old_distance < vehicle.final_destination_distance:
+            
+           vehicle.distcheck_final = 0
      
-
-        # if vedge == destination_edge:
-        #     life += 0.1
-        #     # reward = 0.8
-        #     # make_choice_flag = True
-
-        # if vedge == final_destination and self.pickedup == 1:
-        #     life += 0.1
-        #     # reward = 0.8
-        #     # make_choice_flag = False
-
-        return reward,  distcheck,  distcheck_final
+        return

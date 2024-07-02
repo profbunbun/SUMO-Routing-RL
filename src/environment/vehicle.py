@@ -51,6 +51,7 @@ class Vehicle:
         self.passenger_id = None
 
         self.done = False
+        self.reward = 0
 
         self.agent_step = 0
         self.life = life
@@ -227,9 +228,9 @@ class Vehicle:
         Returns:
             str: Current road ID.
         """ 
-        vehicles = self.sumo.vehicle.getIDList()
+        self.current_edge = self.sumo.vehicle.getRoadID(self.vehicle_id)
 
-        return self.sumo.vehicle.getRoadID(self.vehicle_id)
+        return self.current_edge
 
     def random_relocate(self):
         """
@@ -318,3 +319,22 @@ class Vehicle:
 
     def get_dist(self):
         return self.sumo.vehicle.getDistance(self.vehicle_id)
+    
+    def distance_checks(self):
+        
+
+        if self.destination_old_distance > self.destination_distance:
+            
+            self.distcheck = 1
+        elif self.destination_old_distance < self.destination_distance:
+            
+            self.distcheck = 0
+            
+        if  self.final_destination_old_distance> self.final_destination_distance:
+            
+            self.distcheck_final = 1  * self.picked_up
+        elif self.final_destination_old_distance < self.final_destination_distance:
+            
+           self.distcheck_final = 0
+     
+        return

@@ -194,7 +194,7 @@ class Env():
             infos (list): Additional info for each agent.
         """
 
-
+        reward = 0
         for i in range(len(actions)):
             vehicle = self.vehicles[i]
 
@@ -220,6 +220,8 @@ class Env():
             if (vehicle.life <= 0) or (choice not in choices_keys):
                 self.dones[i] = True
                 self.rewards[i] += self.penalty
+                vehicle.done = True
+                vehicle.reward += self.penalty
                 self.observations[i]=self.get_observation(vehicle)
                 self.infos[i]=vehicle.get_road()
                 self.dispatched[i] = False
@@ -273,7 +275,7 @@ class Env():
             if len(vedge) == 0:
                 continue
             else:
-                # stop_state = vehicle.get_stop_state()
+                
                 while vedge not in self.index_dict:
                     self.sumo.simulationStep()
                     vedge = vehicle.get_lane()
@@ -284,12 +286,11 @@ class Env():
         for i in range(len(actions)):
             vehicle = self.vehicles[i]
             if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
-            # if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
-                continue  # Skip vehicles that are not dispatched or are done
+                continue
 
             vedge = vehicle.get_road()
             choices = vehicle.get_out_dict()
-            vehicle.route.append(vehicle.get_road())
+            vehicle.route.append(vedge)
 
             vehicle.destination_distance = Utils.manhattan_distance(
                     vedge_loc[0], vedge_loc[1],
@@ -301,12 +302,7 @@ class Env():
                 vehicle.final_destination_edge_location[0], vehicle.final_destination_edge_location[1]
             )
 
-            reward, vehicle.distcheck, vehicle.distcheck_final = self.reward_manager.calculate_reward(
-                vehicle.destination_old_distance,
-                vehicle.destination_distance,
-                vehicle.final_destination_old_distance,
-                vehicle.final_destination_distance,
-                vehicle)
+            vehicle.distance_checks()
 
             vehicle.current_stage, vehicle.current_destination, vehicle.picked_up = self.reward_manager.update_stage(
                 vedge,
