@@ -40,7 +40,7 @@ class Env():
         self.ride_selector = RideSelect()  
         self.edge_locations = edge_locations
         self.sumo = None   
-        self.accumulated_reward = [[]] * self.num_of_vehicles
+        self.accumulated_reward = [[] for i in range(self.num_of_vehicles)]
         self.old_dist = None
         self.rewards = []
         self.epsilon_hist = []
@@ -51,7 +51,6 @@ class Env():
         self.distcheck_final = [0] * self.num_of_vehicles
         self.edge_distance = [0] * self.num_of_vehicles
         self.route = [[] for _ in range(self.num_of_vehicles)]
-        # self.destination_edges = []
         self.final_destinations = []
 
         self.stage = "reset"
@@ -350,13 +349,13 @@ class Env():
         acc_r = float(accu)
         self.accumulated_reward[agent].append(acc_r)
         self.epsilon_hist.append(current_epsilon)
-        avg_reward = np.mean(self.accumulated_reward[agent][-100:])
+        # avg_reward[agent] = np.mean(self.accumulated_reward[agent][-100:])
 
         print_info = {
             "EP": episode,
             "Agent": agent,
             "Reward": f"{acc_r:.5}",
-            "Avg Reward": f"{avg_reward:.3}",
+            "Avg Reward": f"{np.mean(self.accumulated_reward[agent][-100:]):.3}",
             "Epsilon": f"{current_epsilon:.3}",
             "Steps": f"{self.vehicles[agent].agent_step}",
             "Distance": f"{self.vehicles[agent].get_dist():.2f}",
