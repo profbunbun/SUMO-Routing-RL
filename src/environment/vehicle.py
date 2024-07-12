@@ -51,6 +51,7 @@ class Vehicle:
         self.passenger_id = None
 
         self.done = False
+        self.reward = 0
 
         self.agent_step = 0
         self.life = life
@@ -81,6 +82,8 @@ class Vehicle:
         self.dispatched = False
         self.current_reservation_id = None
         self.pickup_location = None
+
+        self.reward_history = []
 
         # self.random_relocate()
         self.current_lane = self.sumo.vehicle.getLaneID(self.vehicle_id)
@@ -114,13 +117,44 @@ class Vehicle:
                 self.life += .1
                 self.done = True
                 self.fin = True
+                self.dispatched = False
                 self.current_destination = self.park()
                 return self.current_destination
             case default:
                 self.current_stage = 4
                 self.done = True
+                self.dispatched = False
                 self.current_destination = self.park()
                 return self.current_destination
+            
+    def stage_check(self):
+
+
+        if self.current_edge == self.current_destination:
+
+            match self.current_stage:
+
+                case 0:
+                    
+                    self.update_stage(1)
+
+                case 1:
+                    self.update_stage(2)
+                    self.teleport(self.current_destination)
+
+                    self.sumo.simulationStep()
+                    self.update_stage(3)
+
+
+                case 3:
+                    self.update_stage(4)
+        
+        elif self.current_edge == self.final_edge and self.picked_up == 1:
+             print('Skipped Bus')
+             self.update_stage(4)
+
+        return self.current_stage, self.current_destination, self.picked_up
+
 
     def get_lane(self):
         """
@@ -223,9 +257,9 @@ class Vehicle:
         Returns:
             str: Current road ID.
         """ 
-        vehicles = self.sumo.vehicle.getIDList()
+        self.current_edge = self.sumo.vehicle.getRoadID(self.vehicle_id)
 
-        return self.sumo.vehicle.getRoadID(self.vehicle_id)
+        return self.current_edge
 
     def random_relocate(self):
         """
@@ -314,3 +348,22 @@ class Vehicle:
 
     def get_dist(self):
         return self.sumo.vehicle.getDistance(self.vehicle_id)
+    
+    def distance_checks(self):
+        
+
+        if self.destination_old_distance > self.destination_distance:
+            
+            self.distcheck = 1
+        elif self.destination_old_distance < self.destination_distance:
+            
+            self.distcheck = 0
+            
+        if  self.final_destination_old_distance> self.final_destination_distance:
+            
+            self.distcheck_final = 1  * self.picked_up
+        elif self.final_destination_old_distance < self.final_destination_distance:
+            
+           self.distcheck_final = 0
+     
+        return

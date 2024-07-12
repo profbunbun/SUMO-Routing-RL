@@ -1,4 +1,3 @@
-from .reward import RewardManager
 import numpy as np
 from utils.connect import SUMOConnection
 from .ride_select import RideSelect
@@ -40,7 +39,7 @@ class Env():
         self.ride_selector = RideSelect()  
         self.edge_locations = edge_locations
         self.sumo = None   
-        self.accumulated_reward = 0
+        self.accumulated_reward = [[] for i in range(self.num_of_vehicles)]
         self.old_dist = None
         self.rewards = []
         self.epsilon_hist = []
@@ -51,7 +50,6 @@ class Env():
         self.distcheck_final = [0] * self.num_of_vehicles
         self.edge_distance = [0] * self.num_of_vehicles
         self.route = [[] for _ in range(self.num_of_vehicles)]
-        # self.destination_edges = []
         self.final_destinations = []
 
         self.stage = "reset"
@@ -81,16 +79,16 @@ class Env():
         self.route = [[] for _ in range(self.num_of_vehicles)]
         self.distance_traveled = 0
 
-        self.accumulated_reward = [[]] * self.num_of_vehicles
+        
 
-        self.dones = [0] * self.num_of_vehicles
+        self.dones = [True] * self.num_of_vehicles
         self.dispatched = [False] * self.num_of_vehicles  
         self.rewards = [0] * self.num_of_vehicles
         self.observations = [0] * self.num_of_vehicles  
 
         self.vehicle_manager = VehicleManager(self.num_of_vehicles, self.edge_locations, self.sumo, self.out_dict, self.index_dict, self.config)
         self.person_manager = PersonManager(self.num_people, self.edge_locations, self.sumo, self.index_dict, self.config)
-        self.reward_manager = RewardManager(self.finder, self.edge_locations, self.sumo)
+        
 
         # self.stage = self.reward_manager.get_initial_stage()
         self.vehicles = self.vehicle_manager.create_vehicles()
@@ -101,13 +99,9 @@ class Env():
         self.sumo.simulationStep()
 
 
-        
         self.assign_rides()
 
 
-
-
-    
         self.picked_up = [0] * self.num_of_vehicles
         self.pickup_edges = [person.get_road() for person in self.people]
         self.final_destinations = [person.get_destination() for person in self.people]
@@ -136,6 +130,7 @@ class Env():
                     self.dispatched[slot_index] = True  
                     self.vedges[slot_index] = self.sumo.vehicle.getRoadID(fleet[0])  
                     self.old_vedges[slot_index] = self.vedges[slot_index] 
+                    self.dones[slot_index] = False
                     self.sumo.vehicle.dispatchTaxi(fleet[i], reservations[j].id)
                     self.vehicles[int(fleet[i])].passenger_id = reservations[j].persons
                     self.vehicles[int(fleet[i])].dispatched = True
@@ -162,6 +157,8 @@ class Env():
                     break
                 j+=1
             if not dispatched:
+                self.vehicles[int(fleet[i])].done = True
+                self.vehicles[int(fleet[i])].dispatched = False
                 i += 1
                 
 
@@ -195,8 +192,8 @@ class Env():
             infos (list): Additional info for each agent.
         """
 
-
-        for i in range(self.num_of_vehicles):
+        reward = 0
+        for i in range(len(actions)):
             vehicle = self.vehicles[i]
 
             if not vehicle.dispatched:
@@ -221,6 +218,8 @@ class Env():
             if (vehicle.life <= 0) or (choice not in choices_keys):
                 self.dones[i] = True
                 self.rewards[i] += self.penalty
+                vehicle.done = True
+                vehicle.reward += self.penalty
                 self.observations[i]=self.get_observation(vehicle)
                 self.infos[i]=vehicle.get_road()
                 self.dispatched[i] = False
@@ -274,7 +273,7 @@ class Env():
             if len(vedge) == 0:
                 continue
             else:
-                stop_state = vehicle.get_stop_state()
+                
                 while vedge not in self.index_dict:
                     self.sumo.simulationStep()
                     vedge = vehicle.get_lane()
@@ -282,15 +281,14 @@ class Env():
         
 
         # Post-step logic
-        for i in range(self.num_of_vehicles):
+        for i in range(len(actions)):
             vehicle = self.vehicles[i]
             if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
-            # if not vehicle.dispatched or vehicle.life <= 0 or actions.count(None)==len(actions):
-                continue  # Skip vehicles that are not dispatched or are done
+                continue
 
             vedge = vehicle.get_road()
             choices = vehicle.get_out_dict()
-            vehicle.route.append(vehicle.get_road())
+            vehicle.route.append(vedge)
 
             vehicle.destination_distance = Utils.manhattan_distance(
                     vedge_loc[0], vedge_loc[1],
@@ -302,19 +300,9 @@ class Env():
                 vehicle.final_destination_edge_location[0], vehicle.final_destination_edge_location[1]
             )
 
-            reward, vehicle.distcheck, vehicle.distcheck_final = self.reward_manager.calculate_reward(
-                vehicle.destination_old_distance,
-                vehicle.destination_distance,
-                vehicle.final_destination_old_distance,
-                vehicle.final_destination_distance,
-                vehicle)
+            vehicle.distance_checks()
 
-            vehicle.current_stage, vehicle.current_destination, vehicle.picked_up = self.reward_manager.update_stage(
-                vehicle.current_destination,
-                vedge,
-                vehicle,
-                vehicle.final_edge,
-            )
+            vehicle.stage_check()
 
             if vehicle.fin:
                 reward += 0.99 + vehicle.life
@@ -323,7 +311,7 @@ class Env():
             self.rewards[i]+=reward
             self.infos[i]=vedge
             self.dones[i] = vehicle.done
-            # self.accumulated_reward[i] += reward
+            # self.accumulated_reward[i].append(reward)
 
         return self.observations, self.rewards, self.dones, self.infos
 
@@ -356,13 +344,13 @@ class Env():
         acc_r = float(accu)
         self.accumulated_reward[agent].append(acc_r)
         self.epsilon_hist.append(current_epsilon)
-        avg_reward = np.mean(self.accumulated_reward[agent][-100:])
+        # avg_reward[agent] = np.mean(self.accumulated_reward[agent][-100:])
 
         print_info = {
             "EP": episode,
             "Agent": agent,
             "Reward": f"{acc_r:.5}",
-            "Avg Reward": f"{avg_reward:.3}",
+            "Avg Reward": f"{np.mean(self.accumulated_reward[agent][-100:]):.3}",
             "Epsilon": f"{current_epsilon:.3}",
             "Steps": f"{self.vehicles[agent].agent_step}",
             "Distance": f"{self.vehicles[agent].get_dist():.2f}",
