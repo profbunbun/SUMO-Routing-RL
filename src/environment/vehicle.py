@@ -126,6 +126,35 @@ class Vehicle:
                 self.dispatched = False
                 self.current_destination = self.park()
                 return self.current_destination
+            
+    def stage_check(self):
+
+
+        if self.current_edge == self.current_destination:
+
+            match self.current_stage:
+
+                case 0:
+                    
+                    self.update_stage(1)
+
+                case 1:
+                    self.update_stage(2)
+                    self.teleport(self.current_destination)
+
+                    self.sumo.simulationStep()
+                    self.update_stage(3)
+
+
+                case 3:
+                    self.update_stage(4)
+        
+        elif self.current_edge == self.final_edge and self.picked_up == 1:
+             print('Skipped Bus')
+             self.update_stage(4)
+
+        return self.current_stage, self.current_destination, self.picked_up
+
 
     def get_lane(self):
         """

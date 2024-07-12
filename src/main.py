@@ -59,7 +59,6 @@ def main_training_loop(config):
 
         while not all(dones):
             
-            # for i in enumerate(dispatched_taxis):
                 
             active_taxis_indices = [i for i in dispatched_taxis if not dones[i]]
 

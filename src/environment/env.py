@@ -1,4 +1,3 @@
-from .reward import RewardManager
 import numpy as np
 from utils.connect import SUMOConnection
 from .ride_select import RideSelect
@@ -89,7 +88,7 @@ class Env():
 
         self.vehicle_manager = VehicleManager(self.num_of_vehicles, self.edge_locations, self.sumo, self.out_dict, self.index_dict, self.config)
         self.person_manager = PersonManager(self.num_people, self.edge_locations, self.sumo, self.index_dict, self.config)
-        self.reward_manager = RewardManager(self.finder, self.edge_locations, self.sumo)
+        
 
         # self.stage = self.reward_manager.get_initial_stage()
         self.vehicles = self.vehicle_manager.create_vehicles()
@@ -303,11 +302,7 @@ class Env():
 
             vehicle.distance_checks()
 
-            vehicle.current_stage, vehicle.current_destination, vehicle.picked_up = self.reward_manager.update_stage(
-                vedge,
-                vehicle,
-                vehicle.final_edge,
-            )
+            vehicle.stage_check()
 
             if vehicle.fin:
                 reward += 0.99 + vehicle.life
