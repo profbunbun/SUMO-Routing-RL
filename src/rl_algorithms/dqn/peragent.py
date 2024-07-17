@@ -286,13 +286,8 @@ class PERAgent:
         """
         Save the model to a file.
 
-        Args:
-            episode_num (int): Episode number.
         """
 
-        # filename = f"model"
-        # filename += f"_ep{episode_num}"
-        # filename += ".pt"
         filename = "shared_model.pt" 
         # path = config['training_settings']['savepath']
 
@@ -303,13 +298,8 @@ class PERAgent:
         """
         Load the model from a file.
 
-        Args:
-            ep_num (int): Episode number.
         """
 
-        # filename = f"model"
-        # filename += f"_ep{ep_num}"
-        # filename += ".pt"
         filename = "shared_model.pt" 
         # path = config['training_settings']['savepath']
 

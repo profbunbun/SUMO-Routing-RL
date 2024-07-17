@@ -204,6 +204,7 @@ class Env():
 
             vehicle.agent_step += 1
             vehicle.life -= .01
+            vehicle.reward = 0
 
             vedge = vehicle.get_lane()
             while vedge not in self.index_dict:
@@ -308,8 +309,8 @@ class Env():
                 reward += 0.99 + vehicle.life 
                 print("Successful dropoff")
             self.observations[i] = self.get_observation(vehicle)
-            self.rewards[i]+=reward + vehicle.reward
-            self.infos[i]=vedge
+            self.rewards[i] = reward + vehicle.reward
+            self.infos[i] = vedge
             self.dones[i] = vehicle.done
             # self.accumulated_reward[i].append(reward)
 

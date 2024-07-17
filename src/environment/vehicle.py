@@ -90,7 +90,7 @@ class Vehicle:
         self.cur_loc = self.current_lane.partition("_")[0]
 
     def update_stage(self,new_stage):
-        self.reward = 0
+        
         match new_stage:
             case 0:
                 self.current_stage = 0
@@ -133,6 +133,7 @@ class Vehicle:
                 return self.current_destination
             
     def stage_check(self):
+        
 
 
         if self.current_edge == self.current_destination:
@@ -147,6 +148,7 @@ class Vehicle:
                     self.update_stage(2)
                     self.teleport(self.current_destination)
                     self.sumo.simulationStep()
+                    self.update_stage(3)
                 case 2:
 
                     
@@ -362,13 +364,16 @@ class Vehicle:
         if self.destination_old_distance > self.destination_distance:
             
             self.distcheck = 1
+            self.reward += 0.001
         elif self.destination_old_distance < self.destination_distance:
             
             self.distcheck = 0
+            self.reward += -0.001
             
         if  self.final_destination_old_distance> self.final_destination_distance:
             
             self.distcheck_final = 1  * self.picked_up
+            self.reward += 0.001 * self.picked_up
         elif self.final_destination_old_distance < self.final_destination_distance:
             
            self.distcheck_final = 0
