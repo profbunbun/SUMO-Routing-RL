@@ -77,12 +77,7 @@ class Explorer:
         self.policy_net.train()
 
         action = T.argmax(act_values)
-        # num_of_choices = len(self.direction_choices)
-        # action = self.direction_choices[index_choice]
-        # if (index_choice + 1) <= num_of_choices:
-        #     action = self.direction_choices[index_choice]
-        # else:
-        #     action  = None
+
         self.exploit_count += 1
         return action.item()
 

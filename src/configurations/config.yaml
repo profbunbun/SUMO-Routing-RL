@@ -7,14 +7,14 @@ wandb:
 
 # Training settings
 training_settings:
-  episodes: 15000             
+  episodes: 25000             
   # experiment_path: "Experiments/3x3_6/"
   # sumoconfig: "Nets/3x3.sumocfg"    
   experiment_path: 'data/balt/'
   sumoconfig: "Nets/osm.sumocfg"
   savepath: "models/" 
   loadpath: "models/"                        
-  initial_life: .5                     
+  initial_life: .3                     
   penalty: -0.2 
   seed: 6
                    
@@ -34,9 +34,9 @@ env:
 
 # Agent hyperparameters
 agent_hyperparameters:
-  learning_rate: 0.000001
+  learning_rate: 0.0001
   gamma: 0.999              
-  epsilon_decay: 0.9996
+  epsilon_decay: 0.9999
   batch_size: 128
   memory_size: 50000
   epsilon_max: 1.0
