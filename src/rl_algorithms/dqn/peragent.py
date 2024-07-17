@@ -5,11 +5,83 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 
-from ..models.dqn import DQN
+# from ..models.dqn import DQN
 from ..exploration import exploration
 from ..memory_buffers.permem import PrioritizedExperienceReplayBuffer, Experience
 from utils.utils import Utils
 # config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
+
+
+
+class DQN(nn.Module):
+    """
+    Deep Q-Network (DQN) class.
+
+    Attributes:
+        layers (nn.Sequential): Sequential model consisting of linear layers, batch normalization, and activation functions.
+    """
+
+    def __init__(self, n_observations, n_actions):
+        """
+        Initialize the DQN model.
+
+        Args:
+            n_observations (int): Number of observations (input features).
+            n_actions (int): Number of actions (output features).
+        """
+
+    
+        super().__init__()
+        # self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        
+        self.layers = nn.Sequential(
+            nn.Linear(n_observations,32),
+            nn.BatchNorm1d(32),
+            nn.LeakyReLU(),
+            nn.Linear(32,n_actions)
+            )
+        
+        
+        # self.layer1 = nn.Linear(n_observations, 32)
+        # self.layer2 = nn.Linear(32, 64)
+        # self.layer2b = nn.Linear(64, 32)
+        # self.layer2c = nn.Linear(32, 16)
+        # self.layer3 = nn.Linear(16,  n_actions)
+
+        # self.layers.to(self.device)
+    
+
+
+    def forward(self, x):
+        """
+        Forward pass of the DQN model.
+
+        Args:
+            x (Tensor): Input tensor.
+
+        Returns:
+            Tensor: Output tensor.
+        """
+        
+        # x_net = F.relu(self.layer1(x_net))
+        # # x_net = self.dropout1(x_net)
+        # x_net = F.relu(self.layer2(x_net))
+        # # x_net = self.dropout2(x_net)
+        # x_net = F.relu(self.layer2b(x_net))
+        # # x_net = self.dropout3(x_net)
+        # x_net = F.relu(self.layer2c(x_net))
+        # x_net = self.layer3(x_net)
+        # # x_net = F.log_softmax(x_net, dim=1) 
+        # return x_net
+        
+        return self.layers(x)
+
+
+
+
+
+
 
 class PERAgent:
     """
@@ -210,7 +282,7 @@ class PERAgent:
         self.target_net.load_state_dict(policy_net_state_dict)
         self.target_net.eval()
 
-    def save_model(self, episode_num):
+    def save_model(self):
         """
         Save the model to a file.
 
@@ -218,15 +290,16 @@ class PERAgent:
             episode_num (int): Episode number.
         """
 
-        filename = f"model"
-        filename += f"_ep{episode_num}"
-        filename += ".pt"
+        # filename = f"model"
+        # filename += f"_ep{episode_num}"
+        # filename += ".pt"
+        filename = "shared_model.pt" 
         # path = config['training_settings']['savepath']
 
         temp_model_path = os.path.join(self.path,self.savepath, filename)
         torch.save(self.policy_net.state_dict(), temp_model_path)
 
-    def load_model(self, ep_num):
+    def load_model(self):
         """
         Load the model from a file.
 
@@ -234,9 +307,10 @@ class PERAgent:
             ep_num (int): Episode number.
         """
 
-        filename = f"model"
-        filename += f"_ep{ep_num}"
-        filename += ".pt"
+        # filename = f"model"
+        # filename += f"_ep{ep_num}"
+        # filename += ".pt"
+        filename = "shared_model.pt" 
         # path = config['training_settings']['savepath']
 
         model_path = os.path.join(self.path,self.loadpath, filename)

@@ -13,7 +13,7 @@
 
     <taxi_device>
         <device.taxi.dispatch-algorithm value="traci"/>
-        <device.taxi.idle-algorithm value="stop"/>
+        <device.taxi.idle-algorithm value="taxistand"/>
     </taxi_device>
 
 </configuration>
