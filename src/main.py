@@ -102,9 +102,9 @@ def main_training_loop(config):
             agents[i].decay()
             env.pre_close(episode,i, cumulative_rewards[i], agents[i].get_epsilon())
             # if cumulative_rewards[i] > best_reward:
-            if episode % 100 == 0:
-                # best_reward = cumulative_rewards[i]
-                agents[i].save_model()
+        if episode % 100 == 0:
+            # best_reward = cumulative_rewards[i]
+            agents[0].save_model()
         env.quiet_close()
 
     wandb.finish()
