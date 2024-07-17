@@ -305,10 +305,10 @@ class Env():
             vehicle.stage_check()
 
             if vehicle.fin:
-                reward += 0.99 + vehicle.life
+                reward += 0.99 + vehicle.life 
                 print("Successful dropoff")
             self.observations[i] = self.get_observation(vehicle)
-            self.rewards[i]+=reward
+            self.rewards[i]+=reward + vehicle.reward
             self.infos[i]=vedge
             self.dones[i] = vehicle.done
             # self.accumulated_reward[i].append(reward)
