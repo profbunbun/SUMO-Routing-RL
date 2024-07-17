@@ -90,7 +90,7 @@ class Vehicle:
         self.cur_loc = self.current_lane.partition("_")[0]
 
     def update_stage(self,new_stage):
-        # self.reward = 0
+        self.reward = 0
         match new_stage:
             case 0:
                 self.current_stage = 0
@@ -146,8 +146,10 @@ class Vehicle:
                 case 1:
                     self.update_stage(2)
                     self.teleport(self.current_destination)
-
                     self.sumo.simulationStep()
+                case 2:
+
+                    
                     self.update_stage(3)
 
 
