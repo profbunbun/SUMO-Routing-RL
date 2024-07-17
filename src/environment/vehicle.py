@@ -95,21 +95,25 @@ class Vehicle:
                 self.current_stage = 0
                 self.current_destination = self.passenger_pick_up_edge
                 # self.life += .1
+                self.reward = 0.01
                 return self.current_destination
             case 1:
                 self.current_stage = 1
                 self.picked_up = 1
                 self.life += .1
                 self.current_destination = self.bus_stop_drop_edge
+                self.reward = 0.01
                 return self.current_destination
             case 2:
                 self.current_stage = 2
                 self.life += .1
                 self.current_destination = self.bus_stop_pick_up_edge
+                self.reward = 0.01
                 return self.current_destination
             case 3:
                 self.current_stage = 3
                 self.life += .1
+                self.reward = 0.01
                 self.current_destination = self.final_edge
                 return self.current_destination
             case 4:
