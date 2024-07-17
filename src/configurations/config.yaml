@@ -3,7 +3,7 @@ wandb:
   entity: "researchlab-yr404"
   name: "sumo-rl-test"
   # group: "3x3-5"
-  group: "Balt1-test"
+  group: "Marl-test"
 
 # Training settings
 training_settings:

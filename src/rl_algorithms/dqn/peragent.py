@@ -36,22 +36,12 @@ class DQN(nn.Module):
 
         
         self.layers = nn.Sequential(
-            nn.Linear(n_observations,32),
-            nn.BatchNorm1d(32),
+            nn.Linear(n_observations,64),
+            nn.BatchNorm1d(64),
             nn.LeakyReLU(),
-            nn.Linear(32,n_actions)
+            nn.Linear(64,n_actions)
             )
         
-        
-        # self.layer1 = nn.Linear(n_observations, 32)
-        # self.layer2 = nn.Linear(32, 64)
-        # self.layer2b = nn.Linear(64, 32)
-        # self.layer2c = nn.Linear(32, 16)
-        # self.layer3 = nn.Linear(16,  n_actions)
-
-        # self.layers.to(self.device)
-    
-
 
     def forward(self, x):
         """
@@ -63,17 +53,6 @@ class DQN(nn.Module):
         Returns:
             Tensor: Output tensor.
         """
-        
-        # x_net = F.relu(self.layer1(x_net))
-        # # x_net = self.dropout1(x_net)
-        # x_net = F.relu(self.layer2(x_net))
-        # # x_net = self.dropout2(x_net)
-        # x_net = F.relu(self.layer2b(x_net))
-        # # x_net = self.dropout3(x_net)
-        # x_net = F.relu(self.layer2c(x_net))
-        # x_net = self.layer3(x_net)
-        # # x_net = F.log_softmax(x_net, dim=1) 
-        # return x_net
         
         return self.layers(x)
 
@@ -108,6 +87,7 @@ class PERAgent:
     def __init__(self, state_size, 
                  action_size, 
                  path,
+                 agent_id,
                  learning_rate=None, 
                  gamma=None, 
                  epsilon_decay=None, 
@@ -139,9 +119,10 @@ class PERAgent:
         """
 
             self.path = path
+            
             self.savepath=savepath
             self.loadpath=loadpath
-
+            self.agent_id = agent_id
             self.beta=beta
             self.priority_epsilon = priority_epsilon
           
@@ -288,7 +269,7 @@ class PERAgent:
 
         """
 
-        filename = "shared_model.pt" 
+        filename = f"agent_{self.agent_id}_model.pt" 
         # path = config['training_settings']['savepath']
 
         temp_model_path = os.path.join(self.path,self.savepath, filename)
@@ -296,17 +277,19 @@ class PERAgent:
 
     def load_model(self):
         """
-        Load the model from a file.
+        Load the model from a file if it exists, otherwise return without loading.
 
         """
+        filename = f"agent_{self.agent_id}_model.pt"  # Fixed filename for the model
+        model_path = os.path.join(self.path, self.loadpath, filename)
 
-        filename = "shared_model.pt" 
-        # path = config['training_settings']['savepath']
-
-        model_path = os.path.join(self.path,self.loadpath, filename)
-
-        self.policy_net.load_state_dict(torch.load(model_path, map_location=self.device))
-        self.policy_net.to(self.device)
+        if os.path.exists(model_path):
+            self.target_net.load_state_dict(torch.load(model_path, map_location=self.device))
+            self.target_net.eval()  # Set the network to evaluation mode
+            self.target_net.to(self.device)
+        else:
+            print(f"No model found at {model_path}, continuing without loading.")
+            return
 
     def decay(self):
         """

@@ -358,6 +358,10 @@ class Vehicle:
     def get_dist(self):
         return self.sumo.vehicle.getDistance(self.vehicle_id)
     
+    def get_position(self):
+        return self.sumo.vehicle.getPosition(self.vehicle_id)
+        
+    
     def distance_checks(self):
         
 

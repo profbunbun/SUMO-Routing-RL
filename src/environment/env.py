@@ -211,6 +211,7 @@ class Env():
                 self.sumo.simulationStep()
                 vedge = vehicle.get_lane()
             vedge_loc = self.edge_locations[vedge]
+            v_loc = vehicle.get_position()
             choices = vehicle.get_out_dict()
             choices_keys = choices.keys()
             choice = self.direction_choices[actions[i]]
@@ -255,12 +256,12 @@ class Env():
                 vehicle.destination_edge_location = self.edge_locations[vehicle.current_destination]
 
                 vehicle.destination_distance = Utils.manhattan_distance(
-                    vedge_loc[0], vedge_loc[1],
+                    v_loc[0], v_loc[1],
                     vehicle.destination_edge_location[0], vehicle.destination_edge_location[1]
                 )
 
                 vehicle.final_destination_distance = Utils.manhattan_distance(
-                    vedge_loc[0], vedge_loc[1],
+                    v_loc[0], v_loc[1],
                     vehicle.final_destination_edge_location[0], vehicle.final_destination_edge_location[1]
                 )
 
@@ -290,14 +291,16 @@ class Env():
             vedge = vehicle.get_road()
             choices = vehicle.get_out_dict()
             vehicle.route.append(vedge)
+            
+            v_loc = vehicle.get_position()
 
             vehicle.destination_distance = Utils.manhattan_distance(
-                    vedge_loc[0], vedge_loc[1],
+                    v_loc[0], v_loc[1],
                     vehicle.destination_edge_location[0], vehicle.destination_edge_location[1]
                 )
 
             vehicle.final_destination_distance = Utils.manhattan_distance(
-                vedge_loc[0], vedge_loc[1],
+                v_loc[0], v_loc[1],
                 vehicle.final_destination_edge_location[0], vehicle.final_destination_edge_location[1]
             )
 

@@ -38,8 +38,8 @@ def main_training_loop(config):
     Main training loop for the reinforcement learning agents.
     """
     env = so.create_env(config=config)
-    agents = [so.create_agent(config=config) for _ in range(config['env']['num_agents'])]
-    # best_reward = float('-inf')
+    agents = [so.create_agent(config=config, agent_id=i) for i in range(config['env']['num_agents'])]
+    best_reward = float('-inf')
     for agent in agents:
         agent.load_model()
 
@@ -52,8 +52,9 @@ def main_training_loop(config):
         #         agent.load_model()
 
         if episode % 1000 == 0:
-            for agent in agents:
-                agent.load_model()
+            # agents[1].load_model()
+            # for agent in agents:
+            #     agent.load_model()
             env.render("human")
         else:
             env.render()
@@ -101,10 +102,13 @@ def main_training_loop(config):
 
             agents[i].decay()
             env.pre_close(episode,i, cumulative_rewards[i], agents[i].get_epsilon())
-            # if cumulative_rewards[i] > best_reward:
-        if episode % 100 == 0:
-            # best_reward = cumulative_rewards[i]
-            agents[0].save_model()
+            if cumulative_rewards[i] > best_reward:
+                best_reward = cumulative_rewards[i]
+                for agent in agents:
+                    agent.save_model()
+        # if episode % 100 == 0:
+            # for agent in agents:
+            #     agent.save_model()
         env.quiet_close()
 
     wandb.finish()

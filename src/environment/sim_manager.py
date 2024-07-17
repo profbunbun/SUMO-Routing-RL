@@ -30,7 +30,7 @@ def create_env(config):
     return Env(config, edge_locations,  out_dict, index_dict)
 
 
-def create_agent(config):
+def create_agent(config,agent_id):
     """
     Create the DQN agent.
 
@@ -56,6 +56,7 @@ def create_agent(config):
     priority_epsilon = config['per_hyperparameters']['priority_epsilon']
 
     return PERAgent(19, 6, experiment_path,
+                    agent_id,
                     learning_rate,
                     gamma, 
                     epsilon_decay, 
