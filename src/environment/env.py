@@ -106,8 +106,8 @@ class Env():
         self.pickup_edges = [person.get_road() for person in self.people]
         self.final_destinations = [person.get_destination() for person in self.people]
 
-        self.sumo.simulationStep()
-        self.sumo.simulationStep()
+        # self.sumo.simulationStep()
+        # self.sumo.simulationStep()
 
         
         self.observations = [self.get_observation(v) for v in self.vehicles if v.dispatched==True]
@@ -131,7 +131,7 @@ class Env():
                     self.vedges[slot_index] = self.sumo.vehicle.getRoadID(fleet[0])  
                     self.old_vedges[slot_index] = self.vedges[slot_index] 
                     self.dones[slot_index] = False
-                    self.sumo.vehicle.dispatchTaxi(fleet[i], reservations[j].id)
+                    # self.sumo.vehicle.dispatchTaxi(fleet[i], reservations[j].id)
                     self.vehicles[int(fleet[i])].passenger_id = reservations[j].persons
                     self.vehicles[int(fleet[i])].dispatched = True
                     self.vehicles[int(fleet[i])].current_reservation_id = reservations[j].id
@@ -210,7 +210,7 @@ class Env():
             while vedge not in self.index_dict:
                 self.sumo.simulationStep()
                 vedge = vehicle.get_lane()
-            vedge_loc = self.edge_locations[vedge]
+            # vedge_loc = self.edge_locations[vedge]
             v_loc = vehicle.get_position()
             choices = vehicle.get_out_dict()
             choices_keys = choices.keys()
@@ -290,7 +290,6 @@ class Env():
 
             vedge = vehicle.get_road()
             choices = vehicle.get_out_dict()
-            vehicle.route.append(vedge)
             
             v_loc = vehicle.get_position()
 

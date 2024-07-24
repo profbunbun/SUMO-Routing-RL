@@ -3,10 +3,8 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 import numpy as np
-
-# from ..models.dqn import DQN
-# from ..exploration import exploration
 from ..memory_buffers.permem import PrioritizedExperienceReplayBuffer, Experience
 from utils.utils import Utils
 # config = Utils.load_yaml_config('/home/ahoope5/Desktop/SUMORL/SUMO-Routing-RL/src/configurations/config.yaml')
@@ -22,39 +20,18 @@ class DQN(nn.Module):
     """
 
     def __init__(self, n_observations, n_actions):
-        """
-        Initialize the DQN model.
+        super(DQN, self).__init__()
+        self.layer1 = nn.Linear(n_observations, 64)
+        self.layer2 = nn.Linear(64, 32)
+        self.layer3 = nn.Linear(32, n_actions)
 
-        Args:
-            n_observations (int): Number of observations (input features).
-            n_actions (int): Number of actions (output features).
-        """
-
-    
-        super().__init__()
-        # self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-        
-        self.layers = nn.Sequential(
-            nn.Linear(n_observations,64),
-            nn.BatchNorm1d(64),
-            nn.LeakyReLU(),
-            nn.Linear(64,n_actions)
-            )
-        
-
+    # Called with either one element to determine next action, or a batch
+    # during optimization. Returns tensor([[left0exp,right0exp]...]).
     def forward(self, x):
-        """
-        Forward pass of the DQN model.
-
-        Args:
-            x (Tensor): Input tensor.
-
-        Returns:
-            Tensor: Output tensor.
-        """
+        x = F.relu(self.layer1(x))
+        x = F.relu(self.layer2(x))
         
-        return self.layers(x)
+        return self.layer3(x)
 
 
 

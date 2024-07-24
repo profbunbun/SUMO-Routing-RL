@@ -39,7 +39,7 @@ agent_hyperparameters:
   epsilon_decay: 0.9999
   batch_size: 128
   memory_size: 50000
-  epsilon_max: 1.0
+  epsilon_max: 0.5
   epsilon_min: 0.05                   
   penalty: -0.2  
 

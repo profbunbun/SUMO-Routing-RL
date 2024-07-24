@@ -45,21 +45,14 @@ def main_training_loop(config):
 
     for episode in range(config['training_settings']['episodes']):
         cumulative_rewards = [0] * config['env']['num_agents']
-        route_taken = [[] for _ in range(config['env']['num_agents'])]
-        
-        # if episode % 2000 == 0:
-        #     for agent in agents:
-        #         agent.load_model()
+
 
         if episode % 1000 == 0:
-            # agents[1].load_model()
-            # for agent in agents:
-            #     agent.load_model()
+
             env.render("human")
         else:
             env.render()
-        # env.render("human")
-        # env.render()
+
 
         states = env.reset()
         dispatched_taxis = [i for i, dispatched in enumerate(env.dispatched) if dispatched]
@@ -86,7 +79,7 @@ def main_training_loop(config):
                     agents[idx].hard_update()
 
                 states[idx] = next_states[idx]
-                route_taken[idx].append(infos[idx])
+
 
 
 
@@ -106,9 +99,7 @@ def main_training_loop(config):
                 best_reward = cumulative_rewards[i]
                 for agent in agents:
                     agent.save_model()
-        # if episode % 100 == 0:
-            # for agent in agents:
-            #     agent.save_model()
+
         env.quiet_close()
 
     wandb.finish()
