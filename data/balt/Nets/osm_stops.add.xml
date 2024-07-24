@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-17 21:11:30 by Eclipse SUMO netedit Version 1.20.0
+<!-- generated on 2024-07-22 11:55:47 by Eclipse SUMO netedit Version 1.20.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -15,18 +15,75 @@
     <busStop id="6117378698" lane="829470071#1_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
     <busStop id="6117388043" lane="829470071#6_0" startPos="31.98" endPos="46.98" friendlyPos="true"/>
     <busStop id="6117399256" lane="390061613#8_0" startPos="65.11" endPos="80.11" friendlyPos="true" lines="NV 63"/>
-    <parkingArea id="pa_1" lane="49664167#5_0" startPos="24.26" endPos="34.26"/>
-    <parkingArea id="pa_2" lane="49664167#6_0" startPos="12.37" endPos="22.37"/>
-    <parkingArea id="pa_3" lane="49664167#6_0" startPos="27.27" endPos="37.27"/>
+    <parkingArea id="pa_0" lane="-49664167#5_0" startPos="33.96" endPos="43.96" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_1" lane="49664167#5_0" startPos="24.26" endPos="34.26" friendlyPos="true" roadsideCapacity="1"/>
+
+
+    <parkingArea id="pa_2" lane="49664167#6_0" startPos="12.37" endPos="22.37" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_3" lane="49664167#6_0" startPos="27.27" endPos="37.27" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_4" lane="-49664167#5_0" startPos="26.66" endPos="36.66" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_5" lane="-49664167#5_0" startPos="21.71" endPos="31.71" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_6" lane="-49664167#5_0" startPos="16.29" endPos="26.29" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_7" lane="-49664167#5_0" startPos="12.98" endPos="22.98" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_8" lane="-49664167#5_0" startPos="7.11" endPos="17.11" friendlyPos="true" roadsideCapacity="1"/>
+    <parkingArea id="pa_9" lane="49664167#5_0" startPos="15.14" endPos="25.14" friendlyPos="true" roadsideCapacity="1"/>
     <!-- Other additionals -->
     <rerouter id="rr0" edges="49664167#5" pos="1321.81,882.94" vTypes="taxi">
         <interval begin="0.00" end="86400.00">
-            <parkingAreaReroute id="pa_1"/>
+            <parkingAreaReroute id="pa_0" visible="true"/>
+            <parkingAreaReroute id="pa_1" visible="true"/>
+            <parkingAreaReroute id="pa_2" visible="true"/>
+            <parkingAreaReroute id="pa_3" visible="true"/>
+            <parkingAreaReroute id="pa_4" visible="true"/>
+            <parkingAreaReroute id="pa_5" visible="true"/>
+            <parkingAreaReroute id="pa_6" visible="true"/>
+            <parkingAreaReroute id="pa_7" visible="true"/>
+            <parkingAreaReroute id="pa_8" visible="true"/>
+            <parkingAreaReroute id="pa_9" visible="true"/>
+            
         </interval>
     </rerouter>
     <rerouter id="rr1" edges="49664167#6" pos="1321.81,882.94" vTypes="taxi">
         <interval begin="0.00" end="86400.00">
-            <parkingAreaReroute id="pa_2"/>
+            <parkingAreaReroute id="pa_0" visible="true"/>
+            <parkingAreaReroute id="pa_1" visible="true"/>
+            <parkingAreaReroute id="pa_2" visible="true"/>
+            <parkingAreaReroute id="pa_3" visible="true"/>
+            <parkingAreaReroute id="pa_4" visible="true"/>
+            <parkingAreaReroute id="pa_5" visible="true"/>
+            <parkingAreaReroute id="pa_6" visible="true"/>
+            <parkingAreaReroute id="pa_7" visible="true"/>
+            <parkingAreaReroute id="pa_8" visible="true"/>
+            <parkingAreaReroute id="pa_9" visible="true"/>
+        </interval>
+    </rerouter>
+
+    <rerouter id="rr2" edges="-49664167#5" pos="1321.81,882.94" vTypes="taxi">
+        <interval begin="0.00" end="86400.00">
+            <parkingAreaReroute id="pa_0" visible="true"/>
+            <parkingAreaReroute id="pa_1" visible="true"/>
+            <parkingAreaReroute id="pa_2" visible="true"/>
+            <parkingAreaReroute id="pa_3" visible="true"/>
+            <parkingAreaReroute id="pa_4" visible="true"/>
+            <parkingAreaReroute id="pa_5" visible="true"/>
+            <parkingAreaReroute id="pa_6" visible="true"/>
+            <parkingAreaReroute id="pa_7" visible="true"/>
+            <parkingAreaReroute id="pa_8" visible="true"/>
+            <parkingAreaReroute id="pa_9" visible="true"/>
+        </interval>
+    </rerouter>
+    <rerouter id="rr3" edges="-49664167#6" pos="1321.81,882.94" vTypes="taxi">
+        <interval begin="0.00" end="86400.00">
+            <parkingAreaReroute id="pa_0" visible="true"/>
+            <parkingAreaReroute id="pa_1" visible="true"/>
+            <parkingAreaReroute id="pa_2" visible="true"/>
+            <parkingAreaReroute id="pa_3" visible="true"/>
+            <parkingAreaReroute id="pa_4" visible="true"/>
+            <parkingAreaReroute id="pa_5" visible="true"/>
+            <parkingAreaReroute id="pa_6" visible="true"/>
+            <parkingAreaReroute id="pa_7" visible="true"/>
+            <parkingAreaReroute id="pa_8" visible="true"/>
+            <parkingAreaReroute id="pa_9" visible="true"/>
         </interval>
     </rerouter>
 </additional>
